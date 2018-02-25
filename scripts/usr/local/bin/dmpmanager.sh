@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. /usr/local/lib/dpmanager/common.sh
+. /usr/local/lib/dmpmanager/common.sh
 checkRootLoadConf
 
 if [ -z $1 ]; then
