@@ -112,6 +112,7 @@ getLocalDMPServerVersion() {
 	local LOCAL=0
 	if [ -f "$VERSION" ]; then
 		LOCAL=VERSION
+	fi
 	echo $LOCAL
 }
 
