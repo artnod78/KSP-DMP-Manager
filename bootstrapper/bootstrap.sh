@@ -126,12 +126,12 @@ installManagementScripts() {
 
 	chown root.root /etc/init.d/dmpmanager.sh
 	chown root.root /etc/bash_completion.d/dmpmanager
-	chown root.root /etc/cron.d/dmpmanager-backup
+	chown root.root /etc/cron.d/dmpmanager
 	chown root.root /usr/local/bin/dmpmanager.sh
 	chown root.root /usr/local/lib/dmpmanager -R
 	chmod 0755 /etc/init.d/dmpmanager.sh
 	chmod 0755 /etc/bash_completion.d/dmpmanager
-	chmod 0755 /etc/cron.d/dmpmanager-backup
+	chmod 0755 /etc/cron.d/dmpmanager
 	chmod 0755 /usr/local/bin/dmpmanager.sh
 	chmod 0755 /usr/local/lib/dmpmanager -R
 
