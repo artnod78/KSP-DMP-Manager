@@ -408,8 +408,8 @@ isValidOptionValue() {
 		RANGE=1-${#config_allowed_values[@]}
 	else
 		if [ "$(type -t serverconfig_$1_Range)" = "function" ] ; then 
-			RANGE=$(serverconfig_$1_Range) 
-		fi 
+			RANGE=$(serverconfig_$1_Range)
+		fi
 	fi 
 	case "$TYPE" in 
 		number)
