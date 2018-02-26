@@ -515,7 +515,7 @@ configQueryValue() {
 				serverconfig_$1_ErrorMessage "${!currentValName}"
 			fi
 		fi
-		if [ $(isValidOptionValue "$1" "${!currentValName}") -eq 1 ]; then
+		if [ $(isValidOptionValue "$1" "${!currentValName}") -eq 1 ]; then 
 			break
 		fi
 	done
@@ -571,7 +571,7 @@ unsetAllConfigValues() {
 	local CV
 	for CV in $(listConfigValues) ; do 
 		local currentValName=configCurrent_$CV
-		export $currentValName=
+		export $currentValName
 	done
 }
 
