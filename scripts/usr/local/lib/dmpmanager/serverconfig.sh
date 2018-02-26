@@ -422,16 +422,19 @@ isValidOptionValue() {
 			echo "0"
 			return 
 		fi
+		
 		if [ ! -z "$RANGE" ]
 		then 
                 	local MIN=$(cut -d- -f1 <<< "$RANGE") 
                 	local MAX=$(cut -d- -f2 <<< "$RANGE") 
+			
                 	if [ $2 -lt $MIN -o $2 -gt $MAX ]
 			then 
                     		echo "0"
                     		return
 			fi
-		fi;; 
+			
+		fi;;
 		boolean)
 		if [ $(isABool "$2") -eq 0 ]
 		then 
