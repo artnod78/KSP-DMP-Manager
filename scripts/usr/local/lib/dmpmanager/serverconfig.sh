@@ -324,10 +324,7 @@ configEditGameType() {
 	
 	echo "Game type"
 	echo "--------------------------------"
-	for CV in \ 
-			warpMode gameMode modControl numberOfAsteroids\
-			maxPlayers sendPlayerToLatestSubspace safetyBubbleDistance \
-			; do
+	for CV in warpMode gameMode modControl numberOfAsteroids maxPlayers sendPlayerToLatestSubspace safetyBubbleDistance ; do 
 		$1 $CV
 	done
 	echo
@@ -338,10 +335,7 @@ configEditDifficulty() {
 	
 	echo "Difficulty"
 	echo "--------------------------------"
-	for CV in \
-			gameDifficulty cheats \
-			autoNuke autoDekessler \
-			; do
+	for CV in gameDifficulty cheats autoNuke autoDekessler ; do 
 		$1 $CV
 	done
 	echo
@@ -352,9 +346,7 @@ configEditScreenshoot() {
 	
 	echo "Screenshoot options"
 	echo "--------------------------------"
-	for CV in \
-			screenshotsPerPlayer screenshotHeight expireScreenshots \
-			; do
+	for CV in screenshotsPerPlayer screenshotHeight expireScreenshots ; do 
 		$1 $CV
 	done
 	echo
