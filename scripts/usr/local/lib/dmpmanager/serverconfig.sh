@@ -1,18 +1,17 @@
 #!/bin/bash 
- 
 serverconfig_port_QueryName() { 
 	echo "The port the server listens on"
 }
-serverconfig_port_Type() {
+serverconfig_port_Type() { 
 	echo "number"
 }
-serverconfig_port_Default() {
+serverconfig_port_Default() { 
 	echo "6702"
 }
-serverconfig_port_Range() {
+serverconfig_port_Range() { 
 	echo "1024-65533"
 }
-serverconfig_port_Validate() {
+serverconfig_port_Validate() { 
 	local I=${INSTANCE:-!}
 	if [ $(checkGamePortUsed "$1" "$I") -eq 0 ]; then
 		echo "1"
@@ -20,33 +19,33 @@ serverconfig_port_Validate() {
 		echo "0"
 	fi
 }
-serverconfig_port_ErrorMessage() {
+serverconfig_port_ErrorMessage() { 
 	echo "Illegal port number or port already in use by another instance."
 }
 
-serverconfig_warpMode_QueryName() {
+serverconfig_warpMode_QueryName() { 
 	echo "Specify the warp type"
 }
-serverconfig_warpMode_Type() {
+serverconfig_warpMode_Type() { 
 	echo "enum"
 }
-serverconfig_warpMode_Default() {
+serverconfig_warpMode_Default() { 
 	echo "4"
 }
-serverconfig_warpMode_Values() {
+serverconfig_warpMode_Values() { 
 	config_allowed_values=("MCW_FORCE" "MCW_VOTE" "MCW_LOWEST" "SUBSPACE_SIMPLE" "SUBSPACE" "NONE")
 }
 
-serverconfig_gameMode_QueryName() {
+serverconfig_gameMode_QueryName() { 
 	echo "Specify the game type"
 }
-serverconfig_gameMode_Type() {
+serverconfig_gameMode_Type() { 
 	echo "enum"
 }
-serverconfig_gameMode_Default() {
+serverconfig_gameMode_Default() { 
 	echo "0"
 }
-serverconfig_gameMode_Values() {
+serverconfig_gameMode_Values() { 
 	config_allowed_values=("SANDBOX" "SCIENCE" "CAREER")
 }
 
