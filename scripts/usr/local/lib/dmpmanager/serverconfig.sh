@@ -421,7 +421,7 @@ if [ $2 -lt $MIN -o $2 -gt $MAX ]; then
 echo "0"
 return
 fi
-fi;;
+fi ;;
 boolean) if [ $(isABool "$2") -eq 0 ] ; then
 echo "0" 
 return 
