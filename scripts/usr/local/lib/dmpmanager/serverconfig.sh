@@ -677,3 +677,5 @@ setConfigValue() {
 	local CONF=$(getInstancePath $1)/config.xml
 	$XMLSTARLET ed -L -u "/ServerSettings/property[@name='$2']/@value" -v "$3" $CONF
 }
+
+echo
