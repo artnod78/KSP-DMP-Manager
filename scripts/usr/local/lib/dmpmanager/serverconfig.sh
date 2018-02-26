@@ -1,8 +1,7 @@
 #!/bin/bash
-# Provides functions to query and validate values for Settings.txt
-#################################
-## Definition of options
-serverconfig_port_QueryName() {
+
+serverconfig_port_QueryName()
+{
 	echo "The port the server listens on"
 }
 serverconfig_port_Type() {
