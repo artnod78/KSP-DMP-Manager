@@ -411,7 +411,6 @@ isValidOptionValue() {
 			RANGE=$(serverconfig_$1_Range) 
 		fi
 	fi
-	
 	case "$TYPE" in 
 		number)
 			if [ $(isANumber "$2") -eq 0 ] ; then
