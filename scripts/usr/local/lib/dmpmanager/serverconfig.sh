@@ -431,7 +431,7 @@ isValidOptionValue() {
                 	if [ $2 -lt $MIN -o $2 -gt $MAX ]
 			then 
                     		echo "0"
-                    		return
+                    		return 
 			fi 
 			
 		fi;;
