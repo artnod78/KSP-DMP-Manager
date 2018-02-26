@@ -1,51 +1,6 @@
 #!/bin/bash
 
-#   Copyright 2016 Christian 'Alloc' Illy
-#
-#   Licensed under the Apache License, Version 2.0 (the "License");
-#   you may not use this file except in compliance with the License.
-#   You may obtain a copy of the License at
-#
-#       http://www.apache.org/licenses/LICENSE-2.0
-#
-#   Unless required by applicable law or agreed to in writing, software
-#   distributed under the License is distributed on an "AS IS" BASIS,
-#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#   See the License for the specific language governing permissions and
-#   limitations under the License.
-
-
-# Provides functions to query and validate values for serverconfig.xml
-
-#################################
-## Definition of options
-
-serverconfig_ServerPort_QueryName() {
-	echo "Base Port"
-}
-serverconfig_ServerPort_Type() {
-	echo "number"
-}
-serverconfig_ServerPort_Default() {
-	echo "26900"
-}
-serverconfig_ServerPort_Range() {
-	echo "1024-65533"
-}
-serverconfig_ServerPort_Validate() {
-	local I=${INSTANCE:-!}
-	if [ $(checkGamePortUsed "$1" "$I") -eq 0 ]; then
-		echo "1"
-	else
-		echo "0"
-	fi
-}
-serverconfig_ServerPort_ErrorMessage() {
-	echo "Illegal port number or port already in use by another instance."
-}
-
-serverconfig_port_QueryName()
-{
+serverconfig_port_QueryName() {
 	echo "The port the server listens on"
 }
 serverconfig_port_Type() {
