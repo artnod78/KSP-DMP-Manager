@@ -416,7 +416,8 @@ isValidOptionValue() {
 		fi
 	fi
 	
-	case "$TYPE" in number)
+	if ["$TYPE" = "number"]
+	then 
 		if [ $(isANumber "$2") -eq 0 ]
 		then 
 			echo "0"
@@ -434,15 +435,15 @@ isValidOptionValue() {
                     		return
 			fi
 		fi
-		; 
-		;
-		boolean)
+	fi
+	if ["$TYPE" = "boolean"]
+	then 
 		if [ $(isABool "$2") -eq 0 ]
 		then 
 			echo "0"
 			return
-		fi;;
-	esac
+		fi
+	fi
 	
 	if [ "$(type -t serverconfig_$1_Validate)" = "function" ]
 	then 
