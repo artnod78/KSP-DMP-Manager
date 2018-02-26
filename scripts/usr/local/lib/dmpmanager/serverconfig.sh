@@ -1,4 +1,5 @@
 #!/bin/bash 
+
 serverconfig_port_QueryName() { 
 	echo "The port the server listens on"
 }
@@ -251,7 +252,8 @@ serverconfig_consoleIdentifier_Type() {
 	echo "string"
 }
 serverconfig_consoleIdentifier_Validate() { 
-	if [ ! -z "$1" ]; then
+	if [ ! -z "$1" ]
+	then 
 		echo "1"
 	else
 		echo "0"
@@ -372,8 +374,7 @@ configEditAll() {
 #   List of config funcs
 listConfigEditFuncs() { 
 	local CV
-	for CV in $(declare -F | cut -d\  -f3 | grep "^configEdit.*$")
-	do 
+	for CV in $(declare -F | cut -d\  -f3 | grep "^configEdit.*$"); do 
 		CV=${CV#configEdit}
 		printf "%s " "$CV"
 	done
@@ -385,8 +386,7 @@ listConfigEditFuncs() {
 #   List of defined config options
 listConfigValues() { 
 	local CV
-	for CV in $(declare -F | cut -d\  -f3 | grep "^serverconfig_.*_Type$")
-	do 
+	for CV in $(declare -F | cut -d\  -f3 | grep "^serverconfig_.*_Type$"); do 
 		CV=${CV#serverconfig_}
 		CV=${CV%_Type}
 		printf "%s " "$CV"
@@ -430,10 +430,10 @@ isValidOptionValue() {
                 	local MAX=$(cut -d- -f2 <<< "$RANGE")
 			
                 	if [ $2 -lt $MIN -o $2 -gt $MAX ]
-			then 
+					then 
                     		echo "0"
                     		return
-			fi
+					fi
 		fi
 	fi
 	if ["$TYPE" = "boolean"]
