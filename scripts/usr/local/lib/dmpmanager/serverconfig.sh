@@ -650,7 +650,8 @@ saveCurrentConfigValues() {
 # Returns:
 #   0/1: no/yes
 configTemplateExists() { 
-	if [ -f $SDTD_BASE/templates/config.xml ] ; then 
+	if [ -f $SDTD_BASE/templates/config.xml ]
+	then 
 		echo 1
 	else
 		echo 0
