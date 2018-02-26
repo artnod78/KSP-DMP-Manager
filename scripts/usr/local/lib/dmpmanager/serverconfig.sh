@@ -412,7 +412,7 @@ isValidOptionValue() {
 		fi
 	fi
 
-	case "$TYPE" in
+	case "$TYPE" in 
 		number)
 			if [ $(isANumber "$2") -eq 0 ]; then
 				echo "0"
@@ -556,7 +556,7 @@ printConfigValue() {
 
 # Query for an instance name (will be saved in $INSTANCE)
 readInstanceName() { 
-	until [ $(isValidInstanceName "$INSTANCE") -eq 1 ]; do
+	until [ $(isValidInstanceName "$INSTANCE") -eq 1 ] ; do 
 		read -p "Instance name: " INSTANCE
 		if [ $(isValidInstanceName "$INSTANCE") -eq 0 ]; then
 			echo "Invalid instance name, may only contain:"
@@ -571,7 +571,7 @@ readInstanceName() {
 # Undefine the current config values
 unsetAllConfigValues() { 
 	local CV
-	for CV in $(listConfigValues); do
+	for CV in $(listConfigValues) ; do 
 		local currentValName=configCurrent_$CV
 		export $currentValName=
 	done
@@ -582,7 +582,7 @@ unsetAllConfigValues() {
 #   1: Instance name
 loadCurrentConfigValues() { 
 	local CV
-	for CV in $(listConfigValues); do
+	for CV in $(listConfigValues) ; do 
 		local currentValName=configCurrent_$CV
 		local cfile=$(getInstancePath "$1")/Config/Setting.txt
 		local XPATH="/ServerSettings/property[@name='$CV']/@value"
@@ -598,14 +598,14 @@ loadCurrentConfigValues() {
 #   1: Instance name
 saveCurrentConfigValues() { 
 	local CV
-	for CV in $(listConfigValues) TelnetEnabled AdminFileName SaveGameFolder; do
+	for CV in $(listConfigValues) TelnetEnabled AdminFileName SaveGameFolder ; do 
 		local currentValName=configCurrent_$CV
 		local val="${!currentValName}"
 		local cfile=$(getInstancePath "$1")/config.xml
 
 		XPATHBASE="/ServerSettings/property[@name='$CV']"
 
-		if [ -z $($XMLSTARLET sel -t -v "$XPATHBASE/@name" $cfile) ]; then
+		if [ -z $($XMLSTARLET sel -t -v "$XPATHBASE/@name" $cfile) ] ; then 
 			$XMLSTARLET ed -L \
 				-s "/ServerSettings" -t elem -n "property" -v "" \
 				-i "/ServerSettings/property[not(@name)]" -t attr -n "name" -v "$CV" \
@@ -623,7 +623,7 @@ saveCurrentConfigValues() {
 # Returns:
 #   0/1: no/yes
 configTemplateExists() { 
-	if [ -f $SDTD_BASE/templates/config.xml ]; then
+	if [ -f $SDTD_BASE/templates/config.xml ] ; then 
 		echo 1
 	else
 		echo 0
