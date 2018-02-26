@@ -416,8 +416,7 @@ isValidOptionValue() {
 		fi
 	fi
 	
-	case "$TYPE" in 
-		number)
+	case "$TYPE" in number)
 		if [ $(isANumber "$2") -eq 0 ]
 		then 
 			echo "0"
