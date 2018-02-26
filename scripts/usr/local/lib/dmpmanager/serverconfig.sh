@@ -49,130 +49,130 @@ serverconfig_gameMode_Values() {
 	config_allowed_values=("SANDBOX" "SCIENCE" "CAREER")
 }
 
-serverconfig_gameDifficulty_QueryName() {
+serverconfig_gameDifficulty_QueryName() { 
 	echo "Specify the gameplay difficulty of the server"
 }
-serverconfig_gameDifficulty_Type() {
+serverconfig_gameDifficulty_Type() { 
 	echo "enum"
 }
-serverconfig_gameDifficulty_Default() {
+serverconfig_gameDifficulty_Default() { 
 	echo "1"
 }
-serverconfig_gameDifficulty_Values() {
+serverconfig_gameDifficulty_Values() { 
 	config_allowed_values=("EASY" "NORMAL" "MODERATE" "HARD" "CUSTOM")
 }
 
-serverconfig_whitelisted_QueryName() {
+serverconfig_whitelisted_QueryName() { 
 	echo "Enable white-listing"
 }
-serverconfig_whitelisted_Type() {
+serverconfig_whitelisted_Type() { 
 	echo "boolean"
 }
-serverconfig_whitelisted_Default() {
+serverconfig_whitelisted_Default() { 
 	echo "false"
 }
-serverconfig_whitelisted_ErrorMessage() {
+serverconfig_whitelisted_ErrorMessage() { 
 	echo "Not a valid boolean given (true/false or yes/no or y/n)."
 }
 
-serverconfig_modControl_QueryName() {
+serverconfig_modControl_QueryName() { 
 	echo "Enable mod control"
 }
-serverconfig_modControl_Type() {
+serverconfig_modControl_Type() { 
 	echo "enum"
 }
-serverconfig_modControl_Default() {
+serverconfig_modControl_Default() { 
 	echo "1"
 }
-serverconfig_modControl_Values() {
+serverconfig_modControl_Values() { 
 	config_allowed_values=("DISABLED" "ENABLED_STOP_INVALID_PART_SYNC" "ENABLED_STOP_INVALID_PART_LAUNCH")
 }
 
-serverconfig_sendPlayerToLatestSubspace_QueryName() {
+serverconfig_sendPlayerToLatestSubspace_QueryName() { 
 	echo "If true, sends the player to the latest subspace upon connecting"
 }
-serverconfig_sendPlayerToLatestSubspace_Type() {
+serverconfig_sendPlayerToLatestSubspace_Type() { 
 	echo "boolean"
 }
-serverconfig_sendPlayerToLatestSubspace_Default() {
+serverconfig_sendPlayerToLatestSubspace_Default() { 
 	echo "true"
 }
-serverconfig_sendPlayerToLatestSubspace_ErrorMessage() {
+serverconfig_sendPlayerToLatestSubspace_ErrorMessage() { 
 	echo "Not a valid boolean given (true/false or yes/no or y/n)."
 }
 
-serverconfig_useUTCTimeInLog_QueryName() {
+serverconfig_useUTCTimeInLog_QueryName() { 
 	echo "Use UTC instead of system time in the log"
 }
-serverconfig_useUTCTimeInLog_Type() {
+serverconfig_useUTCTimeInLog_Type() { 
 	echo "boolean"
 }
-serverconfig_useUTCTimeInLog_Default() {
+serverconfig_useUTCTimeInLog_Default() { 
 	echo "false"
 }
-serverconfig_useUTCTimeInLog_ErrorMessage() {
+serverconfig_useUTCTimeInLog_ErrorMessage() { 
 	echo "Not a valid boolean given (true/false or yes/no or y/n)."
 }
 
-serverconfig_logLevel_QueryName() {
+serverconfig_logLevel_QueryName() { 
 	echo "Minimum log level"
 }
-serverconfig_logLevel_Type() {
+serverconfig_logLevel_Type() { 
 	echo "enum"
 }
-serverconfig_logLevel_Default() {
+serverconfig_logLevel_Default() { 
 	echo "0"
 }
-serverconfig_logLevel_Values() {
+serverconfig_logLevel_Values() { 
 	config_allowed_values=("DEBUG" "INFO" "CHAT" "ERROR" "FATAL")
 }
 
-serverconfig_screenshotsPerPlayer_QueryName() {
+serverconfig_screenshotsPerPlayer_QueryName() { 
 	echo "Specify maximum number of screenshots to save per player"
 }
-serverconfig_screenshotsPerPlayer_Type() {
+serverconfig_screenshotsPerPlayer_Type() { 
 	echo "number"
 }
-serverconfig_screenshotsPerPlayer_Default() {
+serverconfig_screenshotsPerPlayer_Default() { 
 	echo "20"
 }
 
-serverconfig_screenshotHeight_QueryName() {
+serverconfig_screenshotHeight_QueryName() { 
 	echo "Specify vertical resolution of screenshots"
 }
-serverconfig_screenshotHeight_Type() {
+serverconfig_screenshotHeight_Type() { 
 	echo "number"
 }
-serverconfig_screenshotHeight_Default() {
+serverconfig_screenshotHeight_Default() { 
 	echo "720"
 }
 
-serverconfig_cheats_QueryName() {
+serverconfig_cheats_QueryName() { 
 	echo "Enable use of cheats in-game"
 }
-serverconfig_cheats_Type() {
+serverconfig_cheats_Type() { 
 	echo "boolean"
 }
-serverconfig_cheats_Default() {
+serverconfig_cheats_Default() { 
 	echo "true"
 }
-serverconfig_cheats_ErrorMessage() {
+serverconfig_cheats_ErrorMessage() { 
 	echo "Not a valid boolean given (true/false or yes/no or y/n)."
 }
 
-serverconfig_httpPort_QueryName() {
+serverconfig_httpPort_QueryName() { 
 	echo "The port the server listens on"
 }
-serverconfig_httpPort_Type() {
+serverconfig_httpPort_Type() { 
 	echo "number"
 }
-serverconfig_httpPort_Default() {
+serverconfig_httpPort_Default() { 
 	echo "0"
 }
-serverconfig_httpPort_Range() {
+serverconfig_httpPort_Range() { 
 	echo "1024-65533"
 }
-serverconfig_httpPort_Validate() {
+serverconfig_httpPort_Validate() { 
 	local I=${INSTANCE:-!}
 	if [ $(checkGamePortUsed "$1" "$I") -eq 0 ]; then
 		echo "1"
@@ -180,127 +180,127 @@ serverconfig_httpPort_Validate() {
 		echo "0"
 	fi
 }
-serverconfig_httpPort_ErrorMessage() {
+serverconfig_httpPort_ErrorMessage() { 
 	echo "Illegal port number or port already in use by another instance."
 }
 
-serverconfig_serverName_QueryName() {
+serverconfig_serverName_QueryName() { 
 	echo "Name of the server"
 }
-serverconfig_serverName_Type() {
+serverconfig_serverName_Type() { 
 	echo "string"
 }
-serverconfig_serverName_Validate() {
+serverconfig_serverName_Validate() { 
 	if [ ! -z "$1" ]; then
 		echo "1"
 	else
 		echo "0"
 	fi
 }
-serverconfig_serverName_ErrorMessage() {
+serverconfig_serverName_ErrorMessage() { 
 	echo "Server name cannot be empty."
 }
 
-serverconfig_maxPlayers_QueryName() {
+serverconfig_maxPlayers_QueryName() { 
  	echo "Maximum amount of players that can join the server"
 }
-serverconfig_maxPlayers_Type() {
+serverconfig_maxPlayers_Type() { 
  	echo "number"
 }
-serverconfig_maxPlayers_Default() {
+serverconfig_maxPlayers_Default() { 
 	echo "20"
 }
-serverconfig_maxPlayers_Range() {
+serverconfig_maxPlayers_Range() { 
 	echo "1-100"
 }
 
-serverconfig_autoNuke_QueryName() {
+serverconfig_autoNuke_QueryName() { 
  	echo "Specify in minutes how often /nukeksc automatically runs"
 }
-serverconfig_autoNuke_Type() {
+serverconfig_autoNuke_Type() { 
  	echo "number"
 }
-serverconfig_autoNuke_Default() {
+serverconfig_autoNuke_Default() { 
 	echo "0"
 }
 
-serverconfig_autoDekessler_QueryName() {
+serverconfig_autoDekessler_QueryName() { 
  	echo "Specify in minutes how often /dekessler automatically runs"
 }
-serverconfig_autoDekessler_Type() {
+serverconfig_autoDekessler_Type() { 
  	echo "number"
 }
-serverconfig_autoDekessler_Default() {
+serverconfig_autoDekessler_Default() { 
 	echo "30"
 }
 
-serverconfig_numberOfAsteroids_QueryName() {
+serverconfig_numberOfAsteroids_QueryName() { 
  	echo "How many untracked asteroids to spawn into the universe"
 }
-serverconfig_numberOfAsteroids_Type() {
+serverconfig_numberOfAsteroids_Type() { 
  	echo "number"
 }
-serverconfig_numberOfAsteroids_Default() {
+serverconfig_numberOfAsteroids_Default() { 
 	echo "30"
 }
 
-serverconfig_consoleIdentifier_QueryName() {
+serverconfig_consoleIdentifier_QueryName() { 
 	echo "Specify the name that will appear when you send a message using the server's console"
 }
-serverconfig_consoleIdentifier_Type() {
+serverconfig_consoleIdentifier_Type() { 
 	echo "string"
 }
-serverconfig_consoleIdentifier_Validate() {
+serverconfig_consoleIdentifier_Validate() { 
 	if [ ! -z "$1" ]; then
 		echo "1"
 	else
 		echo "0"
 	fi
 }
-serverconfig_consoleIdentifier_ErrorMessage() {
+serverconfig_consoleIdentifier_ErrorMessage() { 
 	echo "consoleIdentifier cannot be empty."
 }
 
-serverconfig_expireScreenshots_QueryName() {
+serverconfig_expireScreenshots_QueryName() { 
  	echo "Specify the amount of days a screenshot should be considered as expired and deleted"
 }
-serverconfig_expireScreenshots_Type() {
+serverconfig_expireScreenshots_Type() { 
  	echo "number"
 }
-serverconfig_expireScreenshots_Default() {
+serverconfig_expireScreenshots_Default() { 
 	echo "0"
 }
 
-serverconfig_compressionEnabled_QueryName() {
+serverconfig_compressionEnabled_QueryName() { 
 	echo "Enable use of cheats in-game"
 }
-serverconfig_compressionEnabled_Type() {
+serverconfig_compressionEnabled_Type() { 
 	echo "boolean"
 }
-serverconfig_compressionEnabled_Default() {
+serverconfig_compressionEnabled_Default() { 
 	echo "true"
 }
-serverconfig_compressionEnabled_ErrorMessage() {
+serverconfig_compressionEnabled_ErrorMessage() { 
 	echo "Not a valid boolean given (true/false or yes/no or y/n)."
 }
 
-serverconfig_expireLogs_QueryName() {
+serverconfig_expireLogs_QueryName() { 
  	echo "Specify the amount of days a log file should be considered as expired and deleted"
 }
-serverconfig_expireLogs_Type() {
+serverconfig_expireLogs_Type() { 
  	echo "number"
 }
-serverconfig_expireLogs_Default() {
+serverconfig_expireLogs_Default() { 
 	echo "0"
 }
 
-serverconfig_safetyBubbleDistance_QueryName() {
+serverconfig_safetyBubbleDistance_QueryName() { 
  	echo "Specify the minimum distance in which vessels can interact with eachother at the launch pad and runway"
 }
-serverconfig_safetyBubbleDistance_Type() {
+serverconfig_safetyBubbleDistance_Type() { 
  	echo "number"
 }
-serverconfig_safetyBubbleDistance_Default() {
+serverconfig_safetyBubbleDistance_Default() { 
 	echo "100"
 }
 
@@ -308,7 +308,7 @@ serverconfig_safetyBubbleDistance_Default() {
 #################################
 ## Edit option functions
 
-configEditServer() {
+configEditServer() { 
 	local CV
 	
 	echo "Server"
@@ -322,7 +322,7 @@ configEditServer() {
 	echo
 }
 
-configEditGameType() {
+configEditGameType() { 
 	local CV
 	
 	echo "Game type"
@@ -336,7 +336,7 @@ configEditGameType() {
 	echo
 }
 
-configEditDifficulty() {
+configEditDifficulty() { 
 	local CV
 	
 	echo "Difficulty"
@@ -350,7 +350,7 @@ configEditDifficulty() {
 	echo
 }
 
-configEditScreenshoot() {
+configEditScreenshoot() { 
 	local CV
 	
 	echo "Screenshoot options"
@@ -363,7 +363,7 @@ configEditScreenshoot() {
 	echo
 }
 
-configEditAll() {
+configEditAll() { 
 	configEditServer "$1"
 	configEditGameType "$1"
 	configEditDifficulty "$1"
@@ -381,7 +381,7 @@ configEditAll() {
 # List all defined config editing parts
 # Returns:
 #   List of config funcs
-listConfigEditFuncs() {
+listConfigEditFuncs() { 
 	local CV
 	for CV in $(declare -F | cut -d\  -f3 | grep "^configEdit.*$"); do
 		CV=${CV#configEdit}
@@ -393,7 +393,7 @@ listConfigEditFuncs() {
 # List all defined config options
 # Returns:
 #   List of defined config options
-listConfigValues() {
+listConfigValues() { 
 	local CV
 	for CV in $(declare -F | cut -d\  -f3 | grep "^serverconfig_.*_Type$"); do
 		CV=${CV#serverconfig_}
@@ -409,7 +409,7 @@ listConfigValues() {
 #   2: Value
 # Returns:
 #   0/1: invalid/valid
-isValidOptionValue() {
+isValidOptionValue() { 
 	local TYPE=$(serverconfig_$1_Type)
 	local RANGE=""
 
@@ -463,7 +463,7 @@ isValidOptionValue() {
 # Will be stored in $configCurrent_$1
 # Params:
 #   1: Option name
-configQueryValue() {
+configQueryValue() { 
 	local TYPE=$(serverconfig_$1_Type)
 	local NAME=""
 	local RANGE=""
@@ -552,7 +552,7 @@ configQueryValue() {
 #  - SaveGameFolder is made to point to the instance folder
 # Params:
 #   1: Instance name
-configSetAutoParameters() {
+configSetAutoParameters() { 
 	configCurrent_SaveGameFolder="$(getInstancePath "$1")"
 }
 
@@ -560,13 +560,13 @@ configSetAutoParameters() {
 # Print defined config value
 # Params:
 #   1: Config option
-printConfigValue() {
+printConfigValue() { 
 	local currentValName=configCurrent_$1
 	printf "%-25s = %s\n" "$(serverconfig_$1_QueryName)" "${!currentValName}"
 }
 
 # Query for an instance name (will be saved in $INSTANCE)
-readInstanceName() {
+readInstanceName() { 
 	until [ $(isValidInstanceName "$INSTANCE") -eq 1 ]; do
 		read -p "Instance name: " INSTANCE
 		if [ $(isValidInstanceName "$INSTANCE") -eq 0 ]; then
@@ -580,7 +580,7 @@ readInstanceName() {
 }
 
 # Undefine the current config values
-unsetAllConfigValues() {
+unsetAllConfigValues() { 
 	local CV
 	for CV in $(listConfigValues); do
 		local currentValName=configCurrent_$CV
@@ -591,7 +591,7 @@ unsetAllConfigValues() {
 # Load all config values from the config.xml of the given instance
 # Params:
 #   1: Instance name
-loadCurrentConfigValues() {
+loadCurrentConfigValues() { 
 	local CV
 	for CV in $(listConfigValues); do
 		local currentValName=configCurrent_$CV
@@ -607,7 +607,7 @@ loadCurrentConfigValues() {
 # Save all config values to the config.xml of the given instance
 # Params:
 #   1: Instance name
-saveCurrentConfigValues() {
+saveCurrentConfigValues() { 
 	local CV
 	for CV in $(listConfigValues) TelnetEnabled AdminFileName SaveGameFolder; do
 		local currentValName=configCurrent_$CV
@@ -633,7 +633,7 @@ saveCurrentConfigValues() {
 # Check if the config template exists
 # Returns:
 #   0/1: no/yes
-configTemplateExists() {
+configTemplateExists() { 
 	if [ -f $SDTD_BASE/templates/config.xml ]; then
 		echo 1
 	else
@@ -647,7 +647,7 @@ configTemplateExists() {
 #   2: Property name
 # Returns:
 #   Property value
-getConfigValue() {
+getConfigValue() { 
 	local CONF=$(getInstancePath $1)/config.xml
 	$XMLSTARLET sel -t -v "/ServerSettings/property[@name='$2']/@value" $CONF
 }
@@ -657,7 +657,7 @@ getConfigValue() {
 #   1: Instance name
 #   2: Property name
 #   3: New value
-setConfigValue() {
+setConfigValue() { 
 	local CONF=$(getInstancePath $1)/config.xml
 	$XMLSTARLET ed -L -u "/ServerSettings/property[@name='$2']/@value" -v "$3" $CONF
 }
