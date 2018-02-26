@@ -485,27 +485,34 @@ configQueryValue() {
 		NAME=$(serverconfig_$1_QueryName)
 	fi
 
-	if [ "$TYPE" = "enum" ]; then
+	if [ "$TYPE" = "enum" ]
+	then 
 		RANGE=1-${#config_allowed_values[@]}
-		if [ ! -z "${!currentValName}" ]; then
-			for (( i=1; i < ${#config_allowed_values[@]}+1; i++ )); do
-				if [ "${!currentValName}" = "${config_allowed_values[$i-1]}" ]; then
+		if [ ! -z "${!currentValName}" ]
+		then 
+			for (( i=1; i < ${#config_allowed_values[@]}+1; i++ )); do 
+				if [ "${!currentValName}" = "${config_allowed_values[$i-1]}" ]
+				then 
 					DEFAULT=$i
 				fi
 			done
 			export $currentValName=
 		fi
 	else
-		if [ "$(type -t serverconfig_$1_Range)" = "function" ]; then
+		if [ "$(type -t serverconfig_$1_Range)" = "function" ]
+		then 
 			RANGE=$(serverconfig_$1_Range)
 		fi
 	fi
 
-	if [ -z "$DEFAULT" ]; then
-		if [ ! -z "${!currentValName}" ]; then
+	if [ -z "$DEFAULT" ]
+	then 
+		if [ ! -z "${!currentValName}" ]
+		then 
 			DEFAULT=${!currentValName}
 		else
-			if [ "$(type -t serverconfig_$1_Default)" = "function" ]; then
+			if [ "$(type -t serverconfig_$1_Default)" = "function" ]
+			then 
 				DEFAULT=$(serverconfig_$1_Default)
 			fi
 		fi
