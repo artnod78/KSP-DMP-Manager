@@ -419,7 +419,7 @@ isValidOptionValue() {
 		then 
 			echo "0"
 			return
-		fi 
+		fi
 		if [ ! -z "$RANGE" ]
 		then 
                 	local MIN=$(cut -d- -f1 <<< "$RANGE") 
