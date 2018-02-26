@@ -372,7 +372,7 @@ configEditAll() {
 #   List of config funcs
 listConfigEditFuncs() { 
 	local CV
-	for CV in $(declare -F | cut -d\  -f3 | grep "^configEdit.*$"); do
+	for CV in $(declare -F | cut -d\  -f3 | grep "^configEdit.*$") ; do 
 		CV=${CV#configEdit}
 		printf "%s " "$CV"
 	done
@@ -384,7 +384,7 @@ listConfigEditFuncs() {
 #   List of defined config options
 listConfigValues() { 
 	local CV
-	for CV in $(declare -F | cut -d\  -f3 | grep "^serverconfig_.*_Type$"); do
+	for CV in $(declare -F | cut -d\  -f3 | grep "^serverconfig_.*_Type$") ; do 
 		CV=${CV#serverconfig_}
 		CV=${CV%_Type}
 		printf "%s " "$CV"
