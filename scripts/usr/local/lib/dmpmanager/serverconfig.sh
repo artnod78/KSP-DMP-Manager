@@ -399,17 +399,17 @@ listConfigValues() {
 # Returns:
 #   0/1: invalid/valid
 isValidOptionValue() { 
-local TYPE=$(serverconfig_$1_Type)
-local RANGE=""
-if [ "$TYPE" = "enum" ] ; then 
-TYPE="number"
-serverconfig_$1_Values
-RANGE=1-${#config_allowed_values[@]} 
-else 
-if ["$(type -t serverconfig_$1_Range)" = "function"] ; then 
-RANGE=$(serverconfig_$1_Range)
-fi
-fi
+	local TYPE=$(serverconfig_$1_Type)
+	local RANGE=""
+	if [ "$TYPE" = "enum" ] ; then 
+		TYPE="number"
+		serverconfig_$1_Values
+		RANGE=1-${#config_allowed_values[@]} 
+	else 
+		if ["$(type -t serverconfig_$1_Range)" = "function"] ; then 
+			RANGE=$(serverconfig_$1_Range)
+		fi
+	fi
 case "$TYPE" in number) if [ $(isANumber "$2") -eq 0 ] ; then
 echo "0" 
 return
@@ -422,8 +422,7 @@ echo "0"
 return
 fi
 fi
-;;
-boolean) if [ $(isABool "$2") -eq 0 ] ; then 
+;;boolean) if [ $(isABool "$2") -eq 0 ] ; then 
 echo "0" 
 return 
 fi ;;
