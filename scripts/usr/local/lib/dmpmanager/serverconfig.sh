@@ -414,8 +414,8 @@ isValidOptionValue() {
 			RANGE=$(serverconfig_$1_Range) 
 		fi
 	fi
-	case "$TYPE" in number)
-		if [ $(isANumber "$2") -eq 0 ]
+	case "$TYPE" in 
+		number)if [ $(isANumber "$2") -eq 0 ]
 		then 
 			echo "0"
 			return 
@@ -429,9 +429,8 @@ isValidOptionValue() {
                     		echo "0"
                     		return
 			fi
-		fi;;
-		boolean)
-		if [ $(isABool "$2") -eq 0 ]
+		fi;; 
+		boolean)if [ $(isABool "$2") -eq 0 ]
 		then 
 			echo "0"
 			return
