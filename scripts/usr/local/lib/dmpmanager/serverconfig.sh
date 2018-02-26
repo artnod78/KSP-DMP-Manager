@@ -427,9 +427,10 @@ isValidOptionValue() {
                 	if [ $2 -lt $MIN -o $2 -gt $MAX ]
 			then 
                     		echo "0"
-                    		return 
+                    		return
 			fi
-		fi ;; boolean)
+		fi
+		;; boolean)
 			if [ $(isABool "$2") -eq 0 ] ; then 
                 echo "0" 
                 return 
