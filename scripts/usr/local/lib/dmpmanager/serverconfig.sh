@@ -403,6 +403,7 @@ listConfigValues() {
 isValidOptionValue() { 
 	local TYPE=$(serverconfig_$1_Type)
 	local RANGE=""
+	
 	if [ "$TYPE" = "enum" ]
 	then 
 		TYPE="number"
@@ -414,8 +415,10 @@ isValidOptionValue() {
 			RANGE=$(serverconfig_$1_Range) 
 		fi
 	fi
-	case "$TYPE" in
-		number)if [ $(isANumber "$2") -eq 0 ]
+	
+	case "$TYPE" in 
+		number)
+		if [ $(isANumber "$2") -eq 0 ]
 		then 
 			echo "0"
 			return 
@@ -430,22 +433,23 @@ isValidOptionValue() {
                     		return
 			fi
 		fi;; 
-		boolean)if [ $(isABool "$2") -eq 0 ]
+		boolean)
+		if [ $(isABool "$2") -eq 0 ]
 		then 
 			echo "0"
 			return
-		fi
-		;;
-		esac
-	        if [ "$(type -t serverconfig_$1_Validate)" = "function" ]
+		fi;;
+	esac
+	
+	if [ "$(type -t serverconfig_$1_Validate)" = "function" ]
+	then 
+		if [ $(serverconfig_$1_Validate "$2") -eq 0 ]
 		then 
-	        	if [ $(serverconfig_$1_Validate "$2") -eq 0 ]
-			then 
-	        		echo "0"
-        			return
-        		fi
+			echo "0"
+			return
         	fi
-        	echo "1"
+        fi
+        echo "1"
 }
 
 # Query for the value of a single config option
