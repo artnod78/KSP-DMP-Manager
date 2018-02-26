@@ -418,7 +418,7 @@ isValidOptionValue() {
 		if [ $(isANumber "$2") -eq 0 ]
 		then 
 			echo "0"
-			return
+			return 
 		fi
 		if [ ! -z "$RANGE" ]
 		then 
