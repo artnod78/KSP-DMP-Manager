@@ -432,7 +432,7 @@ isValidOptionValue() {
 			then 
                     		echo "0"
                     		return 
-			fi 
+			fi
 			
 		fi;;
 		boolean)
