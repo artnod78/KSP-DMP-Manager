@@ -476,7 +476,8 @@ configQueryValue() {
 		else
 			local OPTOFFSET=0
 		fi
-		for (( i=$OPTOFFSET; i < ${#config_allowed_values[@]}+$OPTOFFSET; i++ )); do
+		for (( i=$OPTOFFSET; i < ${#config_allowed_values[@]}+$OPTOFFSET; i++ ))
+		do
 			printf "  %2d: %s\n" $i "${config_allowed_values[$i-$OPTOFFSET]}"
 		done
 	else
