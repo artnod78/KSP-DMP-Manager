@@ -372,7 +372,8 @@ configEditAll() {
 #   List of config funcs
 listConfigEditFuncs() { 
 	local CV
-	for CV in $(declare -F | cut -d\  -f3 | grep "^configEdit.*$") ; do 
+	for CV in $(declare -F | cut -d\  -f3 | grep "^configEdit.*$")
+    do 
 		CV=${CV#configEdit}
 		printf "%s " "$CV"
 	done
@@ -410,22 +411,27 @@ isValidOptionValue() {
 			RANGE=$(serverconfig_$1_Range)
 		fi
 	fi
-case "$TYPE" in number) if [ $(isANumber "$2") -eq 0 ] ; then
-echo "0" 
-return
-fi
-if [ ! -z "$RANGE" ]; then
-local MIN=$(cut -d- -f1 <<< "$RANGE")
-local MAX=$(cut -d- -f2 <<< "$RANGE")
-if [ $2 -lt $MIN -o $2 -gt $MAX ]; then
-echo "0"
-return
-fi
-fi ;;
-boolean) if [ $(isABool "$2") -eq 0 ] ; then
-echo "0" 
-return 
-fi ;;
+case "$TYPE" in 
+	number) 
+    if [ $(isANumber "$2") -eq 0 ] ; then
+	    echo "0" 
+	    return
+    fi
+    if [ ! -z "$RANGE" ]; then
+        local MIN=$(cut -d- -f1 <<< "$RANGE")
+        local MAX=$(cut -d- -f2 <<< "$RANGE")
+        if [ $2 -lt $MIN -o $2 -gt $MAX ]; then
+            echo "0"
+            return
+        fi
+    fi 
+    ;;
+    boolean) 
+        if [ $(isABool "$2") -eq 0 ] ; then
+            echo "0" 
+            return 
+        fi 
+    ;;
 esac
 	if [ "$(type -t serverconfig_$1_Validate)" = "function" ]; then
 		if [ $(serverconfig_$1_Validate "$2") -eq 0 ]; then
