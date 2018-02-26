@@ -430,13 +430,19 @@ isValidOptionValue() {
                     		return
 			fi
 		fi
-		;; boolean)
-			if [ $(isABool "$2") -eq 0 ] ; then 
-                echo "0" 
-                return 
-            fi ;; esac
-	        if [ "$(type -t serverconfig_$1_Validate)" = "function" ]; then
-	        	if [ $(serverconfig_$1_Validate "$2") -eq 0 ]; then
+		;;
+		boolean)
+		if [ $(isABool "$2") -eq 0 ]
+		then 
+			echo "0"
+			return
+		fi
+		;;
+		esac
+	        if [ "$(type -t serverconfig_$1_Validate)" = "function" ]
+		then 
+	        	if [ $(serverconfig_$1_Validate "$2") -eq 0 ]
+			then 
 	        		echo "0"
         			return
         		fi
