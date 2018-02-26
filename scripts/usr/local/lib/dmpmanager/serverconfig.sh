@@ -434,8 +434,7 @@ isValidOptionValue() {
                     		return 
 			fi
 		fi
-		;; 
-		boolean)
+		;; boolean)
 		if [ $(isABool "$2") -eq 0 ]
 		then 
 			echo "0"
