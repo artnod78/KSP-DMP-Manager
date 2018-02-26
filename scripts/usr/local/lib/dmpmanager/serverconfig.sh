@@ -410,8 +410,8 @@ isValidOptionValue() {
 		if [ "$(type -t serverconfig_$1_Range)" = "function" ]; then
 			RANGE=$(serverconfig_$1_Range)
 		fi
-	fi
-
+	fi 
+	
 	case "$TYPE" in 
 		number)
 			if [ $(isANumber "$2") -eq 0 ]; then
