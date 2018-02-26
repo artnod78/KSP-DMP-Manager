@@ -434,7 +434,7 @@ isValidOptionValue() {
                     		return
 			fi
 		fi
-		;
+		; 
 		;
 		boolean)
 		if [ $(isABool "$2") -eq 0 ]
