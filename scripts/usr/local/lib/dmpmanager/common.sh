@@ -117,25 +117,22 @@ getLocalDMPServerVersion() {
 }
 
 
-# Check if a given TCP port is already in use by any instance (either by control
-# panel or telnet)
+# Check if a given TCP port is already in use by any instance
 # Params:
 #   1: Port
 # Returns:
 #   0/1 not in use/in use
-checkTCPPortUsed() {
+checkGamePortUsed() {
 	local I
 	for I in $(getInstanceList); do
 		if [ "$2" != "$I" ]; then
-			local CURENABLED=$(getConfigValue $I "TelnetEnabled")
-			local CURPORT=$(getConfigValue $I "TelnetPort")
-			if [ "$CURENABLED" = "true" -a $CURPORT -eq $1 ]; then
+			local CURPORT=$(getConfigValue $I "ServerPort")
+			if [ $CURPORT -eq $1 ]; then
 				echo 1
 				return
 			fi
-			CURENABLED=$(getConfigValue $I "ControlPanelEnabled")
-			CURPORT=$(getConfigValue $I "ControlPanelPort")
-			if [ "$CURENABLED" = "true" -a $CURPORT -eq $1 ]; then
+			local CURHTTP=$(getConfigValue $I "HttpPort")
+			if [ $CURHTTP -eq $1 ]; then
 				echo 1
 				return
 			fi
