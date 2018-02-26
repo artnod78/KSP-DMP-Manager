@@ -313,10 +313,7 @@ configEditServer() {
 	
 	echo "Server"
 	echo "--------------------------------"
-	for CV in \
-			serverName port httpPort whitelisted consoleIdentifier compressionEnabled \
-			logLevel useUTCTimeInLog expireLogs\
-			; do
+	for CV in serverName port httpPort whitelisted consoleIdentifier compressionEnabled logLevel useUTCTimeInLog expireLogs	; do
 		$1 $CV
 	done
 	echo
@@ -327,7 +324,7 @@ configEditGameType() {
 	
 	echo "Game type"
 	echo "--------------------------------"
-	for CV in \
+	for CV in \ 
 			warpMode gameMode modControl numberOfAsteroids\
 			maxPlayers sendPlayerToLatestSubspace safetyBubbleDistance \
 			; do
