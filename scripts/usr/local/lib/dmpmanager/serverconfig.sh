@@ -519,34 +519,41 @@ configQueryValue() {
 	fi
 
 	local prompt=$(printf "%s" "$NAME")
-	if [ ! -z "$RANGE" ]; then
+	if [ ! -z "$RANGE" ]
+	then 
 		prompt=$(printf "%s (%s)" "$prompt" "$RANGE")
 	fi
-	if [ ! -z "$DEFAULT" ]; then
+	if [ ! -z "$DEFAULT" ]
+	then 
 		prompt=$(printf "%s [%s]" "$prompt" "$DEFAULT")
 	fi
 	prompt=$(printf "%s:" "$prompt")
 	prompt=$(printf "%-*s " 40 "$prompt")
 
-	while : ; do
+	while : ; do 
 		read -p "$prompt" $currentValName
 		export $currentValName="${!currentValName:-$DEFAULT}"
-		if [ $(isValidOptionValue "$1" "${!currentValName}") -eq 0 ]; then
-			if [ "$(type -t serverconfig_$1_ErrorMessage)" = "function" ]; then
+		if [ $(isValidOptionValue "$1" "${!currentValName}") -eq 0 ]
+		then 
+			if [ "$(type -t serverconfig_$1_ErrorMessage)" = "function" ]
+			then 
 				serverconfig_$1_ErrorMessage "${!currentValName}"
 			fi
 		fi
 		[ $(isValidOptionValue "$1" "${!currentValName}") -eq 1 ] && break
 	done
 	
-	if [ "$TYPE" = "boolean" ]; then
-		if [ $(getBool ${!currentValName}) -eq 1 ]; then
+	if [ "$TYPE" = "boolean" ]
+	then 
+		if [ $(getBool ${!currentValName}) -eq 1 ]
+		then 
 			export $currentValName="true"
 		else
 			export $currentValName="false"
 		fi
 	fi
-	if [ "$TYPE" = "enum" ]; then
+	if [ "$TYPE" = "enum" ]
+	then 
 		export $currentValName="${config_allowed_values[$currentValName-1]}"
 	fi
 	echo
@@ -575,7 +582,8 @@ printConfigValue() {
 readInstanceName() { 
 	until [ $(isValidInstanceName "$INSTANCE") -eq 1 ] ; do 
 		read -p "Instance name: " INSTANCE
-		if [ $(isValidInstanceName "$INSTANCE") -eq 0 ]; then
+		if [ $(isValidInstanceName "$INSTANCE") -eq 0 ]
+		then 
 			echo "Invalid instance name, may only contain:"
 			echo " - letters (A-Z / a-z)"
 			echo " - digits (0-9)"
@@ -604,7 +612,8 @@ loadCurrentConfigValues() {
 		local cfile=$(getInstancePath "$1")/Config/Setting.txt
 		local XPATH="/ServerSettings/property[@name='$CV']/@value"
 		local VAL=$($XMLSTARLET sel -t -v "$XPATH" $cfile)
-		if [ ! -z "$VAL" ]; then
+		if [ ! -z "$VAL" ]
+		then 
 			export $currentValName="$VAL"
 		fi
 	done
@@ -622,7 +631,8 @@ saveCurrentConfigValues() {
 
 		XPATHBASE="/ServerSettings/property[@name='$CV']"
 
-		if [ -z $($XMLSTARLET sel -t -v "$XPATHBASE/@name" $cfile) ] ; then 
+		if [ -z $($XMLSTARLET sel -t -v "$XPATHBASE/@name" $cfile) ]
+		then 
 			$XMLSTARLET ed -L \
 				-s "/ServerSettings" -t elem -n "property" -v "" \
 				-i "/ServerSettings/property[not(@name)]" -t attr -n "name" -v "$CV" \
