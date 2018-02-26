@@ -402,51 +402,41 @@ isValidOptionValue() {
 	local TYPE=$(serverconfig_$1_Type)
 	local RANGE=""
 	
-	if [ "$TYPE" = "enum" ]
-	then 
+	if [ "$TYPE" = "enum" ]; then 
 		TYPE="number"
 		serverconfig_$1_Values
 		RANGE=1-${#config_allowed_values[@]} 
 	else 
-		if ["$(type -t serverconfig_$1_Range)" = "function"]
-		then 
+		if [ "$(type -t serverconfig_$1_Range)" = "function" ]; then 
 			RANGE=$(serverconfig_$1_Range) 
 		fi
 	fi
 	
-	if ["$TYPE" = "number"]
-	then 
-		if [ $(isANumber "$2") -eq 0 ]
-		then 
+	if [ "$TYPE" = "number" ]; then 
+		if [ $(isANumber "$2") -eq 0 ]; then 
 			echo "0"
 			return
 		fi
 		
-		if [ ! -z "$RANGE" ]
-		then 
+		if [ ! -z "$RANGE" ]; then 
                 	local MIN=$(cut -d- -f1 <<< "$RANGE")
                 	local MAX=$(cut -d- -f2 <<< "$RANGE")
 			
-                	if [ $2 -lt $MIN -o $2 -gt $MAX ]
-					then 
+                	if [ $2 -lt $MIN -o $2 -gt $MAX ]; then 
                     		echo "0"
                     		return
-					fi
+			fi
 		fi
 	fi
-	if ["$TYPE" = "boolean"]
-	then 
-		if [ $(isABool "$2") -eq 0 ]
-		then 
+	if [ "$TYPE" = "boolean" ]; then 
+		if [ $(isABool "$2") -eq 0 ]; then 
 			echo "0"
 			return
 		fi
 	fi
 	
-	if [ "$(type -t serverconfig_$1_Validate)" = "function" ]
-	then 
-		if [ $(serverconfig_$1_Validate "$2") -eq 0 ]
-		then 
+	if [ "$(type -t serverconfig_$1_Validate)" = "function" ]; then 
+		if [ $(serverconfig_$1_Validate "$2") -eq 0 ]; then 
 			echo "0"
 			return
         	fi
@@ -465,13 +455,11 @@ configQueryValue() {
 	local DEFAULT=""
 	local currentValName=configCurrent_$1
 
-	if [ "$(type -t serverconfig_$1_Values)" = "function" ]
-	then 
+	if [ "$(type -t serverconfig_$1_Values)" = "function" ]; then 
 		echo "$(serverconfig_$1_QueryName), options:"
 		serverconfig_$1_Values
 		NAME="Select option"
-		if [ "$TYPE" = "enum" ]
-		then 
+		if [ "$TYPE" = "enum" ]; then 
 			local OPTOFFSET=1
 		else
 			local OPTOFFSET=0
@@ -483,46 +471,37 @@ configQueryValue() {
 		NAME=$(serverconfig_$1_QueryName)
 	fi
 
-	if [ "$TYPE" = "enum" ]
-	then 
+	if [ "$TYPE" = "enum" ]; then 
 		RANGE=1-${#config_allowed_values[@]}
-		if [ ! -z "${!currentValName}" ]
-		then 
+		if [ ! -z "${!currentValName}" ]; then 
 			for (( i=1; i < ${#config_allowed_values[@]}+1; i++ )); do 
-				if [ "${!currentValName}" = "${config_allowed_values[$i-1]}" ]
-				then 
+				if [ "${!currentValName}" = "${config_allowed_values[$i-1]}" ]; then 
 					DEFAULT=$i
 				fi
 			done
 			export $currentValName=
 		fi
 	else
-		if [ "$(type -t serverconfig_$1_Range)" = "function" ]
-		then 
+		if [ "$(type -t serverconfig_$1_Range)" = "function" ]; then 
 			RANGE=$(serverconfig_$1_Range)
 		fi
 	fi
 
-	if [ -z "$DEFAULT" ]
-	then 
-		if [ ! -z "${!currentValName}" ]
-		then 
+	if [ -z "$DEFAULT" ]; then 
+		if [ ! -z "${!currentValName}" ]; then 
 			DEFAULT=${!currentValName}
 		else
-			if [ "$(type -t serverconfig_$1_Default)" = "function" ]
-			then 
+			if [ "$(type -t serverconfig_$1_Default)" = "function" ]; then 
 				DEFAULT=$(serverconfig_$1_Default)
 			fi
 		fi
 	fi
 
 	local prompt=$(printf "%s" "$NAME")
-	if [ ! -z "$RANGE" ]
-	then 
+	if [ ! -z "$RANGE" ]; then 
 		prompt=$(printf "%s (%s)" "$prompt" "$RANGE")
 	fi
-	if [ ! -z "$DEFAULT" ]
-	then 
+	if [ ! -z "$DEFAULT" ]; then 
 		prompt=$(printf "%s [%s]" "$prompt" "$DEFAULT")
 	fi
 	prompt=$(printf "%s:" "$prompt")
@@ -531,27 +510,22 @@ configQueryValue() {
 	while : ; do 
 		read -p "$prompt" $currentValName
 		export $currentValName="${!currentValName:-$DEFAULT}"
-		if [ $(isValidOptionValue "$1" "${!currentValName}") -eq 0 ]
-		then 
-			if [ "$(type -t serverconfig_$1_ErrorMessage)" = "function" ]
-			then 
+		if [ $(isValidOptionValue "$1" "${!currentValName}") -eq 0 ]; then 
+			if [ "$(type -t serverconfig_$1_ErrorMessage)" = "function" ]; then 
 				serverconfig_$1_ErrorMessage "${!currentValName}"
 			fi
 		fi
 		[ $(isValidOptionValue "$1" "${!currentValName}") -eq 1 ] && break
 	done
 	
-	if [ "$TYPE" = "boolean" ]
-	then 
-		if [ $(getBool ${!currentValName}) -eq 1 ]
-		then 
+	if [ "$TYPE" = "boolean" ]; then 
+		if [ $(getBool ${!currentValName}) -eq 1 ]; then 
 			export $currentValName="true"
 		else
 			export $currentValName="false"
 		fi
 	fi
-	if [ "$TYPE" = "enum" ]
-	then 
+	if [ "$TYPE" = "enum" ]; then 
 		export $currentValName="${config_allowed_values[$currentValName-1]}"
 	fi
 	echo
@@ -580,8 +554,7 @@ printConfigValue() {
 readInstanceName() { 
 	until [ $(isValidInstanceName "$INSTANCE") -eq 1 ] ; do 
 		read -p "Instance name: " INSTANCE
-		if [ $(isValidInstanceName "$INSTANCE") -eq 0 ]
-		then 
+		if [ $(isValidInstanceName "$INSTANCE") -eq 0 ]; then 
 			echo "Invalid instance name, may only contain:"
 			echo " - letters (A-Z / a-z)"
 			echo " - digits (0-9)"
@@ -610,8 +583,7 @@ loadCurrentConfigValues() {
 		local cfile=$(getInstancePath "$1")/Config/Setting.txt
 		local XPATH="/ServerSettings/property[@name='$CV']/@value"
 		local VAL=$($XMLSTARLET sel -t -v "$XPATH" $cfile)
-		if [ ! -z "$VAL" ]
-		then 
+		if [ ! -z "$VAL" ]; then 
 			export $currentValName="$VAL"
 		fi
 	done
@@ -629,8 +601,7 @@ saveCurrentConfigValues() {
 
 		XPATHBASE="/ServerSettings/property[@name='$CV']"
 
-		if [ -z $($XMLSTARLET sel -t -v "$XPATHBASE/@name" $cfile) ]
-		then 
+		if [ -z $($XMLSTARLET sel -t -v "$XPATHBASE/@name" $cfile) ]; then 
 			$XMLSTARLET ed -L \
 				-s "/ServerSettings" -t elem -n "property" -v "" \
 				-i "/ServerSettings/property[not(@name)]" -t attr -n "name" -v "$CV" \
@@ -648,8 +619,7 @@ saveCurrentConfigValues() {
 # Returns:
 #   0/1: no/yes
 configTemplateExists() { 
-	if [ -f $SDTD_BASE/templates/config.xml ]
-	then 
+	if [ -f $SDTD_BASE/templates/config.xml ]; then 
 		echo 1
 	else
 		echo 0
@@ -677,4 +647,4 @@ setConfigValue() {
 	$XMLSTARLET ed -L -u "/ServerSettings/property[@name='$2']/@value" -v "$3" $CONF
 }
 
-echo
+echo .
