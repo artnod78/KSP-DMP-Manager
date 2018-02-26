@@ -515,7 +515,9 @@ configQueryValue() {
 				serverconfig_$1_ErrorMessage "${!currentValName}"
 			fi
 		fi
-		[ $(isValidOptionValue "$1" "${!currentValName}") -eq 1 ] && break
+		if [ $(isValidOptionValue "$1" "${!currentValName}") -eq 1 ]; then
+			break
+		fi
 	done
 	
 	if [ "$TYPE" = "boolean" ]; then 
