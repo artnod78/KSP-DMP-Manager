@@ -386,7 +386,7 @@ listConfigEditFuncs() {
 listConfigValues() { 
 	local CV
 	for CV in $(declare -F | cut -d\  -f3 | grep "^serverconfig_.*_Type$")
-	do
+	do 
 		CV=${CV#serverconfig_}
 		CV=${CV%_Type}
 		printf "%s " "$CV"
@@ -404,32 +404,33 @@ isValidOptionValue() {
 	local TYPE=$(serverconfig_$1_Type)
 	local RANGE=""
 	if [ "$TYPE" = "enum" ]
-	then
+	then 
 		TYPE="number"
 		serverconfig_$1_Values
 		RANGE=1-${#config_allowed_values[@]} 
 	else 
 		if ["$(type -t serverconfig_$1_Range)" = "function"]
-		then
+		then 
 			RANGE=$(serverconfig_$1_Range)
-		fi
-	fi
+		fi 
+	fi 
 	case "$TYPE" in number)
 		if [ $(isANumber "$2") -eq 0 ]
-		then
+		then 
 			echo "0"
 			return
-		fi
+		fi 
 		if [ ! -z "$RANGE" ]
-		then
+		then 
                 	local MIN=$(cut -d- -f1 <<< "$RANGE") 
                 	local MAX=$(cut -d- -f2 <<< "$RANGE") 
                 	if [ $2 -lt $MIN -o $2 -gt $MAX ]
-			then
+			then 
                     		echo "0"
                     		return 
                 	fi 
-            	fi ;; boolean) 
+            	fi 
+		;; boolean) 
             if [ $(isABool "$2") -eq 0 ] ; then 
                 echo "0" 
                 return 
