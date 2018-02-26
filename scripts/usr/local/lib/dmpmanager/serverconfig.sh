@@ -467,16 +467,18 @@ configQueryValue() {
 	local DEFAULT=""
 	local currentValName=configCurrent_$1
 
-	if [ "$(type -t serverconfig_$1_Values)" = "function" ]; then
+	if [ "$(type -t serverconfig_$1_Values)" = "function" ]
+	then 
 		echo "$(serverconfig_$1_QueryName), options:"
 		serverconfig_$1_Values
 		NAME="Select option"
-		if [ "$TYPE" = "enum" ]; then
+		if [ "$TYPE" = "enum" ]
+		then 
 			local OPTOFFSET=1
 		else
 			local OPTOFFSET=0
 		fi
-		for (( i=$OPTOFFSET; i < ${#config_allowed_values[@]}+$OPTOFFSET; i++ )) 
+		for (( i=$OPTOFFSET; i < ${#config_allowed_values[@]}+$OPTOFFSET; i++ ))
 		do
 			printf "  %2d: %s\n" $i "${config_allowed_values[$i-$OPTOFFSET]}"
 		done
