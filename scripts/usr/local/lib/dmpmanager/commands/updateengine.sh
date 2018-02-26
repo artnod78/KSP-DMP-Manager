@@ -40,7 +40,7 @@ dmpCommandUpdateengine() {
 		echo "  Version:     $REMOTE"
 		echo
 		
-		if [ "$REMOTE" -ne "$LOCAL" ]; then
+		if [ "$REMOTE" != "$LOCAL" ]; then
 			echo "Newer DMPServer version available $REMOTE."
 		else
 			echo "DMPServer on the latest version."
@@ -56,7 +56,7 @@ dmpCommandUpdateengine() {
 		fi
 	done
 
-	if [ "$FORCED" = "yes" -o "$REMOTE" -ne "$LOCAL" ]; then
+	if [ "$FORCED" = "yes" -o "$REMOTE" != "$LOCAL" ]; then
 		echo "A newer version of the engine is available."
 		echo "Local version:     $LOCAL"
 		echo "Available version: $REMOTE"
