@@ -13,7 +13,7 @@ serverconfig_port_Range() {
 }
 serverconfig_port_Validate() { 
 	local I=${INSTANCE:-!}
-	if [ $(checkGamePortUsed "$1" "$I") -eq 0 ]; then
+	if [ $(checkGamePortUsed "$1" "$I") -eq 0 ]; then  
 		echo "1"
 	else
 		echo "0"
@@ -174,7 +174,7 @@ serverconfig_httpPort_Range() {
 }
 serverconfig_httpPort_Validate() { 
 	local I=${INSTANCE:-!}
-	if [ $(checkGamePortUsed "$1" "$I") -eq 0 ]; then
+	if [ $(checkGamePortUsed "$1" "$I") -eq 0 ]; then  
 		echo "1"
 	else
 		echo "0"
@@ -191,7 +191,7 @@ serverconfig_serverName_Type() {
 	echo "string"
 }
 serverconfig_serverName_Validate() { 
-	if [ ! -z "$1" ]; then
+	if [ ! -z "$1" ]; then  
 		echo "1"
 	else
 		echo "0"
@@ -251,8 +251,7 @@ serverconfig_consoleIdentifier_Type() {
 	echo "string"
 }
 serverconfig_consoleIdentifier_Validate() { 
-	if [ ! -z "$1" ]
-	then 
+	if [ ! -z "$1" ]; then  
 		echo "1"
 	else
 		echo "0"
@@ -373,7 +372,7 @@ configEditAll() {
 #   List of config funcs
 listConfigEditFuncs() { 
 	local CV
-	for CV in $(declare -F | cut -d\  -f3 | grep "^configEdit.*$"); do 
+	for CV in $(declare -F | cut -d\  -f3 | grep "configEdit.*$ "); do  
 		CV=${CV#configEdit}
 		printf "%s " "$CV"
 	done
@@ -385,7 +384,7 @@ listConfigEditFuncs() {
 #   List of defined config options
 listConfigValues() { 
 	local CV
-	for CV in $(declare -F | cut -d\  -f3 | grep "^serverconfig_.*_Type$"); do 
+	for CV in $(declare -F | cut -d\  -f3 | grep "^serverconfig_.*_Type$ "); do 
 		CV=${CV#serverconfig_}
 		CV=${CV%_Type}
 		printf "%s " "$CV"
