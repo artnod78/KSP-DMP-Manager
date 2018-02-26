@@ -108,10 +108,12 @@ setupUser() {
 installDMPServer() {
 	echo -e "Downloading and installing DMPServer\n"
 	wget -nv https://d-mp.org/downloads/release/latest/DMPServer.zip -O /tmp/DmpManager.zip
-	unzip /tmp/DmpManager.zip -d /home/ksp/DMPServer
+	unzip /tmp/DmpManager.zip -d /home/ksp
 	rm /tmp/DmpManager.zip
 	chown ksp.ksp /home/ksp -R
-	
+	screen -dmS dmpFirstRun mono /home/ksp/DMPServer/DMPServer.exe
+	sleep 5
+	screen -S dmpFirstRun -X stuff "/shutdown^M"
 	echo -e "\n=============================================================\n\n"
 }
 
@@ -128,9 +130,6 @@ finish() {
 		echo -e "\n ALL DONE"
 	fi
 
-	echo
-	echo -e "For further configuration options check:"
-	echo -e "  /etc/dmpmanager.conf"
 	echo
 	echo -e "For feedback, suggestions, problems please visit the github:"
 	echo -e "  https://github.com/artnod78/KSP-DMP-Manager"
