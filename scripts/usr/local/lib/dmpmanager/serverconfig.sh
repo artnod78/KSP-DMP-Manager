@@ -97,8 +97,7 @@ isValidSettingName() {
 
 
 editSettings() { 
-	for setting in $(getAllSettingsName $1)
-	do 
+	for setting in $(getAllSettingsName $1); do 
 		echo "################"
 		echo "$(getRawSettingFullDesc $1 $setting)"
 		echo
