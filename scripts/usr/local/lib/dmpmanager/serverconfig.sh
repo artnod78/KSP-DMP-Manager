@@ -51,7 +51,7 @@ getAllSettingsName() {
 #   2: Setting name
 # Returns:
 #   Setting value
-getSettingValue() {
+getSettingValue() { 
 	getRawSetting $1 $2 | cut -d "=" -f2
 }
 
