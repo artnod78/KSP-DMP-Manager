@@ -1,14 +1,11 @@
 #!/bin/bash
-
-DMP_BASE="/home/ksp";
-
+DMP_BASE="/home/ksp" 
 # Get conf file path 
 # Params:
 #   1: Instance name
 # Returns:
 #   Conf file path
-getConfFile() 
-{
+getConfFile() { 
 	echo "$DMP_BASE/$1/Config/Settings.txt"
 }
 
