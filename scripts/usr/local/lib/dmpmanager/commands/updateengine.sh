@@ -86,8 +86,9 @@ dmpCommandUpdateengine() {
 		wget https://d-mp.org/downloads/release/latest/DMPServer.zip
 		unzip -C $DMP_BASE/DMPServer
 		cd $DMP_BASE/DMPServer
-		# TODO first run + quit
-		# TODO copy file in all instannce
+		screen -dmS dmp-firstrun mono DMPServer.exe
+		sleep 5
+		screen -S dmp-firstrun -X stuff "/shutdown^M"
 		
 
 		
