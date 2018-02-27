@@ -26,7 +26,7 @@ else
 fi
 
 showHelp() {
-	echo "Ksp Dmp bootstrapper version $VERSION"
+	echo "Kerbal Space Program - Dark Multi Player bootstrapper version $VERSION"
 	echo
 	echo "Usage: ./bootstrap.sh [-h] -i"
 	echo "Parameters:"
@@ -116,6 +116,7 @@ installManagementScripts() {
 		mkdir -p $DESTFOLDER
 		cp -a $SRCFILE $DESTFOLDER/
 	done
+	cd ~
 	rm -R $TMPPATH
 	rm /tmp/DmpManager.zip
 
