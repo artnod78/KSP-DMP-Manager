@@ -1,5 +1,4 @@
 #!/bin/bash 
- 
 # Get conf file path 
 # Params:
 #   1: Instance name
