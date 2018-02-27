@@ -23,9 +23,12 @@ dmpCommandUpdateengine() {
 		chown $SDTD_USER.$SDTD_GROUP -R $DMP_BASE/DMPServer
 		cd /tmp
 		wget https://d-mp.org/downloads/release/latest/DMPServer.zip
-		unzip -C $DMP_BASE/DMPServer
+		unzip DMPServer.zip -d $DMP_BASE
+		rm DMPServer.zip
 		cd $DMP_BASE/DMPServer
-		# TODO first run + quit
+		screen -dmS dmp-firstrun mono DMPServer.exe
+		sleep 5
+		screen -S dmp-firstrun -X stuff "/shutdown^M"
 	fi
 	
 
@@ -84,11 +87,13 @@ dmpCommandUpdateengine() {
 		chown $SDTD_USER.$SDTD_GROUP -R $DMP_BASE/DMPServer
 		cd /tmp
 		wget https://d-mp.org/downloads/release/latest/DMPServer.zip
-		unzip -C $DMP_BASE/DMPServer
+		unzip DMPServer.zip -d $DMP_BASE
+		rm DMPServer.zip
 		cd $DMP_BASE/DMPServer
 		screen -dmS dmp-firstrun mono DMPServer.exe
 		sleep 5
 		screen -S dmp-firstrun -X stuff "/shutdown^M"
+		# TODO copy new version in all instances
 		
 
 		
