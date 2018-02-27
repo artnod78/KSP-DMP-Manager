@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 serverconfig_port_QueryName() { 
 	echo "The port the server listens on"
