@@ -1,7 +1,5 @@
-#!/bin/bash
-
-DMP_BASE="/home/ksp"
-
+#!/bin/bash 
+DMP_BASE="/home/ksp" 
 # Get conf file path 
 # Params:
 #   1: Instance name
