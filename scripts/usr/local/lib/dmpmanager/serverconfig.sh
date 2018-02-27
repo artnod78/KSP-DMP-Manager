@@ -1,12 +1,12 @@
 #!/bin/bash
 DMP_BASE="/home/ksp"
-
+ 
 # Get conf file path
 # Params:
 #   1: Instance name
 # Returns:
 #   Conf file path
-getConfFile()
+getConfFile() 
 {
 	echo "$DMP_BASE/$1/Config/Settings.txt"
 }
@@ -16,7 +16,7 @@ getConfFile()
 #   1: Instance name
 # Returns:
 #   Raw Settings line
-getRawSettings()
+getRawSettings() 
 {
 	cat $(getConfFile $1) | grep -v "^#" | grep -v "^$"
 }
@@ -27,17 +27,17 @@ getRawSettings()
 #   2: Setting name
 # Returns:
 #   Raw Setting line
-getRawSetting()
+getRawSetting() 
 {
 	getRawSettings $1 | grep -e "$2"
 }
 
-getRawSettingDesc()
+getRawSettingDesc() 
 {
 	cat $(getConfFile $1) | grep -e "^# $2" 
 }
 
-getRawSettingFullDesc()
+getRawSettingFullDesc() 
 {
 	startLine=$(cat -n $(getConfFile $1) | grep -e "$(getRawSettingDesc $1 $2)" | awk '{print $1}')
 	stopLine=$(($(cat -n $(getConfFile $1) | grep -e "$(getRawSetting $1 $2)" | awk '{print $1}') - 1))
@@ -48,7 +48,7 @@ getRawSettingFullDesc()
 #   1: Instance name
 # Returns:
 #   Settings name
-getAllSettingsName()
+getAllSettingsName() 
 {
 	getRawSettings $1 | cut -d "=" -f1
 }
@@ -59,7 +59,7 @@ getAllSettingsName()
 #   2: Setting name
 # Returns:
 #   Setting value
-getSettingValue()
+getSettingValue() 
 {
 	getRawSetting $1 $2 | cut -d "=" -f2
 }
@@ -72,7 +72,7 @@ getSettingValue()
 # Returns:
 #   1. success
 #   0. fail
-setSettingValue()
+setSettingValue() 
 {
 	instanceName=$1
 	settingName=$2
@@ -95,7 +95,7 @@ setSettingValue()
 # Returns:
 #   1: Valid name
 #   0: Unknown name
-isValidSettingName()
+isValidSettingName() 
 {
 	$(getAllSettingsName $1) | grep -e "$2" > /dev/null
 	if [ "$?" -eq "0" ]
@@ -107,7 +107,7 @@ isValidSettingName()
 }
 
 
-editSettings()
+editSettings() 
 {
 	for setting in $(getAllSettingsName $1)
 	do
@@ -129,5 +129,3 @@ editSettings()
 		echo
 	done
 }
-
-editSettings toto
