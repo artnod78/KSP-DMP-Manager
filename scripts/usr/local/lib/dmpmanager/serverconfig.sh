@@ -115,4 +115,4 @@ editSettings() {
 		echo "################"
 		echo
 	done
-}
+} 
