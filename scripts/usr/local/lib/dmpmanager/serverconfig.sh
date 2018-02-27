@@ -69,7 +69,7 @@ setSettingValue() {
 	shift
 	shift
 	settingValue=$@
-	if [ "$settingValue" != "$(getSettingValue $instanceName $settingName)" ]
+	if [ $($settingValue) != $(getSettingValue $instanceName $settingName) ]
 	then
 	sed -i "s/$(getRawSetting $instanceName $settingName)/$settingName=$settingValue/" $(getConfFile $instanceName)
 		echo 1
@@ -87,7 +87,7 @@ setSettingValue() {
 #   0: Unknown name
 isValidSettingName() { 
 	$(getAllSettingsName $1) | grep -e "$2" > /dev/null
-	if [ "$?" -eq "0" ]
+	if [ ${?} -eq 0 ]
 	then
 		echo 1
 	else
@@ -102,11 +102,11 @@ editSettings() {
 		echo "$(getRawSettingFullDesc $1 $setting)"
 		echo
 		read -p "$setting [$(getSettingValue $1 $setting)]: " curVal
-		if [ "$curVal" == "" ]
+		if [ $($curVal) == "" ]
 		then
 			curVal=$(getSettingValue $1 $setting)
 		fi
-		if [ $(setSettingValue $1 $setting $curVal) = 1 ]
+		if [ ${setSettingValue $1 $setting $curVal} = 1 ]
 		then
 			echo "Setting changed"
 		else
