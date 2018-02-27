@@ -110,8 +110,8 @@ getInstancePID() {
 getLocalDMPServerVersion() {
 	local VERSION=$(cat $DMP_BASE/DMPServer/git-version.txt)
 	local LOCAL=0
-	if [ -f "$VERSION" ]; then
-		LOCAL=VERSION
+	if [ "$VERSION" ]; then
+		LOCAL=$VERSION
 	fi
 	echo $LOCAL
 }
