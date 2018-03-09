@@ -803,9 +803,8 @@ loadCurrentConfigValues() {
 	local CV
 	for CV in $(listConfigValues); do
 		local currentValName=configCurrent_$CV
-		local cfile=$(getInstancePath "$1")/Config/Settings.txt
-		local XPATH="/SettingsDefinition/property[@name='$CV']/@value"
-		local VAL=$($XMLSTARLET sel -t -v "$XPATH" $cfile)
+		local CONF=$(getInstancePath "$1")/Config/Settings.txt
+		local VAL=$($XMLSTARLET sel -t -m "/SettingsDefinition" -v "$CV" -n $CONF)
 		if [ ! -z "$VAL" ]; then
 			export $currentValName="$VAL"
 		fi
@@ -820,20 +819,14 @@ saveCurrentConfigValues() {
 	for CV in $(listConfigValues) TelnetEnabled AdminFileName SaveGameFolder; do
 		local currentValName=configCurrent_$CV
 		local val="${!currentValName}"
-		local cfile=$(getInstancePath "$1")/Config/Settings.txt
+		local CONF=$(getInstancePath "$1")/Config/Settings.txt
 
-		XPATHBASE="/SettingsDefinition/property[@name='$CV']"
+		XPATHBASE="/SettingsDefinition"
 
-		if [ -z $($XMLSTARLET sel -t -v "$XPATHBASE/@name" $cfile) ]; then
-			$XMLSTARLET ed -L \
-				-s "/SettingsDefinition" -t elem -n "property" -v "" \
-				-i "/ServerSettings/property[not(@name)]" -t attr -n "name" -v "$CV" \
-				-i "$XPATHBASE" -t attr -n "value" -v "$val" \
-				$cfile
+		if [ -z $($XMLSTARLET sel -t -m "$XPATHBASE" -v "$CV" -n $CONF) ]; then
+			$XMLSTARLET ed -L -s "$XPATHBASE" -t elem -n "$CV" -v "$val" $CONF
 		else
-			$XMLSTARLET ed -L \
-				-u "$XPATHBASE/@value" -v "$val" \
-				$cfile
+			$XMLSTARLET ed -L -u "$XPATHBASE/$CV" -v "$val" $CONF
 		fi
 	done
 }
@@ -857,7 +850,7 @@ configTemplateExists() {
 #   Property value
 getConfigValue() {
 	local CONF=$(getInstancePath $1)/Config/Settings.txt
-	$XMLSTARLET sel -t -v "/SettingsDefinition/property[@name='$2']/@value" $CONF
+	$XMLSTARLET sel -t -m "/SettingsDefinition" -v "$2" -n $CONF
 }
 
 # Update a single value in a serverconfig
@@ -867,5 +860,5 @@ getConfigValue() {
 #   3: New value
 setConfigValue() {
 	local CONF=$(getInstancePath $1)/Config/Settings.txt
-	$XMLSTARLET ed -L -u "/SettingsDefinition/property[@name='$2']/@value" -v "$3" $CONF
+	$XMLSTARLET ed -L -u "/SettingsDefinitionXPATHBASE" -v "$3" $CONF
 }
