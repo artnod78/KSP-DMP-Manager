@@ -10,7 +10,8 @@ ADDCRONJOBS=0
 RUNINSTALL=0
 INSTALLOPTIONALDEPS=0
 
-DEPENDENCIES="git unzip screen mono-complete"
+DEPENDENCIES="unzip screen mono-complete"
+OPTDEPENDENCIES=""
 
 
 if [ -n "$(command -v apt-get)" ]; then
@@ -19,27 +20,21 @@ else
 	ISDEBIAN=0
 fi
 
-if [ $(uname -m) == 'x86_64' ]; then
-	IS64BIT=1
-else
-	IS64BIT=0
-fi
-
 showHelp() {
-	echo "Kerbal Space Program - Dark Multi Player bootstrapper version $VERSION"
+	echo "Kerbal Space Program - Luna MultiPlayer bootstrapper version $VERSION"
 	echo
 	echo "Usage: ./bootstrap.sh [-h] -i"
 	echo "Parameters:"
 	echo "  -h   Print this help screen and exit"
-#	echo "  -o   Install optional dependencies ($OPTDEPENDENCIES)"
+	echo "  -o   Install optional dependencies ($OPTDEPENDENCIES)"
 	echo "  -i   Required to actually start the installation"
 }
 
 intro() {
 	echo
-	echo "Ksp Dmp Linux server bootstrapper"
+	echo "Luna Multiplayer Server bootstrapper"
 	echo
-	echo "This will install a Ksp Dmp server according to the information"
+	echo "This will install a Luna Multiplayer server according to the information"
 	echo "given on:"
 	echo "   https://github.com/artnod78/KSP-DMP-Manager"
 	echo
@@ -74,9 +69,6 @@ nonDebianWarning() {
 
 installAptDeps() {
 	echo -e "Installing dependencies\n"
-	if [ $IS64BIT -eq 1 ]; then
-		dpkg --add-architecture i386
-	fi
 	apt-get update -y
 	apt-get install -y $DEPENDENCIES
 	echo -e "\n=============================================================\n\n"
@@ -84,7 +76,7 @@ installAptDeps() {
 
 installOptionalDeps() {
 	echo -e "Installing optional dependencies\n"
-	apt-get install $OPTDEPENDENCIES
+	apt-get install -y $OPTDEPENDENCIES
 	echo -e "\n=============================================================\n\n"
 }
 
@@ -120,32 +112,32 @@ installManagementScripts() {
 	rm -R $TMPPATH
 	rm /tmp/DmpManager.zip
 
-	chown root.root /etc/dmpmanager.conf
-	chmod 0600 /etc/dmpmanager.conf
+	chown root.root /etc/lmm.conf
+	chmod 0600 /etc/lmm.conf
 
 	chown ksp.ksp /home/ksp -R
 
-	chown root.root /etc/init.d/dmpmanager.sh
-	chown root.root /etc/bash_completion.d/dmpmanager
-	chown root.root /etc/cron.d/dmpmanager
-	chown root.root /usr/local/bin/dmpmanager.sh
-	chown root.root /usr/local/lib/dmpmanager -R
-	chmod 0755 /etc/init.d/dmpmanager.sh
-	chmod 0755 /etc/bash_completion.d/dmpmanager
-	chmod 0755 /etc/cron.d/dmpmanager
-	chmod 0755 /usr/local/bin/dmpmanager.sh
-	chmod 0755 /usr/local/lib/dmpmanager -R
+	chown root.root /etc/init.d/lmm
+	chown root.root /etc/bash_completion.d/lmm
+	chown root.root /etc/cron.d/lmm
+	chown root.root /usr/local/bin/lmm.sh
+	chown root.root /usr/local/lib/lmm -R
+	chmod 0755 /etc/init.d/lmm.sh
+	chmod 0755 /etc/bash_completion.d/lmm
+	chmod 0755 /etc/cron.d/lmm
+	chmod 0755 /usr/local/bin/lmm.sh
+	chmod 0755 /usr/local/lib/lmm -R
 
 	if [ $ISDEBIAN -eq 1 ]; then
-		update-rc.d dmpmanager.sh defaults
+		update-rc.d lmm.sh defaults
 	fi
 	
 	echo -e "\n=============================================================\n\n"
 }
 
-installDMPServer() {
-	echo -e "Installing DMPServer\n"
-	dmpmanager.sh updateengine
+installLunaServer() {
+	echo -e "Installing Luna MultiPlayer Server\n"
+	lmm.sh updateengine
 	echo -e "\n=============================================================\n\n"
 }
 
@@ -153,10 +145,10 @@ addCronJobs() {
 	echo -e "Enabling backup cron job\n"
 
 	echo -e "By default a backup of the save folder will be created once"
-	echo -e "  per hour. This can be changed in /etc/cron.d/dmpmanager-backup."
+	echo -e "  per hour. This can be changed in /etc/cron.d/lmm."
 	
-	cat /etc/cron.d/dmpmanager-backup | tr -d '#' > /tmp/dmpmanager-backup
-	cp /tmp/dmpmanager-backup /etc/cron.d
+	cat /etc/cron.d/lmm | tr -d '#' > /tmp/lmm
+	cp /tmp/lmm /etc/cron.d
 
 	echo -e "\n=============================================================\n\n"
 }
@@ -197,7 +189,7 @@ main() {
 	fi
 	setupUser
 	installManagementScripts
-	installDMPServer
+	installLunaServer
 	if [ $ADDCRONJOBS -eq 1 ]; then
 		addCronJobs
 	fi

@@ -19,7 +19,7 @@ else
 fi
 
 showHelp() {
-	echo "Ksp Dmp bootstrapper version $VERSION"
+	echo "Kerbal Space Program - Luna MultiPlayer bootstrapper version $VERSION"
 	echo
 	echo "Usage: ./bootstrap.sh [-h] -i"
 	echo "Parameters:"
