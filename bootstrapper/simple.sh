@@ -19,12 +19,6 @@ else
 	ISDEBIAN=0
 fi
 
-if [ $(uname -m) == 'x86_64' ]; then
-	IS64BIT=1
-else
-	IS64BIT=0
-fi
-
 showHelp() {
 	echo "Ksp Dmp bootstrapper version $VERSION"
 	echo
@@ -37,9 +31,9 @@ showHelp() {
 
 intro() {
 	echo
-	echo "Ksp Dmp Linux server bootstrapper"
+	echo "Luna Multiplayer Server bootstrapper"
 	echo
-	echo "This will install a Ksp Dmp server according to the information"
+	echo "This will install Luna Multiplayer Server according to the information"
 	echo "given on:"
 	echo "   https://github.com/artnod78/KSP-DMP-Manager"
 	echo
@@ -74,9 +68,6 @@ nonDebianWarning() {
 
 installAptDeps() {
 	echo -e "Installing dependencies\n"
-	if [ $IS64BIT -eq 1 ]; then
-		dpkg --add-architecture i386
-	fi
 	apt-get update -y
 	apt-get install -y $DEPENDENCIES
 	echo -e "\n=============================================================\n\n"
@@ -96,7 +87,7 @@ checkSetupDeps() {
 			exit 1
 		fi
 	done
-	
+
 }
 
 setupUser() {
@@ -105,15 +96,19 @@ setupUser() {
 	echo -e "\n=============================================================\n\n"
 }
 
-installDMPServer() {
+installLunaServer() {
 	echo -e "Downloading and installing DMPServer\n"
-	wget -nv https://d-mp.org/downloads/release/latest/DMPServer.zip -O /tmp/DmpManager.zip
-	unzip /tmp/DmpManager.zip -d /home/ksp
-	rm /tmp/DmpManager.zip
+	lmVersion=$(curl -s https://api.github.com/repos/LunaMultiplayer/LunaMultiplayer/releases/latest | grep -e "tag_name" | cut -d "\"" -f4)
+	lmDlUrl="https://github.com/LunaMultiplayer/LunaMultiplayer/releases/download/$lmVersion/LunaMultiPlayer-Release.zip"
+	wget -nv $lmDlUrl -O /tmp/LunaMultiPlayer-Release.zip
+	unzip /tmp/LunaMultiPlayer-Release.zip -d /home/ksp
+	rm /tmp/LunaMultiPlayer-Release.zip
 	chown ksp.ksp /home/ksp -R
-	screen -dmS dmpFirstRun mono /home/ksp/DMPServer/DMPServer.exe
+	echo -e "\n=============================================================\n\n"
+	echo -e "Executing first run\n"
+	screen -dmS lmFirstRun mono /home/ksp/LMPServer/Server.exe
 	sleep 5
-	screen -S dmpFirstRun -X stuff "/shutdown^M"
+	screen -S lmFirstRun -X stuff "/shutdown^M"
 	echo -e "\n=============================================================\n\n"
 }
 
@@ -161,6 +156,7 @@ if [ -z $1 ]; then
 	showHelp
 	exit 0
 fi
+
 while getopts "hcoi" opt; do
 	case "$opt" in
 		h)
