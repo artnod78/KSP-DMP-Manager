@@ -95,6 +95,7 @@ installLunaServer() {
 	wget -nv $lmDlUrl -O /tmp/LunaMultiPlayer-Release.zip
 	unzip /tmp/LunaMultiPlayer-Release.zip -d /home/ksp
 	rm /tmp/LunaMultiPlayer-Release.zip
+	echo $lmVersion > /home/ksp/LMPServer/version.txt
 	chown ksp.ksp /home/ksp -R
 	echo -e "\n=============================================================\n\n"
 	echo -e "Executing first run\n"
