@@ -27,39 +27,17 @@ lmmSubcommandInstancesCreate() {
 	
 	local IPATH=$(getInstancePath "$INSTANCE")
 	mkdir -p "$IPATH" 2>/dev/null
+	cp -R $LMM_BASE/LMPServer/* "$IPATH/"
 
-	if [ $(configTemplateExists) -eq 1 ]; then
-		local USETEMPLATE
-		while : ; do
-			read -p "Use the config template? [Yn] " USETEMPLATE
-			USETEMPLATE=${USETEMPLATE:-Y}
-			case $USETEMPLATE in
-				y|Y)
-					cp $SDTD_BASE/templates/config.xml $IPATH/config.xml
-					loadCurrentConfigValues "$INSTANCE"
-					break
-					;;
-				n|N)
-					break
-					;;
-			esac
-		done
-		echo
-	fi
 	configEditAll configQueryValue
-	echo
-	configSetAutoParameters "$INSTANCE"
 	echo
 	echo "Saving"
 	
-	if [ ! -f $IPATH/config.xml ]; then
-		echo "<ServerSettings/>" > $IPATH/config.xml
+	if [ ! -f $IPATH/Config/Settings.txt ]; then
+		echo "<SettingsDefinition/>" > $IPATH/Config/Settings.txt
 	fi
 	saveCurrentConfigValues "$INSTANCE"
-	if [ -f "$SDTD_BASE/templates/admins.xml" ]; then
-		cp "$SDTD_BASE/templates/admins.xml" "$IPATH/"
-	fi
-	chown -R $SDTD_USER.$SDTD_GROUP $IPATH
+	chown -R $LMM_USER.$LMM_GROUP $IPATH
 	echo "Done"
 }
 
@@ -171,22 +149,22 @@ lmmCommandInstances() {
 	shift
 	case $SUBCMD in
 		list)
-			sdtdSubcommandInstancesList "$@"
+			lmmSubcommandInstancesList "$@"
 			;;
 		create)
-			sdtdSubcommandInstancesCreate "$@"
+			lmmSubcommandInstancesCreate "$@"
 			;;
 		edit)
-			sdtdSubcommandInstancesEdit "$@"
+			lmmSubcommandInstancesEdit "$@"
 			;;
 		delete)
-			sdtdSubcommandInstancesDelete "$@"
+			lmmSubcommandInstancesDelete "$@"
 			;;
 		print_config)
-			sdtdSubcommandInstancesPrintConfig "$@"
+			lmmSubcommandInstancesPrintConfig "$@"
 			;;
 		*)
-			sdtdCommandInstancesHelp
+			lmmCommandInstancesHelp
 			;;
 	esac
 }

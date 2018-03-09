@@ -752,19 +752,6 @@ configQueryValue() {
 	echo
 }
 
-# Set parameters for current instance that have forced values:
-#  - TelnetEnabled must be set so that management scripts can work
-#  - AdminFileName is made to point to the local instance admins.xml
-#  - SaveGameFolder is made to point to the instance folder
-# Params:
-#   1: Instance name
-configSetAutoParameters() {
-	configCurrent_TelnetEnabled=true
-	configCurrent_AdminFileName=admins.xml
-	configCurrent_SaveGameFolder="$(getInstancePath "$1")"
-}
-
-
 # Print defined config value
 # Params:
 #   1: Config option
@@ -831,17 +818,6 @@ saveCurrentConfigValues() {
 	done
 }
 
-# Check if the config template exists
-# Returns:
-#   0/1: no/yes
-configTemplateExists() {
-	if [ -f $SDTD_BASE/LMPServer/Config/Settings.txt ]; then
-		echo 1
-	else
-		echo 0
-	fi
-}
-
 # Get a single value from a serverconfig
 # Params:
 #   1: Instance name
@@ -860,5 +836,5 @@ getConfigValue() {
 #   3: New value
 setConfigValue() {
 	local CONF=$(getInstancePath $1)/Config/Settings.txt
-	$XMLSTARLET ed -L -u "/SettingsDefinitionXPATHBASE" -v "$3" $CONF
+	$XMLSTARLET ed -L -u "/SettingsDefinition" -v "$3" $CONF
 }
