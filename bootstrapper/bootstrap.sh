@@ -117,7 +117,7 @@ installManagementScripts() {
 
 	chown ksp.ksp /home/ksp -R
 
-	chown root.root /etc/init.d/lmm
+	chown root.root /etc/init.d/lmm.sh
 	chown root.root /etc/bash_completion.d/lmm
 	chown root.root /etc/cron.d/lmm
 	chown root.root /usr/local/bin/lmm.sh
