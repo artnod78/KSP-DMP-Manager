@@ -574,7 +574,6 @@ configEditRelay() {
 configEditAll() {
 	configEditServer "$1"
 	configEditSlots "$1"
-	configEditRemoteControl "$1"
 	configEditGameType "$1"
 	configEditVessels "$1"
 	configEditRelay "$1"

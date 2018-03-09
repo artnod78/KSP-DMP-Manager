@@ -24,6 +24,7 @@ lmmCommandUpdateengine() {
 	if [ ! -e $LMM_BASE/LMPServer ]; then
 		wget -nv $lmDlUrl -O /tmp/LunaMultiPlayer-Release.zip
 		unzip /tmp/LunaMultiPlayer-Release.zip -d $LMM_BASE
+		echo
 		rm /tmp/LunaMultiPlayer-Release.zip
 		echo $REMOTE > $LMM_BASE/LMPServer/version.txt
 		chown $LMM_USER.$LMM_GROUP -R $LMM_BASE
