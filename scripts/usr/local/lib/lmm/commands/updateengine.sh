@@ -26,6 +26,12 @@ lmmCommandUpdateengine() {
 		unzip /tmp/LunaMultiPlayer-Release.zip -d $LMM_BASE
 		echo
 		rm /tmp/LunaMultiPlayer-Release.zip
+		
+		TMPPATH=`mktemp -d`
+		sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $LMM_BASE/LMPServer/Config/Settings.txt > $TMPPATH/Settings.txt
+		mv $TMPPATH/Settings.txt $LMM_BASE/LMPServer/Config/Settings.txt -f
+		rm -fr $TMPPATH
+		
 		echo $REMOTE > $LMM_BASE/LMPServer/version.txt
 		chown $LMM_USER.$LMM_GROUP -R $LMM_BASE
 		screen -dmS lmFirstRun mono $LMM_BASE/LMPServer/Server.exe
@@ -89,7 +95,14 @@ lmmCommandUpdateengine() {
 		
 		wget -nv $lmDlUrl -O /tmp/LunaMultiPlayer-Release.zip
 		unzip /tmp/LunaMultiPlayer-Release.zip -d $LMM_BASE
+		echo
 		rm /tmp/LunaMultiPlayer-Release.zip
+		
+		TMPPATH=`mktemp -d`
+		sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $LMM_BASE/LMPServer/Config/Settings.txt > $TMPPATH/Settings.txt
+		mv $TMPPATH/Settings.txt $LMM_BASE/LMPServer/Config/Settings.txt -f
+		rm -fr $TMPPATH
+		
 		echo $lmVersion > $LMM_BASE/LMPServer/version.txt
 		chown $LMM_USER.$LMM_GROUP -R $LMM_BASE
 		screen -dmS lmFirstRun mono $LMM_BASE/LMPServer/Server.exe
