@@ -25,8 +25,8 @@ lmmCommandUpdateengine() {
 		wget -nv $lmDlUrl -O /tmp/LunaMultiPlayer-Release.zip
 		unzip /tmp/LunaMultiPlayer-Release.zip -d $LMM_BASE
 		rm /tmp/LunaMultiPlayer-Release.zip
-		echo "copie de $lmVersion dans $LMM_BASE/LMPServer/version.txt"
-		echo "$lmVersion" > $LMM_BASE/LMPServer/version.txt
+		echo "copie de $REMOTE dans $LMM_BASE/LMPServer/version.txt"
+		echo $REMOTE > $LMM_BASE/LMPServer/version.txt
 		chown $LMM_USER.$LMM_GROUP -R $LMM_BASE
 		screen -dmS lmFirstRun mono $LMM_BASE/LMPServer/Server.exe
 		sleep 5
