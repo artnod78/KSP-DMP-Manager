@@ -8,7 +8,6 @@ fi
 
 ADDCRONJOBS=0
 RUNINSTALL=0
-INSTALLOPTIONALDEPS=0
 
 DEPENDENCIES="unzip screen mono-complete"
 
@@ -25,7 +24,6 @@ showHelp() {
 	echo "Usage: ./bootstrap.sh [-h] -i"
 	echo "Parameters:"
 	echo "  -h   Print this help screen and exit"
-#	echo "  -o   Install optional dependencies ($OPTDEPENDENCIES)"
 	echo "  -i   Required to actually start the installation"
 }
 
@@ -73,12 +71,6 @@ installAptDeps() {
 	echo -e "\n=============================================================\n\n"
 }
 
-installOptionalDeps() {
-	echo -e "Installing optional dependencies\n"
-	apt-get install $OPTDEPENDENCIES
-	echo -e "\n=============================================================\n\n"
-}
-
 checkSetupDeps() {
 	for DEP in git unzip screen mono-complete; do
 		which $DEP > /dev/null 2>&1
@@ -97,8 +89,8 @@ setupUser() {
 }
 
 installLunaServer() {
-	echo -e "Downloading and installing DMPServer\n"
 	lmVersion=$(curl -s https://api.github.com/repos/LunaMultiplayer/LunaMultiplayer/releases/latest | grep -e "tag_name" | cut -d "\"" -f4)
+	echo -e "Downloading and installing Luna Multiplayer $lmVersion\n"
 	lmDlUrl="https://github.com/LunaMultiplayer/LunaMultiplayer/releases/download/$lmVersion/LunaMultiPlayer-Release.zip"
 	wget -nv $lmDlUrl -O /tmp/LunaMultiPlayer-Release.zip
 	unzip /tmp/LunaMultiPlayer-Release.zip -d /home/ksp
@@ -108,7 +100,7 @@ installLunaServer() {
 	echo -e "Executing first run\n"
 	screen -dmS lmFirstRun mono /home/ksp/LMPServer/Server.exe
 	sleep 5
-	screen -S lmFirstRun -X stuff "/shutdown^M"
+	screen -S lmFirstRun -X stuff $'\003'
 	echo -e "\n=============================================================\n\n"
 }
 
@@ -137,18 +129,11 @@ main() {
 
 	if [ $ISDEBIAN -eq 1 ]; then
 		installAptDeps
-		if [ $INSTALLOPTIONALDEPS -eq 1 ]; then
-#			installOptionalDeps
-			echo
-		fi
 	else
 		checkSetupDeps
 	fi
 	setupUser
-	installDMPServer
-	if [ $ADDCRONJOBS -eq 1 ]; then
-		addCronJobs
-	fi
+	installLunaServer
 	finish
 }
 
