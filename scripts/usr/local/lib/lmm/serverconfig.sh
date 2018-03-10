@@ -572,7 +572,7 @@ configEditRelay() {
 	echo "Relay position option"
 	echo "--------------------------------"
 	for CV in \
-			RelaySystemMode FarDistanceUpdateIntervalMs MediumDistanceUpdateIntervalMs CloseDistanceUpdateIntervalMs \
+			RelaySystemMode FarDistanceUpdateIntervalMs MediumDistanceUpdateIntervalMs CloseDistanceUpdateIntervalMs CloseDistanceInMeters \
 			; do
 		$1 $CV
 	done
