@@ -9,3 +9,9 @@ The Linux Server Management scripts aim to provide a full management tool set fo
 
 This wiki will guide you through the setup and usage of the tool set.  
 [Wiki](https://github.com/artnod78/KSP-DMP-Manager/wiki)
+
+-------------
+
+### PATCH Note
+#### 2016/xx/xx v100
+* Start project
