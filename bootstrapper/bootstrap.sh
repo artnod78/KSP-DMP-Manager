@@ -10,7 +10,7 @@ ADDCRONJOBS=0
 RUNINSTALL=0
 INSTALLOPTIONALDEPS=0
 
-DEPENDENCIES="curl xmlstarlet net-tools unzip screen mono-complete"
+DEPENDENCIES="curl xmlstarlet rsync net-tools unzip screen mono-complete"
 OPTDEPENDENCIES=""
 
 
