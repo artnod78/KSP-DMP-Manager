@@ -125,6 +125,7 @@ getLocalLMPServerVersion() {
 # Returns:
 #   0/1 not in use/in use
 checkGamePortUsed() {
+	echo "check if $1 is used"
 	local I
 	for I in $(getInstanceList); do
 		if [ "$2" != "$I" ]; then
