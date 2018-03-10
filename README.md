@@ -16,6 +16,7 @@ More information for **Luna Multiplayer** [here](http://lunamultiplayer.com/)
 
 ### TODO List
 * Upgrade instances with ``updateengine`` command
+* Fix ``checkGamePortUsed``
 * Edit Wiki
 -------------
 
