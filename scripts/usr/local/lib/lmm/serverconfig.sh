@@ -838,3 +838,17 @@ setConfigValue() {
 	local CONF=$(getInstancePath $1)/Config/Settings.txt
 	$XMLSTARLET ed -L -u "/SettingsDefinition/$2" -v "$3" $CONF
 }
+
+changeUTF() {
+if [ $2 -eq 16 || $2 -eq 8 ]; then
+	local CONF=$(getInstancePath $1)/Config/Settings.txt
+	local TMPPATH=`mktemp -d`
+	if [ $2 -eq 8 ]; then
+		sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $CONF > $TMPPATH/Settings.txt
+	else
+		sed 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="utf-16"?>/' $CONF > $TMPPATH/Settings.txt
+	fi	
+	mv $TMPPATH/Settings.txt $CONF -f
+	rm -fr $TMPPATH
+fi
+}
