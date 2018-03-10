@@ -1,5 +1,5 @@
 # Luna Multiplayer - Linux Server Management Scripts
-The Linux Server Management scripts aim to provide a full management tool set for a **Luna Multiplayer server**. They allow to manage most aspects of the server
+The **Linux Server Management scripts** aim to provide a full management tool set for a **Luna Multiplayer server**. They allow to manage most aspects of the server
 
   * Installing and updating mod
   * Creating/editing/deleting server instances (including editing the serverconfig through a commandline interface)
