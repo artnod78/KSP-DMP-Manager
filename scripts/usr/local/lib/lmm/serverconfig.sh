@@ -24,7 +24,7 @@ serverconfig_Port_Validate() {
 		echo "0"
 	fi
 }
-serverconfig_ServerPort_ErrorMessage() {
+serverconfig_Port_ErrorMessage() {
 	echo "Illegal port number or port already in use by another instance."
 }
 
