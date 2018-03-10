@@ -127,12 +127,12 @@ checkGamePortUsed() {
 	local I
 	for I in $(getInstanceList); do
 		if [ "$2" != "$I" ]; then
-			local CURPORT=$(getSettingValue $I "Port")
-			if [ $CURPORT -eq $1 ]; then
+			local CURPORT=$(getConfigValue $I "Port")
+			if [ "$CURPORT" -eq "$1" ]; then
 				echo 1
 				return
 			fi
-			if [ 8800 -eq $1 ]; then
+			if [ "8800" -eq "$1" ]; then
 				echo 1
 				return
 			fi
