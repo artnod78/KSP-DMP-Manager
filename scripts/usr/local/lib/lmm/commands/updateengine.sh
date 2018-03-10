@@ -44,9 +44,8 @@ lmmCommandUpdateengine() {
 	
 	
 	if [ "$CHECKONLY" = "yes" ]; then
-		echo "Installed:"
+		echo "Installed release:"
 		echo "  Version:     $LOCAL"
-		echo
 		echo "Available release:"
 		echo "  Version:     $REMOTE"
 		echo
@@ -92,7 +91,7 @@ lmmCommandUpdateengine() {
 		
 		rm -fr $LMP_BASE/LMPServer	
 		rm -fr $LMP_BASE/LMPClient
-		rm -f $LMP_BASE/LMP\ Readme.txt
+		rm -f "$LMP_BASE/LMP Readme.txt"
 		
 		wget -nv $lmDlUrl -O /tmp/LunaMultiPlayer-Release.zip
 		unzip /tmp/LunaMultiPlayer-Release.zip -d $LMM_BASE

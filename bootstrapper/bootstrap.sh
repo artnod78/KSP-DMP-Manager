@@ -167,7 +167,7 @@ finish() {
 
 	echo
 	echo -e "For further configuration options check:"
-	echo -e "  /etc/dmpmanager.conf"
+	echo -e "  /etc/lmm.conf"
 	echo
 	echo -e "For feedback, suggestions, problems please visit the github:"
 	echo -e "  https://github.com/artnod78/KSP-DMP-Manager"
