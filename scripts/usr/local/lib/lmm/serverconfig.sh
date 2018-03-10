@@ -19,7 +19,7 @@ serverconfig_Port_Range() {
 }
 serverconfig_ServerPort_Validate() {
 	local I=${INSTANCE:-!}
-	if [ $(checkGamePortUsed "$I" "$1") -eq 0 ]; then
+	if [ $(checkGamePortUsed "$1" "$I") -eq 0 ]; then
 		echo "1"
 	else
 		echo "0"
