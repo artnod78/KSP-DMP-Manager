@@ -19,8 +19,7 @@ lmmCommandStart() {
 	fi
 
 	if [ $(isRunning $1) -eq 0 ]; then
-		echo "mono $(getInstancePath $1)/Server.exe"
-		screen -dmS "$1" "mono $(getInstancePath $1)/Server.exe"
+		screen -dmS $1 /usr/bin/mono $(getInstancePath $1)/Server.exe
 		sleep 1
 
 		if [ $(isRunning $1) -eq 1 ]; then
