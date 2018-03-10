@@ -49,6 +49,7 @@ lmmCommandKill() {
 	else
 		echo "Instance $1 is NOT running"
 	fi
+	echo
 }
 
 lmmCommandKillHelp() {
@@ -56,10 +57,12 @@ lmmCommandKillHelp() {
 	echo
 	echo "Stops the given instance."
 	echo "If <instance> is \"!\" all defined instances are stopped."
+	echo
 }
 
 lmmCommandKillDescription() {
 	echo "Stop the given instance"
+	echo
 }
 
 lmmCommandKillExpects() {
@@ -68,4 +71,5 @@ lmmCommandKillExpects() {
 			echo "! $(getInstanceList)"
 			;;
 	esac
+	echo
 }

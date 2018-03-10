@@ -840,7 +840,7 @@ setConfigValue() {
 }
 
 changeUTF() {
-if [ $2 -eq 16 || $2 -eq 8 ]; then
+if [ $2 -eq 16 ] || [ $2 -eq 8 ]; then
 	local CONF=$(getInstancePath $1)/Config/Settings.txt
 	local TMPPATH=`mktemp -d`
 	if [ $2 -eq 8 ]; then

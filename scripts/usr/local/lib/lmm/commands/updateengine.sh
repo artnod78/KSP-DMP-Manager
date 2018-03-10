@@ -107,6 +107,7 @@ lmmCommandUpdateengine() {
 		echo "LMPServer is already at the newest version (local: $LOCAL, remote: $REMOTE)."
 		echo "Run with the --force parameter to update/validate the LMPServer files anyway."
 	fi
+	echo
 }
 
 lmmCommandUpdateengineHelp() {
@@ -120,10 +121,12 @@ lmmCommandUpdateengineHelp() {
 	echo
 	echo "If --check is specified it will only output the current local and remote version"
 	echo "and if an update is available."
+	echo
 }
 
 lmmCommandUpdateengineDescription() {
 	echo "Update the LMPServer files"
+	echo
 }
 
 lmmCommandUpdateengineExpects() {
@@ -132,4 +135,5 @@ lmmCommandUpdateengineExpects() {
 			echo "--check --force"
 			;;
 	esac
+	echo
 }

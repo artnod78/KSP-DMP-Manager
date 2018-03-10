@@ -30,6 +30,7 @@ lmmCommandStart() {
 	else
 		echo "Instance $1 is already running"
 	fi
+	echo
 }
 
 lmmCommandStartHelp() {
@@ -37,10 +38,12 @@ lmmCommandStartHelp() {
 	echo
 	echo "Starts the given instance."
 	echo "If <instance> is \"!\" all defined instances are started."
+	echo
 }
 
 lmmCommandStartDescription() {
 	echo "Start the given instance"
+	echo
 }
 
 lmmCommandStartExpects() {
@@ -49,4 +52,5 @@ lmmCommandStartExpects() {
 			echo "! $(getInstanceList)"
 			;;
 	esac
+	echo
 }

@@ -8,9 +8,10 @@ lmmCommandAbout() {
 }
 
 lmmCommandAboutHelp() {
-	sdtdCommandAbout
+	lmmCommandAbout
 }
 
 lmmCommandAboutDescription() {
 	echo "Version and short info about these scripts"
+	echo
 }

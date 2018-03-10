@@ -14,6 +14,7 @@ lmmSubcommandInstancesList() {
 
 		printf "%-*s | %-*s | %-*s\n" 20 "$I" 8 "$run" 7 "$port"
 	done
+	echo
 }
 
 lmmSubcommandInstancesCreate() {
@@ -50,7 +51,6 @@ lmmSubcommandInstancesEdit() {
 	fi
 		
 	if [ $(isRunning "$1") -eq 0 ]; then
-		INSTANCE=$1
 		
 		loadCurrentConfigValues "$1"
 
@@ -104,6 +104,7 @@ lmmSubcommandInstancesEdit() {
 	else
 		echo "Instance $1 is currently running. Please stop it first."
 	fi
+	echo
 }
 
 lmmSubcommandInstancesDelete() {
@@ -133,6 +134,7 @@ lmmSubcommandInstancesDelete() {
 	else
 		echo "Instance $1 is currently running. Please stop it first."
 	fi
+	echo
 }
 
 lmmSubcommandInstancesPrintConfig() {
@@ -142,6 +144,7 @@ lmmSubcommandInstancesPrintConfig() {
 	fi
 	loadCurrentConfigValues $1
 	configEditAll printConfigValue
+	echo
 }
 
 lmmCommandInstances() {
@@ -181,10 +184,12 @@ lmmCommandInstancesHelp() {
 	line "edit <instance>" "Edit an existing instance"
 	line "delete <instance>" "Delete an existing instance"
 	line "print_config <instance>" "List instance settings"
+	echo
 }
 
 lmmCommandInstancesDescription() {
 	echo "List all defined instances"
+	echo
 }
 
 lmmCommandInstancesExpects() {
@@ -200,4 +205,5 @@ lmmCommandInstancesExpects() {
 			esac
 			;;
 	esac
+	echo
 }

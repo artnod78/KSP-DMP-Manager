@@ -23,12 +23,6 @@ lmmCommandStatus() {
 		echo "Status: NOT running"
 	fi
 	
-	local IPATH=$(getInstancePath "$1")
-	TMPPATH=`mktemp -d`
-	sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $IPATH/Config/Settings.txt > $TMPPATH/Settings.txt
-	mv $TMPPATH/Settings.txt $IPATH/Config/Settings.txt -f
-	rm -fr $TMPPATH
-	
 	echo
 	echo "Game info:"
 	line "Server name:" "$(getConfigValue $1 ServerName)"
@@ -40,12 +34,6 @@ lmmCommandStatus() {
 	line "Port:" "$(getConfigValue $1 Port)"
 	line "Public:" "$(getConfigValue $1 RegisterWithMasterServer)"
 	
-	local IPATH=$(getInstancePath "$1")
-	TMPPATH=`mktemp -d`
-	sed 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="utf-16"?>/' $IPATH/Config/Settings.txt > $TMPPATH/Settings.txt
-	mv $TMPPATH/Settings.txt $IPATH/Config/Settings.txt -f
-	rm -fr $TMPPATH
-	
 	echo
 }
 
@@ -53,10 +41,12 @@ lmmCommandStatusHelp() {
 	echo "Usage: $(basename $0) status <instance>"
 	echo
 	echo "Print status information for the given instance."
+	echo
 }
 
 lmmCommandStatusDescription() {
 	echo "Print status for the given instance"
+	echo
 }
 
 lmmCommandStatusExpects() {
@@ -65,4 +55,5 @@ lmmCommandStatusExpects() {
 			getInstanceList
 			;;
 	esac
+	echo
 }
