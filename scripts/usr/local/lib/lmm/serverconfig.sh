@@ -802,18 +802,15 @@ loadCurrentConfigValues() {
 #   1: Instance name
 saveCurrentConfigValues() {
 	local CV
-	for CV in $(listConfigValues) TelnetEnabled AdminFileName SaveGameFolder; do
+	for CV in $(listConfigValues); do
 		local currentValName=configCurrent_$CV
 		local val="${!currentValName}"
 		local CONF=$(getInstancePath "$1")/Config/Settings.txt
 
 		XPATHBASE="/SettingsDefinition"
 
-		if [ -z $($XMLSTARLET sel -t -m "$XPATHBASE" -v "$CV" -n $CONF) ]; then
-			$XMLSTARLET ed -L -s "$XPATHBASE" -t elem -n "$CV" -v "$val" $CONF
-		else
-			$XMLSTARLET ed -L -u "$XPATHBASE/$CV" -v "$val" $CONF
-		fi
+		$XMLSTARLET ed -L -u "$XPATHBASE/$CV" -v "$val" $CONF
+		
 	done
 }
 
