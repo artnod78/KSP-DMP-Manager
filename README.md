@@ -1,5 +1,5 @@
 # Luna Multiplayer - Linux Server Management Scripts
-The Linux Server Management scripts aim to provide a full management tool set for a Luna Multiplayer server. They allow to manage most aspects of the server
+The Linux Server Management scripts aim to provide a full management tool set for a **Luna Multiplayer server**. They allow to manage most aspects of the server
 
   * Installing and updating mod
   * Creating/editing/deleting server instances (including editing the serverconfig through a commandline interface)
@@ -10,7 +10,7 @@ The Linux Server Management scripts aim to provide a full management tool set fo
 This wiki will guide you through the setup and usage of the tool set.  
 [Wiki](https://github.com/artnod78/KSP-DMP-Manager/wiki)
 
-More information for Luna Mulplayer [here](http://lunamultiplayer.com/)
+More information for **Luna Multiplayer** [here](http://lunamultiplayer.com/)
 
 -------------
 
