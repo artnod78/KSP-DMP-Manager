@@ -7,12 +7,12 @@
 #  2 : No instance name given
 #  3 : No such instance
 
-dmpCommandKill() {
+lmmCommandKill() {
 	if [ "$1" = "!" ]; then
 		echo "Stopping all instances:"
 		for I in $(getInstanceList); do
 			printf "%s:\n" "$I"
-			dmpCommandKill $I
+			lmmCommandKill $I
 			echo
 		done
 		echo "All done"
@@ -28,7 +28,7 @@ dmpCommandKill() {
 	if [ $res -eq 1 ]; then
 
 		echo "Trying to gracefully shutdown..."
-		tmp=$(sendCommand $1 "/shutdown")
+		screen -S $1 -X stuff $'\003'
 		echo "Waiting for server to shut down..."
 	
 		waittime=0
@@ -42,8 +42,8 @@ dmpCommandKill() {
 		if [ $(isRunning $1) -eq 1 ]; then
 			echo "Failed, force closing server..."
 			kill -9 $(getInstancePID $1)
+			kill -9 $(screen -ls | grep -e "$1" | awk '{print $1}' | cut -d '.' -f1)
 		fi
-		rm $(getInstancePath $1)/monitor.pid
 
 		echo "Done"	
 	else
@@ -51,22 +51,21 @@ dmpCommandKill() {
 	fi
 }
 
-dmpCommandKillHelp() {
+lmmCommandKillHelp() {
 	echo "Usage: $(basename $0) kill <instance>"
 	echo
 	echo "Stops the given instance."
 	echo "If <instance> is \"!\" all defined instances are stopped."
 }
 
-dmpCommandKillDescription() {
+lmmCommandKillDescription() {
 	echo "Stop the given instance"
 }
 
-dmpCommandKillExpects() {
+lmmCommandKillExpects() {
 	case $1 in
 		2)
 			echo "! $(getInstanceList)"
 			;;
 	esac
 }
-

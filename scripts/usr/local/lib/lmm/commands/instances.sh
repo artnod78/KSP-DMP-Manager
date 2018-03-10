@@ -87,7 +87,6 @@ lmmSubcommandInstancesEdit() {
 					break
 					;;
 				w)
-					configSetAutoParameters "$INSTANCE"
 					echo "Saving"
 					saveCurrentConfigValues "$1"
 					echo "Done"
@@ -180,6 +179,7 @@ lmmCommandInstancesHelp() {
 	line "create" "Create a new instance"
 	line "edit <instance>" "Edit an existing instance"
 	line "delete <instance>" "Delete an existing instance"
+	line "print_config <instance>" "List instance settings"
 }
 
 lmmCommandInstancesDescription() {
