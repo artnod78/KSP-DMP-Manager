@@ -8,7 +8,10 @@ The **Linux Server Management scripts** aim to provide a full management tool se
   * Backup of game data files (instance configurations, logs, saves)
 
 This wiki will guide you through the setup and usage of the tool set.  
-[Wiki](https://github.com/artnod78/KSP-DMP-Manager/wiki)
+[[wiki]]
+
+
+(https://github.com/artnod78/KSP-DMP-Manager/wiki)
 
 More information for **Luna Multiplayer** [here](http://lunamultiplayer.com/)
 
