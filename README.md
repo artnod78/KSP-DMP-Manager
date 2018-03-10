@@ -7,4 +7,5 @@ The Linux Server Management scripts aim to provide a full management tool set fo
   * Starting/stopping instances including graceful shutdown if the server has not hung up
   * Backup of game data files (instance configurations, logs, saves)
 
-This wiki will guide you through the setup and usage of the tool set.
+This wiki will guide you through the setup and usage of the tool set.  
+[Wiki](https://github.com/artnod78/KSP-DMP-Manager/wiki)
