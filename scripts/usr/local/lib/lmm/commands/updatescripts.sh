@@ -3,8 +3,8 @@
 # Checks for newer scripts version and downloads them
 
 lmmCommandUpdatescripts() {
-	local LOCAL=$(cat /usr/local/lib/lmm/VERSION | grep "Version" | cut -d\  -f2)
-	local REMOTE=$(wget -qO- https://raw.githubusercontent.com/artnod78/KSP-DMP-Manager/master/scripts/usr/local/lib/lmm/VERSION | grep "Version" | cut -d\  -f2)
+	local LOCAL=$(tr -d "\r" <<< $(cat /usr/local/lib/lmm/VERSION | grep "Version" | awk '{print $2}'))
+	local REMOTE=$(tr -d "\r" <<< $(wget -qO- https://raw.githubusercontent.com/artnod78/KSP-DMP-Manager/master/scripts/usr/local/lib/lmm/VERSION | grep "Version" | awk '{print $2}'))
 	
 	local FORCED
 	if [ "$1" = "--force" ]; then
@@ -12,7 +12,7 @@ lmmCommandUpdatescripts() {
 	else
 		FORCED=no
 	fi
-	if [ "$FORCED" = "yes" -o $REMOTE -gt $LOCAL ]; then
+	if [ "$FORCED" = "yes" ] || [ $REMOTE -gt $LOCAL ]; then
 		echo "A newer version of the scripts is available."
 		echo "Local:     v.$LOCAL"
 		echo "Available: v.$REMOTE"
