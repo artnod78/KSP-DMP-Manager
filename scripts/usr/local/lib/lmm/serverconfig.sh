@@ -12,7 +12,7 @@ serverconfig_Port_Type() {
 	echo "number"
 }
 serverconfig_Port_Default() {
-	echo "8800"
+	echo "8801"
 }
 serverconfig_Port_Range() {
 	echo "1024-65533"
@@ -35,6 +35,9 @@ serverconfig_ServerName_QueryName() {
 serverconfig_ServerName_Type() {
 	echo "string"
 }
+serverconfig_ServerName_Default() {
+	echo "Luna Server"
+}
 serverconfig_ServerName_Validate() {
 	if [ ! -z "$1" ]; then
 		echo "1"
@@ -51,6 +54,9 @@ serverconfig_Description_QueryName() {
 }
 serverconfig_Description_Type() {
 	echo "string"
+}
+serverconfig_Description_Default() {
+	echo "Luna Server Description"
 }
 
 serverconfig_ServerMotd_QueryName() {
@@ -176,6 +182,9 @@ serverconfig_ConsoleIdentifier_QueryName() {
 }
 serverconfig_ConsoleIdentifier_Type() {
 	echo "string"
+}
+serverconfig_ConsoleIdentifier_Default() {
+	echo "Server"
 }
 serverconfig_ConsoleIdentifier_Validate() {
 	if [ ! -z "$1" ]; then
