@@ -73,7 +73,7 @@ lmmCommandUpdatescripts() {
 	echo
 }
 
-sdtdCommandUpdatescriptsHelp() {
+lmmCommandUpdatescriptsHelp() {
 	echo "Usage: $(basename $0) updatescripts [--force]"
 	echo
 	echo "Check for a newer version of the management scripts. If there is a newer"
@@ -84,12 +84,12 @@ sdtdCommandUpdatescriptsHelp() {
 	echo
 }
 
-sdtdCommandUpdatescriptsDescription() {
+lmmCommandUpdatescriptsDescription() {
 	echo "Update these scripts"
 	echo
 }
 
-sdtdCommandUpdatescriptsExpects() {
+lmmCommandUpdatescriptsExpects() {
 	case $1 in
 		2)
 			echo "--force"
