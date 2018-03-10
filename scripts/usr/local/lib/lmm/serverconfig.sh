@@ -806,6 +806,8 @@ saveCurrentConfigValues() {
 		local currentValName=configCurrent_$CV
 		local val="${!currentValName}"
 		local CONF=$(getInstancePath "$1")/Config/Settings.txt
+		
+		setConfigValue $1 $CV "$val"
 
 		XPATHBASE="/SettingsDefinition"
 
@@ -832,5 +834,5 @@ getConfigValue() {
 #   3: New value
 setConfigValue() {
 	local CONF=$(getInstancePath $1)/Config/Settings.txt
-	$XMLSTARLET ed -L -u "/SettingsDefinition" -v "$3" $CONF
+	$XMLSTARLET ed -L -u "/SettingsDefinition/$2" -v "$3" $CONF
 }
