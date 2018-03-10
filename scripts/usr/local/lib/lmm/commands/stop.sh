@@ -16,6 +16,7 @@ lmmCommandKill() {
 			echo
 		done
 		echo "All done"
+		echo
 		return
 	fi
 
@@ -49,7 +50,7 @@ lmmCommandKill() {
 	else
 		echo "Instance $1 is NOT running"
 	fi
-	echo
+	
 }
 
 lmmCommandKillHelp() {

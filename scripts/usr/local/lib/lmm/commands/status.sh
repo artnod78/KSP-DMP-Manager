@@ -5,6 +5,7 @@
 lmmCommandStatus() {
 	if [ $(isValidInstance $1) -eq 0 ]; then
 		echo "No instance given or not a valid instance!"
+		echo
 		return
 	fi
 

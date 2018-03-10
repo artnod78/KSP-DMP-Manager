@@ -10,6 +10,7 @@ lmmCommandStart() {
 			lmmCommandStart $I
 		done
 		echo "All done"
+		echo
 		return
 	fi
 
@@ -30,7 +31,6 @@ lmmCommandStart() {
 	else
 		echo "Instance $1 is already running"
 	fi
-	echo
 }
 
 lmmCommandStartHelp() {
