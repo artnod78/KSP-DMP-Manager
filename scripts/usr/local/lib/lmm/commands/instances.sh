@@ -28,7 +28,12 @@ lmmSubcommandInstancesCreate() {
 	local IPATH=$(getInstancePath "$INSTANCE")
 	mkdir -p "$IPATH" 2>/dev/null
 	cp -R $LMM_BASE/LMPServer/* "$IPATH/"
-
+	
+	TMPPATH=`mktemp -d`
+	sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $IPATH/Config/Settings.txt > $TMPPATH/Settings.txt
+	mv $TMPPATH/Settings.txt $IPATH/Config/Settings.txt -f
+	rm -fr $TMPPATH
+	
 	configEditAll configQueryValue
 	echo
 	echo "Saving"
@@ -39,6 +44,12 @@ lmmSubcommandInstancesCreate() {
 	saveCurrentConfigValues "$INSTANCE"
 	chown -R $LMM_USER.$LMM_GROUP $IPATH
 	echo "Done"
+	
+	TMPPATH=`mktemp -d`
+	sed 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="utf-16"?>/' $IPATH/Config/Settings.txt > $TMPPATH/Settings.txt
+	mv $TMPPATH/Settings.txt $IPATH/Config/Settings.txt -f
+	rm -fr $TMPPATH
+	
 }
 
 lmmSubcommandInstancesEdit() {
@@ -49,6 +60,13 @@ lmmSubcommandInstancesEdit() {
 		
 	if [ $(isRunning "$1") -eq 0 ]; then
 		INSTANCE=$1
+		
+		local IPATH=$(getInstancePath "$INSTANCE")
+		TMPPATH=`mktemp -d`
+		sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $IPATH/Config/Settings.txt > $TMPPATH/Settings.txt
+		mv $TMPPATH/Settings.txt $IPATH/Config/Settings.txt -f
+		rm -fr $TMPPATH
+		
 		loadCurrentConfigValues "$1"
 
 		while : ; do
@@ -97,6 +115,12 @@ lmmSubcommandInstancesEdit() {
 					echo
 			esac
 		done
+		
+		TMPPATH=`mktemp -d`
+		sed 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="utf-16"?>/' $IPATH/Config/Settings.txt > $TMPPATH/Settings.txt
+		mv $TMPPATH/Settings.txt $IPATH/Config/Settings.txt -f
+		rm -fr $TMPPATH
+		
 	else
 		echo "Instance $1 is currently running. Please stop it first."
 	fi
@@ -138,9 +162,21 @@ lmmSubcommandInstancesPrintConfig() {
 	fi
 		
 	INSTANCE=$1
+	
+	local IPATH=$(getInstancePath "$INSTANCE")
+	TMPPATH=`mktemp -d`
+	sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $IPATH/Config/Settings.txt > $TMPPATH/Settings.txt
+	mv $TMPPATH/Settings.txt $IPATH/Config/Settings.txt -f
+	rm -fr $TMPPATH
+	
 	loadCurrentConfigValues "$1"
-
 	configEditAll printConfigValue
+	
+	TMPPATH=`mktemp -d`
+	sed 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="utf-16"?>/' $IPATH/Config/Settings.txt > $TMPPATH/Settings.txt
+	mv $TMPPATH/Settings.txt $IPATH/Config/Settings.txt -f
+	rm -fr $TMPPATH
+	
 }
 
 lmmCommandInstances() {

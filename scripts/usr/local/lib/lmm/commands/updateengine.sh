@@ -33,11 +33,6 @@ lmmCommandUpdateengine() {
 		sleep 5
 		screen -S lmFirstRun -X stuff $'\003'
 		
-		TMPPATH=`mktemp -d`
-		sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $LMM_BASE/LMPServer/Config/Settings.txt > $TMPPATH/Settings.txt
-		mv $TMPPATH/Settings.txt $LMM_BASE/LMPServer/Config/Settings.txt -f
-		rm -fr $TMPPATH
-		
 	fi
 	
 	local LOCAL=$(getLocalLMPServerVersion)
@@ -103,11 +98,6 @@ lmmCommandUpdateengine() {
 		screen -dmS lmFirstRun mono $LMM_BASE/LMPServer/Server.exe
 		sleep 5
 		screen -S lmFirstRun -X stuff $'\003'
-		
-		TMPPATH=`mktemp -d`
-		sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $LMM_BASE/LMPServer/Config/Settings.txt > $TMPPATH/Settings.txt
-		mv $TMPPATH/Settings.txt $LMM_BASE/LMPServer/Config/Settings.txt -f
-		rm -fr $TMPPATH
 		
 		# TODO copy new version in all instances
 		
