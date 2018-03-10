@@ -127,13 +127,12 @@ checkGamePortUsed() {
 	local I
 	for I in $(getInstanceList); do
 		if [ "$2" != "$I" ]; then
-			local CURPORT=$(getSettingValue $I "port")
+			local CURPORT=$(getSettingValue $I "Port")
 			if [ $CURPORT -eq $1 ]; then
 				echo 1
 				return
 			fi
-			local CURHTTP=$(getSettingValue $I "http")
-			if [ $CURHTTP -eq $1 ]; then
+			if [ 8800 -eq $1 ]; then
 				echo 1
 				return
 			fi
