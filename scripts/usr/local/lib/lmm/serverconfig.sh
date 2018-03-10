@@ -17,9 +17,8 @@ serverconfig_Port_Default() {
 serverconfig_Port_Range() {
 	echo "1024-65533"
 }
-serverconfig_ServerPort_Validate() {
-	local I=${INSTANCE:-!}
-	if [ $(checkGamePortUsed "$1" "$I") -eq 0 ]; then
+serverconfig_Port_Validate() {
+	if [ $(checkGamePortUsed "$1") -eq 0 ]; then
 		echo "1"
 	else
 		echo "0"
