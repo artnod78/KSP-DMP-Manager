@@ -22,5 +22,5 @@ More information for **Luna Multiplayer** [here](http://lunamultiplayer.com/)
 -------------
 
 ### PATCH Note
-#### 2018/02/25 v100
+#### 2018/02/25 v0.0.1
 * Start project
