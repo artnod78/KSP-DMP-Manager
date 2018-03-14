@@ -15,7 +15,7 @@ More information for **Luna Multiplayer** [here](http://lunamultiplayer.com/)
 -------------
 
 ### TODO List
-* Upgrade instances with ``lmm.sh updateengine`` command
+* Update instances with ``lmm.sh update <instanceName>`` command
 * ~~More settings groups~~
 * ~~Implement ``Password`` and ``WarpMaster`` settings. Can be empty~~
 * ~~Add instances version in ``lmm.sh instances list`` output~~
