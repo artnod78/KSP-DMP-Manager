@@ -121,19 +121,22 @@ getLocalLMPServerVersion() {
 # Check if a given TCP port is already in use by any instance
 # Params:
 #   1: Port
+#	2: Instance Name
 # Returns:
 #   0/1 not in use/in use
 checkGamePortUsed() {
-	if [ "8800" -eq "$1" ]; then
+	if [ 8800 -eq $1 ]; then
 		echo 1
 		return
 	fi
 	local I
 	for I in $(getInstanceList); do
-		local CURPORT=$(getConfigValue $I "Port")
-		if [ "$CURPORT" -eq "$1" ]; then
-			echo 1
-			return
+		if [ "$2" != "$I" ]; then
+			local CURPORT=$(getConfigValue $I "Port")
+			if [ $CURPORT -eq $1 ]; then
+				echo 1
+				return
+			fi
 		fi
 	done
 	echo 0

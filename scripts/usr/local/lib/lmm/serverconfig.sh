@@ -1,5 +1,5 @@
 #!/bin/bash
-
+currentInstance=""
 # Provides functions to query and validate values for Settings.txt
 
 #################################
@@ -18,7 +18,7 @@ serverconfig_Port_Range() {
 	echo "1024-65533"
 }
 serverconfig_Port_Validate() {
-	if [ $(checkGamePortUsed "$1") -eq 0 ]; then
+	if [ $(checkGamePortUsed $1 "$currentInstance") -eq 0 ]; then
 		echo "1"
 	else
 		echo "0"
@@ -794,6 +794,7 @@ unsetAllConfigValues() {
 # Params:
 #   1: Instance name
 loadCurrentConfigValues() {
+	currentInstance=$1
 	local CV
 	for CV in $(listConfigValues); do
 		local currentValName=configCurrent_$CV
