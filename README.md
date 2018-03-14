@@ -15,12 +15,15 @@ More information for **Luna Multiplayer** [here](http://lunamultiplayer.com/)
 -------------
 
 ### TODO List
-* Upgrade instances with ``updateengine`` command
-* ~~Fix ``checkGamePortUsed``~~
+* Upgrade instances with ``lmm.sh updateengine`` command
 * More settings group
-* ~~Edit Wiki~~
+* Add instances version in ``lmm.sh instances list`` output
+
 -------------
 
 ### PATCH Note
+#### 2018/03/14 v0.0.2
+* Fix ``checkGamePortUsed`` in ``lmm.sh instances edit <InstanceName>``
+* Edit Wiki
 #### 2018/02/25 v0.0.1
 * Start project
