@@ -21,6 +21,7 @@ More information for **Luna Multiplayer** [here](http://lunamultiplayer.com/)
 * ~~Add instances version in ``lmm.sh instances list`` output~~
 * Hide internal functions from bash_completion
 * Fix deamon. Migrate to SysD instead of SysV
+* Export backups in Cloud
 
 -------------
 
