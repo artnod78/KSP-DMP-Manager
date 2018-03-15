@@ -20,6 +20,7 @@ More information for **Luna Multiplayer** [here](http://lunamultiplayer.com/)
 * ~~Implement ``Password`` and ``WarpMaster`` settings. Can be empty~~
 * ~~Add instances version in ``lmm.sh instances list`` output~~
 * Hide internal functions from bash_completion
+* Fix deamon. Migrate to SysD instead of SysV
 
 -------------
 
