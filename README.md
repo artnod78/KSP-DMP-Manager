@@ -1,11 +1,11 @@
-# Luna Multiplayer - Linux Server Management Scripts
-The **Linux Server Management scripts** aim to provide a full management tool set for a **Luna Multiplayer server**. They allow to manage most aspects of the server
+# Linux Management Scripts for Luna Multi Player Server 
+The **Linux Management scripts** aim to provide a full management tool set for multiple **Luna Multi Player Server**. They allow to simply manage most aspects of the server
 
-  * Installing and updating mod
-  * Creating/editing/deleting server instances (including editing the serverconfig through a commandline interface)
+  * Installing/updating LMPServer mod
+  * Creating/editing/deleting/updating server instances (including editing the Settings.xml file through a commandline interface)
   * List all instances with basic information or show detailed information on a single instance
   * Starting/stopping instances including graceful shutdown if the server has not hung up
-  * Backup of game data files (instance configurations, logs, saves)
+  * Backup of game data files (instance configurations, logs, universe...)
 
 This wiki will guide you through the setup and usage of the tool set.  
 [wiki](https://github.com/artnod78/KSP-DMP-Manager/wiki)
@@ -23,7 +23,6 @@ More information for **Luna Multiplayer** [here](http://lunamultiplayer.com/)
 
 ### PATCH Note
 #### v0.0.3 (2018/03/16)
-* Compatible LMP 0.3.28
 * Fix deamon. Migrate to SysD instead of SysV
 * Update instances with ``lmm.sh updateinstance <instanceName>`` command
 * Add instances version in ``lmm.sh instances list`` output
