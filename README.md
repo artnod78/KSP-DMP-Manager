@@ -2,7 +2,7 @@
 The **Linux Management scripts** aim to provide a full management tool set for multiple **Luna Multi Player Server**. They allow to simply manage most aspects of the server
 
   * Installing/updating LMPServer mod
-  * Creating/editing/deleting/updating server instances (including editing the Settings.xml file through a commandline interface)
+  * Creating/editing/deleting/updating server instances (editing the Settings.xml file through a commandline interface)
   * List all instances with basic information or show detailed information on a single instance
   * Starting/stopping instances including graceful shutdown if the server has not hung up
   * Backup of game data files (instance configurations, logs, universe...)
