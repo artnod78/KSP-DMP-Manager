@@ -6,6 +6,7 @@ The **Linux Management scripts** aim to provide a full management tool set for m
   * List all instances with basic information or show detailed information on a single instance
   * Starting/stopping instances including graceful shutdown if the server has not hung up
   * Backup of game data files (instance configurations, logs, universe...)
+  * Start/stop instances on host boot/shutdown
 
 This wiki will guide you through the setup and usage of the tool set.  
 [wiki](https://github.com/artnod78/KSP-DMP-Manager/wiki)
