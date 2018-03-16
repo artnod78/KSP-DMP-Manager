@@ -10,7 +10,7 @@ The **Linux Management scripts** aim to provide a full management tool set for m
 This wiki will guide you through the setup and usage of the tool set.  
 [wiki](https://github.com/artnod78/KSP-DMP-Manager/wiki)
 
-More information for **Luna Multiplayer** [here](http://lunamultiplayer.com/)
+More information for **Luna Multi Player** [here](http://lunamultiplayer.com/)
 
 -------------
 
