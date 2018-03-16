@@ -15,20 +15,23 @@ More information for **Luna Multiplayer** [here](http://lunamultiplayer.com/)
 -------------
 
 ### TODO List
-* ~~Update instances with ``lmm.sh updateinstance <instanceName>`` command~~
-* ~~More settings groups~~
-* ~~Implement ``Password`` and ``WarpMaster`` settings. Can be empty~~
-* ~~Add instances version in ``lmm.sh instances list`` output~~
 * Hide internal functions from bash_completion
-* ~~Fix deamon. Migrate to SysD instead of SysV~~
 * Export backups in Cloud
-* ~~Compatible LMP 0.3.28~~
 
 -------------
 
 ### PATCH Note
-#### 2018/03/14 v0.0.2
+#### v0.0.3 (2018/03/16)
+* Compatible LMP 0.3.28
+* Fix deamon. Migrate to SysD instead of SysV
+* Update instances with ``lmm.sh updateinstance <instanceName>`` command
+* Add instances version in ``lmm.sh instances list`` output
+* Implement ``Password`` and ``WarpMaster`` settings. Can be empty
+* More settings groups
+
+#### v0.0.2 (2018/03/14)
 * Fix ``checkGamePortUsed`` in ``lmm.sh instances edit <InstanceName>``
 * Edit Wiki
-#### 2018/02/25 v0.0.1
+
+#### v0.0.1 (2018/02/25)
 * Start project
