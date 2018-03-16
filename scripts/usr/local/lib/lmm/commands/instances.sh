@@ -1,8 +1,8 @@
 #!/bin/bash
 
 lmmSubcommandInstancesList() {
-	printf "%-*s | %-*s | %-*s\n" 20 "Instance name" 8 "Running" 7 "Port"
-	printf -v line "%*s-+-%*s-+-%*s-+-%*s\n" 20 " " 8 " " 7 " "
+	printf "%-*s | %-*s | %-*s | %-*s\n" 20 "Instance name" 8 "Running" 7 "Port" 7 "Version"
+	printf -v line "%*s-+-%*s-+-%*s-+-%*s-%*s\n" 20 " " 8 " " 7 " " 7 " "
 	echo ${line// /-}
 	for I in $(getInstanceList); do
 		if [ $(isRunning $I) -eq 1 ]; then
@@ -11,8 +11,9 @@ lmmSubcommandInstancesList() {
 			run="no"
 		fi
 		port=$(getConfigValue $I Port)
+		version=$(getInstanceVersion $I)
 
-		printf "%-*s | %-*s | %-*s\n" 20 "$I" 8 "$run" 7 "$port"
+		printf "%-*s | %-*s | %-*s | %-*s\n" 20 "$I" 8 "$run" 7 "$port" 7 "$version"
 	done
 	echo
 }
@@ -25,20 +26,25 @@ lmmSubcommandInstancesCreate() {
 		INSTANCE=
 	done
 	echo
-	
+
 	local IPATH=$(getInstancePath "$INSTANCE")
 	mkdir -p "$IPATH" 2>/dev/null
 	cp -R $LMM_BASE/LMPServer/* "$IPATH/"
+
 	changeUTF $INSTANCE 8
-	
-	configEditAll configQueryValue
-	echo
+	changeDefaultValue $INSTANCE
+
+	loadCurrentConfigValues $INSTANCE
+	configEditBasic configQueryValue
+
 	echo "Saving"
 	
 	if [ ! -f $IPATH/Config/Settings.txt ]; then
 		echo "<SettingsDefinition/>" > $IPATH/Config/Settings.txt
 	fi
-	saveCurrentConfigValues "$INSTANCE"
+	
+	saveCurrentConfigValues $INSTANCE
+
 	chown -R $LMM_USER.$LMM_GROUP $IPATH
 	echo "Done"
 	echo
@@ -51,7 +57,6 @@ lmmSubcommandInstancesEdit() {
 	fi
 		
 	if [ $(isRunning "$1") -eq 0 ]; then
-		
 		loadCurrentConfigValues "$1"
 
 		while : ; do

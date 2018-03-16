@@ -1,12 +1,34 @@
 #!/bin/bash
+# Provides functions to query and validate values for Settings.xml
+
 currentInstance=""
-# Provides functions to query and validate values for Settings.txt
 
 #################################
 ## Definition of options
 
+### Server Basic ###
+serverconfig_ServerName_QueryName() {
+	echo "ServerName"
+}
+serverconfig_ServerName_Type() {
+	echo "string"
+}
+serverconfig_ServerName_Default() {
+	echo "Luna Server"
+}
+serverconfig_ServerName_Validate() {
+	if [ ! -z "$1" ]; then
+		echo "1"
+	else
+		echo "0"
+	fi
+}
+serverconfig_ServerName_ErrorMessage() {
+	echo "Server name cannot be empty."
+}
+
 serverconfig_Port_QueryName() {
-	echo "Base UDP port"
+	echo "Port"
 }
 serverconfig_Port_Type() {
 	echo "number"
@@ -28,28 +50,15 @@ serverconfig_Port_ErrorMessage() {
 	echo "Illegal port number or port already in use by another instance."
 }
 
-serverconfig_ServerName_QueryName() {
-	echo "Server name"
+serverconfig_Password_QueryName() {
+	echo "Password"
 }
-serverconfig_ServerName_Type() {
+serverconfig_Password_Type() {
 	echo "string"
-}
-serverconfig_ServerName_Default() {
-	echo "Luna Server"
-}
-serverconfig_ServerName_Validate() {
-	if [ ! -z "$1" ]; then
-		echo "1"
-	else
-		echo "0"
-	fi
-}
-serverconfig_ServerName_ErrorMessage() {
-	echo "Server name cannot be empty."
 }
 
 serverconfig_Description_QueryName() {
-	echo "Server description"
+	echo "Description"
 }
 serverconfig_Description_Type() {
 	echo "string"
@@ -59,7 +68,7 @@ serverconfig_Description_Default() {
 }
 
 serverconfig_ServerMotd_QueryName() {
-	echo "Server description"
+	echo "ServerMotd"
 }
 serverconfig_ServerMotd_Type() {
 	echo "string"
@@ -68,116 +77,8 @@ serverconfig_ServerMotd_Default() {
 	echo "Welcome, %Name%!"
 }
 
-serverconfig_MaxPlayers_QueryName() {
- 	echo "Max players"
-}
-serverconfig_MaxPlayers_Type() {
- 	echo "number"
-}
-serverconfig_MaxPlayers_Default() {
-	echo "4"
-}
-serverconfig_MaxPlayers_Range() {
-	echo "1-64"
-}
-
-serverconfig_MaxUsernameLength_QueryName() {
- 	echo "Max username length"
-}
-serverconfig_MaxUsernameLength_Type() {
- 	echo "number"
-}
-serverconfig_MaxUsernameLength_Default() {
-	echo "15"
-}
-serverconfig_MaxUsernameLength_Range() {
-	echo "1-64"
-}
-
-serverconfig_RegisterWithMasterServer_QueryName() {
-	echo "Appear on the server list"
-}
-serverconfig_RegisterWithMasterServer_Type() {
-	echo "boolean"
-}
-serverconfig_RegisterWithMasterServer_Default() {
-	echo "true"
-}
-serverconfig_RegisterWithMasterServer_ErrorMessage() {
-	echo "Not a valid boolean given (true/false or yes/no or y/n)."
-}
-
-serverconfig_MasterServerRegistrationMsInterval_QueryName() {
-	echo "MasterServer registration refresh interval in ms"
-}
-serverconfig_MasterServerRegistrationMsInterval_Type() {
-	echo "number"
-}
-serverconfig_MasterServerRegistrationMsInterval_Default() {
-	echo "5000"
-}
-
-serverconfig_AutoDekessler_QueryName() {
-	echo "Dekessler automatically runs in min"
-}
-serverconfig_AutoDekessler_Type() {
-	echo "number"
-}
-serverconfig_AutoDekessler_Default() {
-	echo "1"
-}
-
-serverconfig_AutoNuke_QueryName() {
-	echo "Nukeksc automatically runs in min"
-}
-serverconfig_AutoNuke_Type() {
-	echo "number"
-}
-serverconfig_AutoNuke_Default() {
-	echo "0"
-}
-
-serverconfig_ShowVesselsInThePast_QueryName() {
-	echo "Show vessels in the past"
-}
-serverconfig_ShowVesselsInThePast_Type() {
-	echo "boolean"
-}
-serverconfig_ShowVesselsInThePast_Default() {
-	echo "true"
-}
-serverconfig_ShowVesselsInThePast_ErrorMessage() {
-	echo "Not a valid boolean given (true/false or yes/no or y/n)."
-}
-
-serverconfig_Cheats_QueryName() {
-	echo "Cheats"
-}
-serverconfig_Cheats_Type() {
-	echo "boolean"
-}
-serverconfig_Cheats_Default() {
-	echo "true"
-}
-serverconfig_Cheats_ErrorMessage() {
-	echo "Not a valid boolean given (true/false or yes/no or y/n)."
-}
-
-serverconfig_AllowSackKerbals_QueryName() {
-	echo "Allow sack Kerbals"
-}
-serverconfig_AllowSackKerbals_Type() {
-	echo "boolean"
-}
-serverconfig_AllowSackKerbals_Default() {
-	echo "false"
-}
-serverconfig_AllowSackKerbals_ErrorMessage() {
-	echo "Not a valid boolean given (true/false or yes/no or y/n)."
-}
-
 serverconfig_ConsoleIdentifier_QueryName() {
-	echo "Server console identifier"
+	echo "ConsoleIdentifier"
 }
 serverconfig_ConsoleIdentifier_Type() {
 	echo "string"
@@ -196,105 +97,30 @@ serverconfig_ConsoleIdentifier_ErrorMessage() {
 	echo "Server console identifier cannot be empty."
 }
 
-serverconfig_GameDifficulty_QueryName() {
-	echo "Game difficulty"
+serverconfig_RegisterWithMasterServer_QueryName() {
+	echo "RegisterWithMasterServer"
 }
-serverconfig_GameDifficulty_Type() {
-	echo "enum"
-}
-serverconfig_GameDifficulty_Default() {
-	echo "1"
-}
-serverconfig_GameDifficulty_Values() {
-	config_allowed_values=("Easy" "Normal" "Moderate" "Hard" "Custom")
-}
-
-serverconfig_GameMode_QueryName() {
-	echo "GameMode"
-}
-serverconfig_GameMode_Type() {
-	echo "enum"
-}
-serverconfig_GameMode_Default() {
-	echo "1"
-}
-serverconfig_GameMode_Values() {
-	config_allowed_values=("Sandbox" "Career" "Science")
-}
-
-serverconfig_ModControl_QueryName() {
-	echo "ModControl"
-}
-serverconfig_ModControl_Type() {
-	echo "enum"
-}
-serverconfig_ModControl_Default() {
-	echo "1"
-}
-serverconfig_ModControl_Values() {
-	config_allowed_values=("EnabledStopInvalidPartSync" "EnabledStopInvalidPartLaunch")
-}
-
-serverconfig_NumberOfAsteroids_QueryName() {
- 	echo "Number of asteroids"
-}
-serverconfig_NumberOfAsteroids_Type() {
- 	echo "number"
-}
-serverconfig_NumberOfAsteroids_Default() {
-	echo "10"
-}
-serverconfig_NumberOfAsteroids_Range() {
-	echo "0-64"
-}
-
-serverconfig_TerrainQuality_QueryName() {
-	echo "Terrain quality"
-}
-serverconfig_TerrainQuality_Type() {
-	echo "enum"
-}
-serverconfig_TerrainQuality_Default() {
-	echo "1"
-}
-serverconfig_TerrainQuality_Values() {
-	config_allowed_values=("Low" "Default" "High")
-}
-
-serverconfig_SafetyBubbleDistance_QueryName() {
-	echo "Safety bubble distance"
-}
-serverconfig_SafetyBubbleDistance_Type() {
-	echo "number"
-}
-serverconfig_SafetyBubbleDistance_Default() {
-	echo "100"
-}
-
-serverconfig_WarpMode_QueryName() {
-	echo "Warp mode"
-}
-serverconfig_WarpMode_Type() {
-	echo "enum"
-}
-serverconfig_WarpMode_Default() {
-	echo "1"
-}
-serverconfig_WarpMode_Values() {
-	config_allowed_values=("None" "Subspace" "Master")
-}
-
-serverconfig_Whitelisted_QueryName() {
-	echo "Whitelisted"
-}
-serverconfig_Whitelisted_Type() {
+serverconfig_RegisterWithMasterServer_Type() {
 	echo "boolean"
 }
-serverconfig_Whitelisted_Default() {
-	echo "false"
+serverconfig_RegisterWithMasterServer_Default() {
+	echo "true"
 }
-serverconfig_Whitelisted_ErrorMessage() {
+serverconfig_RegisterWithMasterServer_ErrorMessage() {
 	echo "Not a valid boolean given (true/false or yes/no or y/n)."
+}
+
+# TODO - Add password entry
+
+### Server Advanced ###
+serverconfig_MasterServerRegistrationMsInterval_QueryName() {
+	echo "MasterServerRegistrationMsInterval"
+}
+serverconfig_MasterServerRegistrationMsInterval_Type() {
+	echo "number"
+}
+serverconfig_MasterServerRegistrationMsInterval_Default() {
+	echo "5000"
 }
 
 serverconfig_HearbeatMsInterval_QueryName() {
@@ -315,128 +141,6 @@ serverconfig_ConnectionMsTimeout_Type() {
 }
 serverconfig_ConnectionMsTimeout_Default() {
 	echo "30000"
-}
-
-serverconfig_DropControlOnVesselSwitching_QueryName() {
-	echo "DropControlOnVesselSwitching"
-}
-serverconfig_DropControlOnVesselSwitching_Type() {
-	echo "boolean"
-}
-serverconfig_DropControlOnVesselSwitching_Default() {
-	echo "true"
-}
-serverconfig_DropControlOnVesselSwitching_ErrorMessage() {
-	echo "Not a valid boolean given (true/false or yes/no or y/n)."
-}
-
-serverconfig_DropControlOnExitFlight_QueryName() {
-	echo "DropControlOnExitFlight"
-}
-serverconfig_DropControlOnExitFlight_Type() {
-	echo "boolean"
-}
-serverconfig_DropControlOnExitFlight_Default() {
-	echo "true"
-}
-serverconfig_DropControlOnExitFlight_ErrorMessage() {
-	echo "Not a valid boolean given (true/false or yes/no or y/n)."
-}
-
-serverconfig_DropControlOnExit_QueryName() {
-	echo "DropControlOnExit"
-}
-serverconfig_DropControlOnExit_Type() {
-	echo "boolean"
-}
-serverconfig_DropControlOnExit_Default() {
-	echo "true"
-}
-serverconfig_DropControlOnExit_ErrorMessage() {
-	echo "Not a valid boolean given (true/false or yes/no or y/n)."
-}
-
-serverconfig_VesselUpdatesSendMsInterval_QueryName() {
-	echo "VesselUpdatesSendMsInterval"
-}
-serverconfig_VesselUpdatesSendMsInterval_Type() {
-	echo "number"
-}
-serverconfig_VesselUpdatesSendMsInterval_Default() {
-	echo "30"
-}
-
-serverconfig_SecondaryVesselUpdatesSendMsInterval_QueryName() {
-	echo "SecondaryVesselUpdatesSendMsInterval"
-}
-serverconfig_SecondaryVesselUpdatesSendMsInterval_Type() {
-	echo "number"
-}
-serverconfig_SecondaryVesselUpdatesSendMsInterval_Default() {
-	echo "500"
-}
-
-serverconfig_VesselPartsSyncMsInterval_QueryName() {
-	echo "VesselPartsSyncMsInterval"
-}
-serverconfig_VesselPartsSyncMsInterval_Type() {
-	echo "number"
-}
-serverconfig_VesselPartsSyncMsInterval_Default() {
-	echo "500"
-}
-
-serverconfig_RelaySystemMode_QueryName() {
-	echo "RelaySystemMode"
-}
-serverconfig_RelaySystemMode_Type() {
-	echo "enum"
-}
-serverconfig_RelaySystemMode_Default() {
-	echo "1"
-}
-serverconfig_RelaySystemMode_Values() {
-	config_allowed_values=("Dictionary" "DataBase")
-}
-
-serverconfig_FarDistanceUpdateIntervalMs_QueryName() {
-	echo "FarDistanceUpdateIntervalMs"
-}
-serverconfig_FarDistanceUpdateIntervalMs_Type() {
-	echo "number"
-}
-serverconfig_FarDistanceUpdateIntervalMs_Default() {
-	echo "500"
-}
-
-serverconfig_MediumDistanceUpdateIntervalMs_QueryName() {
-	echo "MediumDistanceUpdateIntervalMs"
-}
-serverconfig_MediumDistanceUpdateIntervalMs_Type() {
-	echo "number"
-}
-serverconfig_MediumDistanceUpdateIntervalMs_Default() {
-	echo "250"
-}
-
-serverconfig_CloseDistanceUpdateIntervalMs_QueryName() {
-	echo "CloseDistanceUpdateIntervalMs"
-}
-serverconfig_CloseDistanceUpdateIntervalMs_Type() {
-	echo "number"
-}
-serverconfig_CloseDistanceUpdateIntervalMs_Default() {
-	echo "33"
-}
-
-serverconfig_CloseDistanceInMeters_QueryName() {
-	echo "CloseDistanceInMeters"
-}
-serverconfig_CloseDistanceInMeters_Type() {
-	echo "number"
-}
-serverconfig_CloseDistanceInMeters_Default() {
-	echo "25000"
 }
 
 serverconfig_SendReceiveThreadTickMs_QueryName() {
@@ -495,6 +199,274 @@ serverconfig_UseUtcTimeInLog_ErrorMessage() {
 	echo "Not a valid boolean given (true/false or yes/no or y/n)."
 }
 
+
+### Players ###
+serverconfig_MaxPlayers_QueryName() {
+ 	echo "MaxPlayers"
+}
+serverconfig_MaxPlayers_Type() {
+ 	echo "number"
+}
+serverconfig_MaxPlayers_Default() {
+	echo "20"
+}
+serverconfig_MaxPlayers_Range() {
+	echo "1-64"
+}
+
+serverconfig_MaxUsernameLength_QueryName() {
+ 	echo "MaxUsernameLength"
+}
+serverconfig_MaxUsernameLength_Type() {
+ 	echo "number"
+}
+serverconfig_MaxUsernameLength_Default() {
+	echo "15"
+}
+serverconfig_MaxUsernameLength_Range() {
+	echo "1-64"
+}
+
+serverconfig_Whitelisted_QueryName() {
+	echo "Whitelisted"
+}
+serverconfig_Whitelisted_Type() {
+	echo "boolean"
+}
+serverconfig_Whitelisted_Default() {
+	echo "false"
+}
+serverconfig_Whitelisted_ErrorMessage() {
+	echo "Not a valid boolean given (true/false or yes/no or y/n)."
+}
+
+### Game Type ###
+serverconfig_GameMode_QueryName() {
+	echo "GameMode"
+}
+serverconfig_GameMode_Type() {
+	echo "enum"
+}
+serverconfig_GameMode_Default() {
+	echo "1"
+}
+serverconfig_GameMode_Values() {
+	config_allowed_values=("Sandbox" "Career" "Science")
+}
+
+serverconfig_GameDifficulty_QueryName() {
+	echo "GameDdifficulty"
+}
+serverconfig_GameDifficulty_Type() {
+	echo "enum"
+}
+serverconfig_GameDifficulty_Default() {
+	echo "1"
+}
+serverconfig_GameDifficulty_Values() {
+	config_allowed_values=("Easy" "Normal" "Moderate" "Hard" "Custom")
+}
+
+serverconfig_Cheats_QueryName() {
+	echo "Cheats"
+}
+serverconfig_Cheats_Type() {
+	echo "boolean"
+}
+serverconfig_Cheats_Default() {
+	echo "true"
+}
+serverconfig_Cheats_ErrorMessage() {
+	echo "Not a valid boolean given (true/false or yes/no or y/n)."
+}
+
+serverconfig_NumberOfAsteroids_QueryName() {
+ 	echo "NumberOfAsteroids"
+}
+serverconfig_NumberOfAsteroids_Type() {
+ 	echo "number"
+}
+serverconfig_NumberOfAsteroids_Default() {
+	echo "10"
+}
+serverconfig_NumberOfAsteroids_Range() {
+	echo "0-64"
+}
+
+serverconfig_AllowSackKerbals_QueryName() {
+	echo "AllowSackKerbals"
+}
+serverconfig_AllowSackKerbals_Type() {
+	echo "boolean"
+}
+serverconfig_AllowSackKerbals_Default() {
+	echo "false"
+}
+serverconfig_AllowSackKerbals_ErrorMessage() {
+	echo "Not a valid boolean given (true/false or yes/no or y/n)."
+}
+
+serverconfig_AutoDekessler_QueryName() {
+	echo "AutoDekessler"
+}
+serverconfig_AutoDekessler_Type() {
+	echo "number"
+}
+serverconfig_AutoDekessler_Default() {
+	echo "1"
+}
+
+serverconfig_AutoNuke_QueryName() {
+	echo "AutoNuke"
+}
+serverconfig_AutoNuke_Type() {
+	echo "number"
+}
+serverconfig_AutoNuke_Default() {
+	echo "0"
+}
+
+serverconfig_TerrainQuality_QueryName() {
+	echo "TerrainQuality"
+}
+serverconfig_TerrainQuality_Type() {
+	echo "enum"
+}
+serverconfig_TerrainQuality_Default() {
+	echo "1"
+}
+serverconfig_TerrainQuality_Values() {
+	config_allowed_values=("Low" "Default" "High")
+}
+
+### Game Warp ###
+serverconfig_WarpMode_QueryName() {
+	echo "WarpMode"
+}
+serverconfig_WarpMode_Type() {
+	echo "enum"
+}
+serverconfig_WarpMode_Default() {
+	echo "2"
+}
+serverconfig_WarpMode_Values() {
+	config_allowed_values=("None" "Subspace" "Master")
+}
+
+serverconfig_WarpMaster_QueryName() {
+	echo "WarpMaster"
+}
+serverconfig_WarpMaster_Type() {
+	echo "string"
+}
+
+serverconfig_ShowVesselsInThePast_QueryName() {
+	echo "ShowVesselsInThePast"
+}
+serverconfig_ShowVesselsInThePast_Type() {
+	echo "boolean"
+}
+serverconfig_ShowVesselsInThePast_Default() {
+	echo "true"
+}
+serverconfig_ShowVesselsInThePast_ErrorMessage() {
+	echo "Not a valid boolean given (true/false or yes/no or y/n)."
+}
+
+### Vessels Basic###
+serverconfig_ModControl_QueryName() {
+	echo "ModControl"
+}
+serverconfig_ModControl_Type() {
+	echo "enum"
+}
+serverconfig_ModControl_Default() {
+	echo "1"
+}
+serverconfig_ModControl_Values() {
+	config_allowed_values=("EnabledStopInvalidPartSync" "EnabledStopInvalidPartLaunch")
+}
+
+serverconfig_SafetyBubbleDistance_QueryName() {
+	echo "SafetyBubbleDistance"
+}
+serverconfig_SafetyBubbleDistance_Type() {
+	echo "number"
+}
+serverconfig_SafetyBubbleDistance_Default() {
+	echo "100"
+}
+
+serverconfig_DropControlOnVesselSwitching_QueryName() {
+	echo "DropControlOnVesselSwitching"
+}
+serverconfig_DropControlOnVesselSwitching_Type() {
+	echo "boolean"
+}
+serverconfig_DropControlOnVesselSwitching_Default() {
+	echo "true"
+}
+serverconfig_DropControlOnVesselSwitching_ErrorMessage() {
+	echo "Not a valid boolean given (true/false or yes/no or y/n)."
+}
+
+serverconfig_DropControlOnExitFlight_QueryName() {
+	echo "DropControlOnExitFlight"
+}
+serverconfig_DropControlOnExitFlight_Type() {
+	echo "boolean"
+}
+serverconfig_DropControlOnExitFlight_Default() {
+	echo "true"
+}
+serverconfig_DropControlOnExitFlight_ErrorMessage() {
+	echo "Not a valid boolean given (true/false or yes/no or y/n)."
+}
+
+serverconfig_DropControlOnExit_QueryName() {
+	echo "DropControlOnExit"
+}
+serverconfig_DropControlOnExit_Type() {
+	echo "boolean"
+}
+serverconfig_DropControlOnExit_Default() {
+	echo "true"
+}
+serverconfig_DropControlOnExit_ErrorMessage() {
+	echo "Not a valid boolean given (true/false or yes/no or y/n)."
+}
+
+### Vessels Advanced###
+serverconfig_VesselUpdatesSendMsInterval_QueryName() {
+	echo "VesselUpdatesSendMsInterval"
+}
+serverconfig_VesselUpdatesSendMsInterval_Type() {
+	echo "number"
+}
+serverconfig_VesselUpdatesSendMsInterval_Default() {
+	echo "30"
+}
+
+serverconfig_SecondaryVesselUpdatesSendMsInterval_QueryName() {
+	echo "SecondaryVesselUpdatesSendMsInterval"
+}
+serverconfig_SecondaryVesselUpdatesSendMsInterval_Type() {
+	echo "number"
+}
+serverconfig_SecondaryVesselUpdatesSendMsInterval_Default() {
+	echo "500"
+}
+
+serverconfig_VesselPartsSyncMsInterval_QueryName() {
+	echo "VesselPartsSyncMsInterval"
+}
+serverconfig_VesselPartsSyncMsInterval_Type() {
+	echo "number"
+}
+serverconfig_VesselPartsSyncMsInterval_Default() {
+	echo "500"
+}
+
 serverconfig_VesselsBackupIntervalMs_QueryName() {
 	echo "VesselsBackupIntervalMs"
 }
@@ -505,17 +477,84 @@ serverconfig_VesselsBackupIntervalMs_Default() {
 	echo "30000"
 }
 
+### Relay ###
+serverconfig_RelaySystemMode_QueryName() {
+	echo "RelaySystemMode"
+}
+serverconfig_RelaySystemMode_Type() {
+	echo "enum"
+}
+serverconfig_RelaySystemMode_Default() {
+	echo "1"
+}
+serverconfig_RelaySystemMode_Values() {
+	config_allowed_values=("Dictionary" "DataBase")
+}
+
+serverconfig_FarDistanceUpdateIntervalMs_QueryName() {
+	echo "FarDistanceUpdateIntervalMs"
+}
+serverconfig_FarDistanceUpdateIntervalMs_Type() {
+	echo "number"
+}
+serverconfig_FarDistanceUpdateIntervalMs_Default() {
+	echo "500"
+}
+
+serverconfig_MediumDistanceUpdateIntervalMs_QueryName() {
+	echo "MediumDistanceUpdateIntervalMs"
+}
+serverconfig_MediumDistanceUpdateIntervalMs_Type() {
+	echo "number"
+}
+serverconfig_MediumDistanceUpdateIntervalMs_Default() {
+	echo "250"
+}
+
+serverconfig_CloseDistanceUpdateIntervalMs_QueryName() {
+	echo "CloseDistanceUpdateIntervalMs"
+}
+serverconfig_CloseDistanceUpdateIntervalMs_Type() {
+	echo "number"
+}
+serverconfig_CloseDistanceUpdateIntervalMs_Default() {
+	echo "33"
+}
+
+serverconfig_CloseDistanceInMeters_QueryName() {
+	echo "CloseDistanceInMeters"
+}
+serverconfig_CloseDistanceInMeters_Type() {
+	echo "number"
+}
+serverconfig_CloseDistanceInMeters_Default() {
+	echo "25000"
+}
+
 #################################
 ## Edit option functions
 
-configEditServer() {
+configEditServerBasic() {
 	local CV
 	
-	echo "Server"
+	echo "Server Basic"
 	echo "--------------------------------"
 	for CV in \
-		ServerName Port Description ServerMotd ConsoleIdentifier \
-		RegisterWithMasterServer MasterServerRegistrationMsInterval \
+		ServerName Port Password Description ServerMotd ConsoleIdentifier \
+		RegisterWithMasterServer \
+		; do
+		$1 $CV
+	done
+	echo
+}
+
+configEditServerAdvanced() {
+	local CV
+	
+	echo "Server Advanced"
+	echo "--------------------------------"
+	for CV in \
+		MasterServerRegistrationMsInterval \
 		HearbeatMsInterval ConnectionMsTimeout SendReceiveThreadTickMs MainTimeTick \
 		LogLevel ExpireLogs UseUtcTimeInLog \
 		; do
@@ -524,10 +563,10 @@ configEditServer() {
 	echo
 }
 
-configEditSlots() {
+configEditPlayers() {
 	local CV
 	
-	echo "Slots"
+	echo "Players"
 	echo "--------------------------------"
 	for CV in \
 			MaxPlayers MaxUsernameLength Whitelisted \
@@ -543,24 +582,45 @@ configEditGameType() {
 	echo "Game type"
 	echo "--------------------------------"
 	for CV in \
-			GameMode GameDifficulty Cheats AllowSackKerbals TerrainQuality NumberOfAsteroids\
-			WarpMode AutoDekessler AutoNuke ShowVesselsInThePast AllowSackKerbals \
+			GameMode GameDifficulty Cheats NumberOfAsteroids AllowSackKerbals\
+			AutoDekessler AutoNuke TerrainQuality\
 			; do
 		$1 $CV
 	done
 	echo
 }
 
-configEditVessels() {
+configEditGameWarp() {
 	local CV
 	
-	echo "Vessels options"
+	echo "Game warp"
+	echo "--------------------------------"
+	for CV in WarpMode WarpMaster ShowVesselsInThePast; do
+		$1 $CV
+	done
+	echo
+}
+
+configEditVesselsBasic() {
+	local CV
+	
+	echo "Vessels Basic"
 	echo "--------------------------------"
 	for CV in \
 			ModControl SafetyBubbleDistance \
 			DropControlOnVesselSwitching DropControlOnExitFlight DropControlOnExit \
-			VesselUpdatesSendMsInterval SecondaryVesselUpdatesSendMsInterval VesselPartsSyncMsInterval VesselsBackupIntervalMs \
 			; do
+		$1 $CV
+	done
+	echo
+}
+
+configEditVesselsAdvanced() {
+	local CV
+	
+	echo "Vessels Advanced"
+	echo "--------------------------------"
+	for CV in VesselUpdatesSendMsInterval SecondaryVesselUpdatesSendMsInterval VesselPartsSyncMsInterval VesselsBackupIntervalMs; do
 		$1 $CV
 	done
 	echo
@@ -579,11 +639,21 @@ configEditRelay() {
 	echo
 }
 
-configEditAll() {
-	configEditServer "$1"
-	configEditSlots "$1"
+configEditBasic() {
+	configEditServerBasic "$1"
+	configEditPlayers "$1"
 	configEditGameType "$1"
-	configEditVessels "$1"
+	configEditGameWarp "$1"
+}
+
+configEditAll() {
+	configEditServerBasic "$1"
+	configEditServerAdvanced "$1"
+	configEditPlayers "$1"
+	configEditGameType "$1"
+	configEditGameWarp "$1"
+	configEditVesselsBasic "$1"
+	configEditVesselsAdvanced "$1"
 	configEditRelay "$1"
 }
 
@@ -682,7 +752,7 @@ configQueryValue() {
 	local RANGE=""
 	local DEFAULT=""
 	local currentValName=configCurrent_$1
-
+		
 	if [ "$(type -t serverconfig_$1_Values)" = "function" ]; then
 		echo "$(serverconfig_$1_QueryName), options:"
 		serverconfig_$1_Values
@@ -737,15 +807,43 @@ configQueryValue() {
 
 	while : ; do
 		read -p "$prompt" $currentValName
-		export $currentValName="${!currentValName:-$DEFAULT}"
+
+		if [ $1 == "Password" ] || [ $1 == "WarpMaster" ];then
+			if [ "$DEFAULT" != "${!currentValName}" ] && [ "${!currentValName}" == "" ]; then
+				while : ; do
+					local CONTINUE
+					read -p "Remove $1 ? (yn) " CONTINUE
+					case $CONTINUE in
+						y)
+							printf "$1 removed\n"
+							export $currentValName="${!currentValName}"
+							break
+							;;
+						n)
+							printf "$1 not changed\n"
+							export $currentValName="$DEFAULT}"
+							break
+							;;
+						*)
+							printf "Wrong input\n"
+					esac
+				done
+			else
+				export $currentValName="${!currentValName:-$DEFAULT}"
+			fi
+		else
+			export $currentValName="${!currentValName:-$DEFAULT}"
+		fi
+
 		if [ $(isValidOptionValue "$1" "${!currentValName}") -eq 0 ]; then
 			if [ "$(type -t serverconfig_$1_ErrorMessage)" = "function" ]; then
 				serverconfig_$1_ErrorMessage "${!currentValName}"
 			fi
 		fi
+		
 		[ $(isValidOptionValue "$1" "${!currentValName}") -eq 1 ] && break
 	done
-	
+
 	if [ "$TYPE" = "boolean" ]; then
 		if [ $(getBool ${!currentValName}) -eq 1 ]; then
 			export $currentValName="true"
@@ -798,7 +896,7 @@ loadCurrentConfigValues() {
 	local CV
 	for CV in $(listConfigValues); do
 		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/Settings.txt
+		local CONF=$(getInstancePath "$1")/Config/Settings.xml
 		local VAL=$($XMLSTARLET sel -t -m "/SettingsDefinition" -v "$CV" -n $CONF)
 		if [ ! -z "$VAL" ]; then
 			export $currentValName="$VAL"
@@ -814,7 +912,7 @@ saveCurrentConfigValues() {
 	for CV in $(listConfigValues); do
 		local currentValName=configCurrent_$CV
 		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/Settings.txt
+		local CONF=$(getInstancePath "$1")/Config/Settings.xml
 		setConfigValue $1 $CV "$val"
 	done
 }
@@ -826,7 +924,7 @@ saveCurrentConfigValues() {
 # Returns:
 #   Property value
 getConfigValue() {
-	local CONF=$(getInstancePath $1)/Config/Settings.txt
+	local CONF=$(getInstancePath $1)/Config/Settings.xml
 	$XMLSTARLET sel -t -m "/SettingsDefinition" -v "$2" -n $CONF
 }
 
@@ -836,20 +934,27 @@ getConfigValue() {
 #   2: Property name
 #   3: New value
 setConfigValue() {
-	local CONF=$(getInstancePath $1)/Config/Settings.txt
+	local CONF=$(getInstancePath $1)/Config/Settings.xml
 	$XMLSTARLET ed -L -u "/SettingsDefinition/$2" -v "$3" $CONF
 }
 
 changeUTF() {
 if [ $2 -eq 16 ] || [ $2 -eq 8 ]; then
-	local CONF=$(getInstancePath $1)/Config/Settings.txt
+	local CONF=$(getInstancePath $1)/Config/Settings.xml
 	local TMPPATH=`mktemp -d`
 	if [ $2 -eq 8 ]; then
-		sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $CONF > $TMPPATH/Settings.txt
+		sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $CONF > $TMPPATH/Settings.xml
 	else
-		sed 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="utf-16"?>/' $CONF > $TMPPATH/Settings.txt
+		sed 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="utf-16"?>/' $CONF > $TMPPATH/Settings.xml
 	fi	
-	mv $TMPPATH/Settings.txt $CONF -f
+	mv $TMPPATH/Settings.xml $CONF -f
 	rm -fr $TMPPATH
 fi
+}
+
+changeDefaultValue() {
+	local CONF=$(getInstancePath $1)/Config/Settings.xml
+	$XMLSTARLET ed -L -u "/SettingsDefinition/Port" -v "8801" $CONF
+	$XMLSTARLET ed -L -u "/SettingsDefinition/AutoDekessler" -v "1" $CONF
+
 }

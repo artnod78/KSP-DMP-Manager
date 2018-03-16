@@ -104,9 +104,9 @@ getInstancePID() {
 }
 
 
-# Get the local engine version number (i.e. build id)
+# Get the local mod version
 # Returns:
-#   0 if no engine installed or no appmanifest found or buildid could not be read
+#   0 if no no installed or no version.txt found or version could not be read
 #   Build Id otherwise
 getLocalLMPServerVersion() {
 	local VERSION=$(cat $LMM_BASE/LMPServer/version.txt)
@@ -116,7 +116,21 @@ getLocalLMPServerVersion() {
 	fi
 	echo $LOCAL
 }
-
+# Get the local mod version for the given instance
+# Params:
+#	1: Instance Name
+# Returns:
+#   0 if no no installed or no version.txt found or version could not be read
+#   Build Id otherwise
+getInstanceVersion() {
+	local pfile="$(getInstancePath $1)/version.txt"
+	local VERSION=$(cat $pfile)
+	local LOCAL=0
+	if [ "$VERSION" ]; then
+		LOCAL=$VERSION
+	fi
+	echo $LOCAL
+}
 
 # Check if a given TCP port is already in use by any instance
 # Params:

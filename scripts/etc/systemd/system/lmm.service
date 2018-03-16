@@ -1,0 +1,12 @@
+[Unit]
+Description=Luna Multi Player server Daemon
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/lmm.sh start !
+ExecStop=/usr/local/bin/lmm.sh kill !
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

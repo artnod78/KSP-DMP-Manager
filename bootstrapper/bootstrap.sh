@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=1
+VERSION=2
 
 if [ `id -u` -ne 0 ]; then
 	echo "This script has to be run as root!"
@@ -21,7 +21,7 @@ else
 fi
 
 showHelp() {
-	echo "Kerbal Space Program - Luna MultiPlayer bootstrapper version $VERSION"
+	echo "Luna Multi Player Server bootstrapper version $VERSION"
 	echo
 	echo "Usage: ./bootstrap.sh [-h] -i"
 	echo "Parameters:"
@@ -32,14 +32,14 @@ showHelp() {
 
 intro() {
 	echo
-	echo "Luna Multiplayer Server bootstrapper"
+	echo "Luna Multi Player Server bootstrapper"
 	echo
-	echo "This will install a Luna Multiplayer server according to the information"
+	echo "This will install a Luna Multi Player server according to the information"
 	echo "given on:"
 	echo "   https://github.com/artnod78/KSP-DMP-Manager"
 	echo
 	read -p "Press enter to continue"
-	echo -e "\n=============================================================\n\n"
+	echo -e "\n=============================================================\n"
 }
 
 nonDebianWarning() {
@@ -63,7 +63,7 @@ nonDebianWarning() {
 					;;
 			esac
 		done
-		echo -e "\n=============================================================\n\n"
+		echo -e "\n=============================================================\n"
 	fi
 }
 
@@ -71,17 +71,17 @@ installAptDeps() {
 	echo -e "Installing dependencies\n"
 	apt-get update -y
 	apt-get install -y $DEPENDENCIES
-	echo -e "\n=============================================================\n\n"
+	echo -e "\n=============================================================\n"
 }
 
 installOptionalDeps() {
 	echo -e "Installing optional dependencies\n"
 	apt-get install -y $OPTDEPENDENCIES
-	echo -e "\n=============================================================\n\n"
+	echo -e "\n=============================================================\n"
 }
 
 checkSetupDeps() {
-	for DEP in git unzip screen mono-complete; do
+	for DEP in netstat curl xmlstarlet rsync unzip screen mono-complete; do
 		which $DEP > /dev/null 2>&1
 		if [ $? -ne 0 ]; then
 			echo "\"$DEP\" not installed. Please install it and run this script again."
@@ -94,49 +94,44 @@ checkSetupDeps() {
 setupUser() {
 	echo -e "Setting up user and group \"ksp\"\n"
 	useradd -d /home/ksp -m -r -s /bin/bash -U ksp
-	echo -e "\n=============================================================\n\n"
+	echo -e "\n=============================================================\n"
 }
 
 installManagementScripts() {
-	echo -e "Downloading and installing management scripts\n"
-	wget -nv https://github.com/artnod78/KSP-DMP-Manager/archive/master.zip -O /tmp/DmpManager.zip
+	echo -e "Downloading and installing management scripts"
+	echo "  - Download scripts"
+	wget -nv -q --show-progress https://github.com/artnod78/KSP-DMP-Manager/archive/master.zip -O /tmp/LmpManager.zip
+
+	echo "  - Extract scripts"
 	TMPPATH=`mktemp -d`
-	unzip /tmp/DmpManager.zip -d $TMPPATH
-	cd $TMPPATH/KSP-DMP-Manager-master/scripts
-	for SRCFILE in `find * -type f`; do
-		DESTFOLDER=/`dirname $SRCFILE`
-		mkdir -p $DESTFOLDER
-		cp -a $SRCFILE $DESTFOLDER/
-	done
-	cd ~
-	rm -R $TMPPATH
-	rm /tmp/DmpManager.zip
+	unzip -q /tmp/LmpManager.zip -d $TMPPATH
+	cp -R $TMPPATH/KSP-DMP-Manager-master/scripts/* /
 
 	chown root.root /etc/lmm.conf
 	chmod 0600 /etc/lmm.conf
-	chown ksp.ksp /home/ksp -R
-	chown root.root /etc/init.d/lmm.sh
 	chown root.root /etc/bash_completion.d/lmm
-	chown root.root /etc/cron.d/lmm
-	chown root.root /usr/local/bin/lmm.sh
-	chown root.root /usr/local/lib/lmm -R
-	chmod 0755 /etc/init.d/lmm.sh
 	chmod 0755 /etc/bash_completion.d/lmm
+	chown root.root /etc/cron.d/lmm
 	chmod 0755 /etc/cron.d/lmm
+	chown root.root /etc/systemd/system/lmm.service
+	chmod 0777 /etc/systemd/system/lmm.service
+	chown root.root /usr/local/bin/lmm.sh
 	chmod 0755 /usr/local/bin/lmm.sh
+	chown root.root /usr/local/lib/lmm -R
 	chmod 0755 /usr/local/lib/lmm -R
 
-	if [ $ISDEBIAN -eq 1 ]; then
-		update-rc.d lmm.sh defaults
-	fi
-	
-	echo -e "\n=============================================================\n\n"
+	rm -R $TMPPATH
+	rm /tmp/LmpManager.zip
+
+	echo "  - Enable deamon"
+	systemctl enable lmm.service
+	echo -e "\n=============================================================\n"
 }
 
 installLunaServer() {
-	echo -e "Installing Luna MultiPlayer Server\n"
+	echo -e "Installing Luna Multi Player Server\n"
 	lmm.sh updateengine
-	echo -e "\n=============================================================\n\n"
+	echo -e "=============================================================\n"
 }
 
 addCronJobs() {
@@ -148,9 +143,8 @@ addCronJobs() {
 	cat /etc/cron.d/lmm | tr -d '#' > /tmp/lmm
 	cp /tmp/lmm /etc/cron.d
 
-	echo -e "\n=============================================================\n\n"
+	echo -e "\n=============================================================\n"
 }
-
 
 finish() {
 	if [ $ISDEBIAN -eq 0 ]; then
@@ -160,7 +154,7 @@ finish() {
 		echo " - Existence of prerequsities"
 		echo " - Running the init-script on boot"
 	else
-		echo -e "\n ALL DONE"
+		echo -e "ALL DONE"
 	fi
 
 	echo
@@ -217,4 +211,10 @@ while getopts "hcoi" opt; do
 done
 if [ $RUNINSTALL -eq 1 ]; then
 	main
+else
+	if [ $ADDCRONJOBS -eq 1 ]; then
+		if [ -f /etc/cron.d/lmm ]; then
+			addCronJobs
+		fi
+	fi
 fi
