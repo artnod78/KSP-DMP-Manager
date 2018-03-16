@@ -27,6 +27,8 @@ lmmSubcommandInstancesCreate() {
 	done
 	echo
 
+	# TODO - check LMPServer path
+
 	local IPATH=$(getInstancePath "$INSTANCE")
 	mkdir -p "$IPATH" 2>/dev/null
 	cp -R $LMM_BASE/LMPServer/* "$IPATH/"
@@ -38,9 +40,9 @@ lmmSubcommandInstancesCreate() {
 	configEditBasic configQueryValue
 
 	echo "Saving"
-	
-	if [ ! -f $IPATH/Config/Settings.txt ]; then
-		echo "<SettingsDefinition/>" > $IPATH/Config/Settings.txt
+
+	if [ ! -f $IPATH/Config/Settings.xml ]; then
+		echo "<SettingsDefinition/>" > $IPATH/Config/Settings.xml
 	fi
 	
 	saveCurrentConfigValues $INSTANCE

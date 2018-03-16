@@ -43,7 +43,7 @@ isValidInstance() {
 	if [ ! -z "$1" ]; then
 		if [ $(isValidInstanceName "$1") -eq 1 ]; then
 			if [ -d $(getInstancePath "$1") ]; then
-				if [ -f $(getInstancePath "$1")/Config/Settings.txt ]; then
+				if [ -f $(getInstancePath "$1")/Server.exe ]; then
 					echo 1
 					return
 				fi

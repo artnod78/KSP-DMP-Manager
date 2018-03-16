@@ -43,16 +43,14 @@ lmmCommandUpdateengine() {
 		screen -S lmFirstRun -X stuff $'\003'
 		echo
 	fi
-	
+
 	local LOCAL=$(getLocalLMPServerVersion)
-	
-	
+
 	if [ "$CHECKONLY" = "yes" ]; then
 		echo "Installed release:"
 		echo "  - Version: $LOCAL"
 		echo "Available release:"
 		echo "  - Version: $REMOTE"
-		
 		if [ "$REMOTE" != "$LOCAL" ]; then
 			echo "Newer LMPServer version available $REMOTE."
 		else

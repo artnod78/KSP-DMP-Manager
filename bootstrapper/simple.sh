@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=1
+VERSION=2
 
 if [ `id -u` -ne 0 ]; then
 	echo "This script has to be run as root!"
@@ -9,7 +9,7 @@ fi
 ADDCRONJOBS=0
 RUNINSTALL=0
 
-DEPENDENCIES="unzip screen mono-complete"
+DEPENDENCIES="curl unzip screen mono-complete"
 
 
 if [ -n "$(command -v apt-get)" ]; then
@@ -19,7 +19,7 @@ else
 fi
 
 showHelp() {
-	echo "Kerbal Space Program - Luna MultiPlayer bootstrapper version $VERSION"
+	echo "Luna Multi Player Server simple bootstrapper version $VERSION"
 	echo
 	echo "Usage: ./bootstrap.sh [-h] -i"
 	echo "Parameters:"
@@ -29,14 +29,14 @@ showHelp() {
 
 intro() {
 	echo
-	echo "Luna Multiplayer Server bootstrapper"
+	echo "Luna Multi Player Server bootstrapper"
 	echo
-	echo "This will install Luna Multiplayer Server according to the information"
+	echo "This will install a Luna Multi Player server according to the information"
 	echo "given on:"
 	echo "   https://github.com/artnod78/KSP-DMP-Manager"
 	echo
 	read -p "Press enter to continue"
-	echo -e "\n=============================================================\n\n"
+	echo -e "\n=============================================================\n"
 }
 
 nonDebianWarning() {
@@ -60,7 +60,7 @@ nonDebianWarning() {
 					;;
 			esac
 		done
-		echo -e "\n=============================================================\n\n"
+		echo -e "\n=============================================================\n"
 	fi
 }
 
@@ -68,11 +68,11 @@ installAptDeps() {
 	echo -e "Installing dependencies\n"
 	apt-get update -y
 	apt-get install -y $DEPENDENCIES
-	echo -e "\n=============================================================\n\n"
+	echo -e "\n=============================================================\n"
 }
 
 checkSetupDeps() {
-	for DEP in git unzip screen mono-complete; do
+	for DEP in curl unzip screen mono-complete; do
 		which $DEP > /dev/null 2>&1
 		if [ $? -ne 0 ]; then
 			echo "\"$DEP\" not installed. Please install it and run this script again."
@@ -85,24 +85,52 @@ checkSetupDeps() {
 setupUser() {
 	echo -e "Setting up user and group \"ksp\"\n"
 	useradd -d /home/ksp -m -r -s /bin/bash -U ksp
-	echo -e "\n=============================================================\n\n"
+	echo -e "\n=============================================================\n"
 }
 
 installLunaServer() {
-	lmVersion=$(curl -s https://api.github.com/repos/LunaMultiplayer/LunaMultiplayer/releases/latest | grep -e "tag_name" | cut -d "\"" -f4)
-	echo -e "Downloading and installing Luna Multiplayer $lmVersion\n"
-	lmDlUrl="https://github.com/LunaMultiplayer/LunaMultiplayer/releases/download/$lmVersion/LunaMultiPlayer-Release.zip"
-	wget -nv $lmDlUrl -O /tmp/LunaMultiPlayer-Release.zip
-	unzip /tmp/LunaMultiPlayer-Release.zip -d /home/ksp
-	rm /tmp/LunaMultiPlayer-Release.zip
-	echo $lmVersion > /home/ksp/LMPServer/version.txt
-	chown ksp.ksp /home/ksp -R
-	echo -e "\n=============================================================\n\n"
-	echo -e "Executing first run\n"
+	local REMOTE=$(curl -s https://api.github.com/repos/LunaMultiplayer/LunaMultiplayer/releases/latest | grep -e "tag_name" | cut -d "\"" -f4)
+	echo "Downloading and installing Luna Multi Player $REMOTE"
+	if [ -e /home/ksp/LMPServer ]; then
+		local LOCAL=$(cat /home/ksp/LMPServer/version.txt)
+		echo "  - Local version: $LOCAL"
+		echo "  - Available version: $REMOTE"
+		while : ; do
+			local CONTINUE
+			read -p "Continue? (yn) " CONTINUE
+			case $CONTINUE in
+				y)
+					echo "Updating..."
+					break
+					;;
+				n)
+					echo "Canceled"
+					return
+					;;
+				*)
+					echo "Wrong input"
+			esac
+		done
+		rm -fr /home/ksp/LMPServer
+	fi
+	echo "  - Download latest release: $REMOTE"
+	lmDlUrl="https://github.com/LunaMultiplayer/LunaMultiplayer/releases/download/$REMOTE/LunaMultiPlayer-Release.zip"
+	wget -nv -q --show-progress $lmDlUrl -O /tmp/LunaMultiPlayer-Release.zip
+
+	echo "  - Extract new version"
+	local TMPPATH=`mktemp -d`
+	unzip -q /tmp/LunaMultiPlayer-Release.zip -d $TMPPATH
+	cp -R -f $TMPPATH/LMPServer $LMM_BASE
+	echo $REMOTE > $LMM_BASE/LMPServer/version.txt
+	chown $LMM_USER.$LMM_GROUP -R $LMM_BASE
+	rm -f /tmp/LunaMultiPlayer-Release.zip
+	rm -rf $TMPPATH
+	echo "  - Executing first run"
 	screen -dmS lmFirstRun mono /home/ksp/LMPServer/Server.exe
 	sleep 5
+	echo "  - Kill first run"
 	screen -S lmFirstRun -X stuff $'\003'
-	echo -e "\n=============================================================\n\n"
+	echo -e "\n=============================================================\n"
 }
 
 
@@ -111,16 +139,13 @@ finish() {
 	if [ $ISDEBIAN -eq 0 ]; then
 		echo
 		echo "You are not running a Debian based distribution."
-		echo "The following things should manually be checked:"
-		echo " - Existence of prerequsities"
-		echo " - Running the init-script on boot"
 	else
-		echo -e "\n ALL DONE"
+		echo "ALL DONE"
 	fi
 
 	echo
-	echo -e "For feedback, suggestions, problems please visit the github:"
-	echo -e "  https://github.com/artnod78/KSP-DMP-Manager"
+	echo "For feedback, suggestions, problems please visit the github:"
+	echo "  https://github.com/artnod78/KSP-DMP-Manager"
 	echo
 }
 
