@@ -32,7 +32,7 @@ More information for **Luna Multi Player** [here](http://lunamultiplayer.com/)
  
 #### v0.0.3 (2018/03/16)
 * Fix deamon. Migrate to SysD instead of SysV
-* Update instances with ``lmm.sh updateinstance <instanceName>`` command
+* Update instances with new command ``lmm.sh updateinstance <instanceName>``
 * Add instances version in ``lmm.sh instances list`` output
 * Implement ``Password`` and ``WarpMaster`` settings. Can be empty
 * More settings groups
