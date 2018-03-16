@@ -21,6 +21,7 @@ More information for **Luna Multi Player** [here](http://lunamultiplayer.com/)
 * Hide internal functions from bash_completion
 * Editing the LMPModControl.xml file through a commandline interface
 * Export backups in Cloud
+* Edit Wiki
 
 -------------
 
