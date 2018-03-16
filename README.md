@@ -15,6 +15,7 @@ More information for **Luna Multiplayer** [here](http://lunamultiplayer.com/)
 -------------
 
 ### TODO List
+* ``lmm.sh updateinstance <instanceName>``. Rename .txt files to .xml to update to 0.3.28
 * Hide internal functions from bash_completion
 * Export backups in Cloud
 
