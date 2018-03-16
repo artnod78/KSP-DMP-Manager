@@ -24,7 +24,7 @@ More information for **Luna Multi Player** [here](http://lunamultiplayer.com/)
 -------------
 
 ### PATCH Note
-#### v0.0.3 (2018/03/16)
+#### v0.0.4 (2018/03/16)
 * Fix for LMPServer v 0.3.28
   * ``lmm.sh updateinstance``: rename Settings file, copy new ModControl file, don't copy LiteDB.xml
   * ``lmm.sh instances`` change Settings file path (.txt to .xml)
