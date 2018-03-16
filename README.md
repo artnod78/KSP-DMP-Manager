@@ -16,9 +16,6 @@ More information for **Luna Multi Player** [here](http://lunamultiplayer.com/)
 -------------
 
 ### TODO List
-* Fix for LMPServer v 0.3.28
-  * ``lmm.sh updateinstance``: rename Settings file, copy new ModControl file, don't copy LiteDB.xml
-  * ``lmm.sh instances`` change Settings file path (.txt to .xml)
 * Hide internal functions from bash_completion
 * Editing the LMPModControl.xml file through a commandline interface
 * Export backups in Cloud
@@ -27,6 +24,12 @@ More information for **Luna Multi Player** [here](http://lunamultiplayer.com/)
 -------------
 
 ### PATCH Note
+#### v0.0.3 (2018/03/16)
+* Fix for LMPServer v 0.3.28
+  * ``lmm.sh updateinstance``: rename Settings file, copy new ModControl file, don't copy LiteDB.xml
+  * ``lmm.sh instances`` change Settings file path (.txt to .xml)
+  * Edit Wiki
+ 
 #### v0.0.3 (2018/03/16)
 * Fix deamon. Migrate to SysD instead of SysV
 * Update instances with ``lmm.sh updateinstance <instanceName>`` command
