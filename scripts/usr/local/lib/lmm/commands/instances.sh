@@ -41,8 +41,8 @@ lmmSubcommandInstancesCreate() {
 
 	echo "Saving"
 
-	if [ ! -f $IPATH/Config/Settings.xml ]; then
-		echo "<SettingsDefinition/>" > $IPATH/Config/Settings.xml
+	if [ ! -f $IPATH/Config/GeneralSettings.xml ]; then
+		echo "<SettingsDefinition/>" > $IPATH/Config/GeneralSettings.xml
 	fi
 	
 	saveCurrentConfigValues $INSTANCE
