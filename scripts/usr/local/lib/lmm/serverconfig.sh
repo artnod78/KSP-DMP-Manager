@@ -1,5 +1,5 @@
 #!/bin/bash
-# Provides functions to query and validate values for Settings.xml
+# Provides functions to query and validate values for GeneralSettings.xml
 
 currentInstance=""
 
@@ -896,7 +896,7 @@ loadCurrentConfigValues() {
 	local CV
 	for CV in $(listConfigValues); do
 		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/Settings.xml
+		local CONF=$(getInstancePath "$1")/Config/GeneralSettings.xml
 		local VAL=$($XMLSTARLET sel -t -m "/SettingsDefinition" -v "$CV" -n $CONF)
 		if [ ! -z "$VAL" ]; then
 			export $currentValName="$VAL"
@@ -912,7 +912,7 @@ saveCurrentConfigValues() {
 	for CV in $(listConfigValues); do
 		local currentValName=configCurrent_$CV
 		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/Settings.xml
+		local CONF=$(getInstancePath "$1")/Config/GeneralSettings.xml
 		setConfigValue $1 $CV "$val"
 	done
 }
@@ -924,7 +924,7 @@ saveCurrentConfigValues() {
 # Returns:
 #   Property value
 getConfigValue() {
-	local CONF=$(getInstancePath $1)/Config/Settings.xml
+	local CONF=$(getInstancePath $1)/Config/GeneralSettings.xml
 	$XMLSTARLET sel -t -m "/SettingsDefinition" -v "$2" -n $CONF
 }
 
@@ -934,26 +934,26 @@ getConfigValue() {
 #   2: Property name
 #   3: New value
 setConfigValue() {
-	local CONF=$(getInstancePath $1)/Config/Settings.xml
+	local CONF=$(getInstancePath $1)/Config/GeneralSettings.xml
 	$XMLSTARLET ed -L -u "/SettingsDefinition/$2" -v "$3" $CONF
 }
 
 changeUTF() {
 if [ $2 -eq 16 ] || [ $2 -eq 8 ]; then
-	local CONF=$(getInstancePath $1)/Config/Settings.xml
+	local CONF=$(getInstancePath $1)/Config/GeneralSettings.xml
 	local TMPPATH=`mktemp -d`
 	if [ $2 -eq 8 ]; then
-		sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $CONF > $TMPPATH/Settings.xml
+		sed 's/<?xml version="1.0" encoding="utf-16"?>/<?xml version="1.0" encoding="utf-8"?>/' $CONF > $TMPPATH/GeneralSettings.xml
 	else
-		sed 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="utf-16"?>/' $CONF > $TMPPATH/Settings.xml
+		sed 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="utf-16"?>/' $CONF > $TMPPATH/GeneralSettings.xml
 	fi	
-	mv $TMPPATH/Settings.xml $CONF -f
+	mv $TMPPATH/GeneralSettings.xml $CONF -f
 	rm -fr $TMPPATH
 fi
 }
 
 changeDefaultValue() {
-	local CONF=$(getInstancePath $1)/Config/Settings.xml
+	local CONF=$(getInstancePath $1)/Config/GeneralSettings.xml
 	$XMLSTARLET ed -L -u "/SettingsDefinition/Port" -v "8801" $CONF
 	$XMLSTARLET ed -L -u "/SettingsDefinition/AutoDekessler" -v "1" $CONF
 
