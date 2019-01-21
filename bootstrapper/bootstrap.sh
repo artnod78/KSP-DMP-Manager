@@ -36,7 +36,7 @@ intro() {
 	echo
 	echo "This will install a Luna Multi Player server according to the information"
 	echo "given on:"
-	echo "   https://github.com/artnod78/KSP-DMP-Manager"
+	echo "   https://github.com/artnod78/KSP-LMP-Manager"
 	echo
 	read -p "Press enter to continue"
 	echo -e "\n=============================================================\n"
@@ -49,7 +49,7 @@ nonDebianWarning() {
 		echo "will work the installed management scripts will probably"
 		echo "fail because of missing dependencies. Make sure you check"
 		echo "the website regarding the prerequisites"
-		echo "(https://github.com/artnod78/KSP-DMP-Manager)."
+		echo "(https://github.com/artnod78/KSP-LMP-Manager)."
 		echo
 		echo "Do you want to continue anyway?"
 		select yn in "Yes" "No"; do
