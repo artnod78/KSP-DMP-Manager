@@ -4,7 +4,7 @@
 
 lmmCommandUpdatescripts() {
 	local LOCAL=$(tr -d "\r" <<< $(cat /usr/local/lib/lmm/VERSION | grep "Version" | awk '{print $2}'))
-	local REMOTE=$(tr -d "\r" <<< $(wget -qO- https://raw.githubusercontent.com/artnod78/KSP-DMP-Manager/master/scripts/usr/local/lib/lmm/VERSION | grep "Version" | awk '{print $2}'))
+	local REMOTE=$(tr -d "\r" <<< $(wget -qO- https://raw.githubusercontent.com/artnod78/KSP-LMP-Manager/master/scripts/usr/local/lib/lmm/VERSION | grep "Version" | awk '{print $2}'))
 
 	local FORCED=no
 	local CHECKONLY=no
@@ -41,7 +41,7 @@ lmmCommandUpdatescripts() {
 		echo "  - Available version: $REMOTE"
 		echo
 		echo "Please check the release notes before continuing:"
-		echo "  https://github.com/artnod78/KSP-DMP-Manager"
+		echo "  https://github.com/artnod78/KSP-LMP-Manager"
 		echo
 
 		while : ; do
@@ -64,12 +64,12 @@ lmmCommandUpdatescripts() {
 		rm -f /usr/local/lib/lmm/VERSION /usr/local/lib/lmm/*.sh /usr/local/lib/lmm/commands/* /usr/local/bin/lmm.sh
 
 		echo "  - Download scripts v.$REMOTE"
-		wget -nv  -q --show-progress https://github.com/artnod78/KSP-DMP-Manager/archive/master.zip -O /tmp/LmpManager.zip
+		wget -nv  -q --show-progress https://github.com/artnod78/KSP-LMP-Manager/archive/master.zip -O /tmp/LmpManager.zip
 
 		echo "  - Extract scripts"
 		local TMPPATH=`mktemp -d`
 		unzip -q /tmp/LmpManager.zip -d $TMPPATH
-		cp -R $TMPPATH/KSP-DMP-Manager-master/scripts/usr/* /usr/
+		cp -R $TMPPATH/KSP-LMP-Manager-master/scripts/usr/* /usr/
 		chown root.root /usr/local/bin/lmm.sh
 		chown root.root /usr/local/lib/lmm -R
 		chmod 0755 /usr/local/bin/lmm.sh
