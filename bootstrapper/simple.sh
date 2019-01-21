@@ -120,9 +120,9 @@ installLunaServer() {
 	echo "  - Extract new version"
 	local TMPPATH=`mktemp -d`
 	unzip -q /tmp/LunaMultiPlayer-Release.zip -d $TMPPATH
-	cp -R -f $TMPPATH/LMPServer $LMM_BASE
-	echo $REMOTE > $LMM_BASE/LMPServer/version.txt
-	chown $LMM_USER.$LMM_GROUP -R $LMM_BASE
+	cp -R -f $TMPPATH/LMPServer /home/ksp
+	echo $REMOTE > /home/ksp/LMPServer/version.txt
+	chown root.ksp -R /home/ksp
 	rm -f /tmp/LunaMultiPlayer-Release.zip
 	rm -rf $TMPPATH
 	echo "  - Executing first run"
