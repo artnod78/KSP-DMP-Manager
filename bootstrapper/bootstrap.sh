@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=2
+VERSION=3
 
 if [ `id -u` -ne 0 ]; then
 	echo "This script has to be run as root!"
@@ -100,12 +100,12 @@ setupUser() {
 installManagementScripts() {
 	echo -e "Downloading and installing management scripts"
 	echo "  - Download scripts"
-	wget -nv -q --show-progress https://github.com/artnod78/KSP-DMP-Manager/archive/master.zip -O /tmp/LmpManager.zip
+	wget -nv -q --show-progress https://github.com/artnod78/KSP-LMP-Manager/archive/master.zip -O /tmp/LmpManager.zip
 
 	echo "  - Extract scripts"
 	TMPPATH=`mktemp -d`
 	unzip -q /tmp/LmpManager.zip -d $TMPPATH
-	cp -R $TMPPATH/KSP-DMP-Manager-master/scripts/* /
+	cp -R $TMPPATH/KSP-LMP-Manager-master/scripts/* /
 
 	chown root.root /etc/lmm.conf
 	chmod 0600 /etc/lmm.conf
@@ -162,7 +162,7 @@ finish() {
 	echo -e "  /etc/lmm.conf"
 	echo
 	echo -e "For feedback, suggestions, problems please visit the github:"
-	echo -e "  https://github.com/artnod78/KSP-DMP-Manager"
+	echo -e "  https://github.com/artnod78/KSP-LMP-Manager"
 	echo
 }
 
