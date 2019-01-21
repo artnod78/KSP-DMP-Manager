@@ -897,7 +897,7 @@ loadCurrentConfigValues() {
 	for CV in $(listConfigValues); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/GeneralSettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/SettingsDefinition" -v "$CV" -n $CONF)
+		local VAL=$($XMLSTARLET sel -t -m "/GeneralSettingsDefinition" -v "$CV" -n $CONF)
 		if [ ! -z "$VAL" ]; then
 			export $currentValName="$VAL"
 		fi
