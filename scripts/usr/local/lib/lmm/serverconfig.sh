@@ -925,7 +925,7 @@ saveCurrentConfigValues() {
 #   Property value
 getConfigValue() {
 	local CONF=$(getInstancePath $1)/Config/GeneralSettings.xml
-	$XMLSTARLET sel -t -m "/SettingsDefinition" -v "$2" -n $CONF
+	$XMLSTARLET sel -t -m "/GeneralSettingsDefinition" -v "$2" -n $CONF
 }
 
 # Update a single value in a serverconfig
@@ -935,7 +935,7 @@ getConfigValue() {
 #   3: New value
 setConfigValue() {
 	local CONF=$(getInstancePath $1)/Config/GeneralSettings.xml
-	$XMLSTARLET ed -L -u "/SettingsDefinition/$2" -v "$3" $CONF
+	$XMLSTARLET ed -L -u "/GeneralSettingsDefinition/$2" -v "$3" $CONF
 }
 
 changeUTF() {
@@ -954,7 +954,7 @@ fi
 
 changeDefaultValue() {
 	local CONF=$(getInstancePath $1)/Config/GeneralSettings.xml
-	$XMLSTARLET ed -L -u "/SettingsDefinition/Port" -v "8801" $CONF
-	$XMLSTARLET ed -L -u "/SettingsDefinition/AutoDekessler" -v "1" $CONF
+	$XMLSTARLET ed -L -u "/GeneralSettingsDefinition/Port" -v "8801" $CONF
+	$XMLSTARLET ed -L -u "/GeneralSettingsDefinition/AutoDekessler" -v "1" $CONF
 
 }
