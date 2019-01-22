@@ -33,18 +33,18 @@ LmmSubcommandInstancesCreate() {
 	mkdir -p "$IPATH" 2>/dev/null
 	cp -R $LMM_BASE/LMPServer/* "$IPATH/"
 
-	changeUTF test 8 GeneralSettings
-	changeUTF test 8 ConnectionSettings
-	changeUTF test 8 MasterServerSettings
-	changeUTF test 8 DedicatedServerSettings
-	changeUTF test 8 GameplaySettings
-	changeUTF test 8 WarpSettings
-	changeUTF test 8 IntervalSettings
-	changeUTF test 8 ScreenshotSettings
-	changeUTF test 8 CraftSettings
-	changeUTF test 8 WebsiteSettings
-	changeUTF test 8 LogSettings
-	changeUTF test 8 DebugSettings
+	changeUTF $INSTANCE 8 GeneralSettings
+	changeUTF $INSTANCE 8 ConnectionSettings
+	changeUTF $INSTANCE 8 MasterServerSettings
+	changeUTF $INSTANCE 8 DedicatedServerSettings
+	changeUTF $INSTANCE 8 GameplaySettings
+	changeUTF $INSTANCE 8 WarpSettings
+	changeUTF $INSTANCE 8 IntervalSettings
+	changeUTF $INSTANCE 8 ScreenshotSettings
+	changeUTF $INSTANCE 8 CraftSettings
+	changeUTF $INSTANCE 8 WebsiteSettings
+	changeUTF $INSTANCE 8 LogSettings
+	changeUTF $INSTANCE 8 DebugSettings
 
 	loadCurrentConfigValues $INSTANCE
 	configEditGeneralSettings configQueryValue
