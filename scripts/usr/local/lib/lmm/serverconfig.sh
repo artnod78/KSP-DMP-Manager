@@ -134,10 +134,10 @@ genconfig_AutoDekessler_QueryName() {
 	echo "AutoDekessler"
 }
 genconfig_AutoDekessler_Type() {
-	echo "number"
+	echo "string"
 }
 genconfig_AutoDekessler_Default() {
-	echo "1"
+	echo "0.5"
 }
 
 genconfig_AutoNuke_QueryName() {
