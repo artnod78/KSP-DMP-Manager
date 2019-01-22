@@ -1,6 +1,6 @@
 #!/bin/bash
 
-lmmSubcommandInstancesList() {
+LmmSubcommandInstancesList() {
 	printf "%-*s | %-*s | %-*s | %-*s\n" 20 "Instance name" 8 "Running" 7 "Port" 7 "Version"
 	printf -v line "%*s-+-%*s-+-%*s-+-%*s-%*s\n" 20 " " 8 " " 7 " " 7 " "
 	echo ${line// /-}
@@ -10,7 +10,7 @@ lmmSubcommandInstancesList() {
 		else
 			run="no"
 		fi
-		port=$(getConfigValue $I Port)
+		port=$(getConfigValue $I Port ConnectionSettings)
 		version=$(getInstanceVersion $I)
 
 		printf "%-*s | %-*s | %-*s | %-*s\n" 20 "$I" 8 "$run" 7 "$port" 7 "$version"
@@ -18,7 +18,7 @@ lmmSubcommandInstancesList() {
 	echo
 }
 
-lmmSubcommandInstancesCreate() {
+LmmSubcommandInstancesCreate() {
 	while : ; do
 		readInstanceName
 		[ $(isValidInstance "$INSTANCE") -eq 0 ] && break
@@ -33,18 +33,30 @@ lmmSubcommandInstancesCreate() {
 	mkdir -p "$IPATH" 2>/dev/null
 	cp -R $LMM_BASE/LMPServer/* "$IPATH/"
 
-	changeUTF $INSTANCE 8
-	changeDefaultValue $INSTANCE
+	changeUTF test 8 GeneralSettings
+	changeUTF test 8 ConnectionSettings
+	changeUTF test 8 MasterServerSettings
+	changeUTF test 8 DedicatedServerSettings
+	changeUTF test 8 GameplaySettings
+	changeUTF test 8 WarpSettings
+	changeUTF test 8 IntervalSettings
+	changeUTF test 8 ScreenshotSettings
+	changeUTF test 8 CraftSettings
+	changeUTF test 8 WebsiteSettings
+	changeUTF test 8 LogSettings
+	changeUTF test 8 DebugSettings
 
 	loadCurrentConfigValues $INSTANCE
-	configEditBasic configQueryValue
+	configEditGeneralSettings configQueryValue
+	configEditConnectionSettings configQueryValue
+	configEditMasterServerSettings configQueryValue
 
 	echo "Saving"
 
 	if [ ! -f $IPATH/Config/GeneralSettings.xml ]; then
-		echo "<SettingsDefinition/>" > $IPATH/Config/GeneralSettings.xml
+		echo "<GeneralSettingsDefinition/>" > $IPATH/Config/GeneralSettings.xml
 	fi
-	
+
 	saveCurrentConfigValues $INSTANCE
 
 	chown -R $LMM_USER.$LMM_GROUP $IPATH
@@ -52,12 +64,12 @@ lmmSubcommandInstancesCreate() {
 	echo
 }
 
-lmmSubcommandInstancesEdit() {
+LmmSubcommandInstancesEdit() {
 	if [ $(isValidInstance "$1") -eq 0 ]; then
 		echo "No instance given or not a valid instance!"
 		return
 	fi
-		
+
 	if [ $(isRunning "$1") -eq 0 ]; then
 		loadCurrentConfigValues "$1"
 
@@ -90,7 +102,7 @@ lmmSubcommandInstancesEdit() {
 				echo "Not a valid section number!"
 			done
 			echo
-			
+
 			case "$SEC" in
 				q)
 					echo "Not saving"
@@ -107,14 +119,14 @@ lmmSubcommandInstancesEdit() {
 					echo
 			esac
 		done
-		
+
 	else
 		echo "Instance $1 is currently running. Please stop it first."
 	fi
 	echo
 }
 
-lmmSubcommandInstancesDelete() {
+LmmSubcommandInstancesDelete() {
 	if [ $(isValidInstance "$1") -eq 0 ]; then
 		echo "No instance given or not a valid instance!"
 		return
@@ -144,7 +156,7 @@ lmmSubcommandInstancesDelete() {
 	echo
 }
 
-lmmSubcommandInstancesPrintConfig() {
+LmmSubcommandInstancesPrintConfig() {
 	if [ $(isValidInstance "$1") -eq 0 ]; then
 		echo "No instance given or not a valid instance!"
 		return
@@ -154,32 +166,32 @@ lmmSubcommandInstancesPrintConfig() {
 	echo
 }
 
-lmmCommandInstances() {
+LmmCommandInstances() {
 	SUBCMD=$1
 	shift
 	case $SUBCMD in
 		list)
-			lmmSubcommandInstancesList "$@"
+			LmmSubcommandInstancesList "$@"
 			;;
 		create)
-			lmmSubcommandInstancesCreate "$@"
+			LmmSubcommandInstancesCreate "$@"
 			;;
 		edit)
-			lmmSubcommandInstancesEdit "$@"
+			LmmSubcommandInstancesEdit "$@"
 			;;
 		delete)
-			lmmSubcommandInstancesDelete "$@"
+			LmmSubcommandInstancesDelete "$@"
 			;;
 		print_config)
-			lmmSubcommandInstancesPrintConfig "$@"
+			LmmSubcommandInstancesPrintConfig "$@"
 			;;
 		*)
-			lmmCommandInstancesHelp
+			LmmCommandInstancesHelp
 			;;
 	esac
 }
 
-lmmCommandInstancesHelp() {
+LmmCommandInstancesHelp() {
 	line() {
 		printf "  %-*s %s\n" 19 "$1" "$2"
 	}
@@ -194,12 +206,12 @@ lmmCommandInstancesHelp() {
 	echo
 }
 
-lmmCommandInstancesDescription() {
+LmmCommandInstancesDescription() {
 	echo "List all defined instances"
 	echo
 }
 
-lmmCommandInstancesExpects() {
+LmmCommandInstancesExpects() {
 	case $1 in
 		2)
 			echo "list create edit delete print_config"

@@ -2,7 +2,7 @@
 
 # Backups game data files.
 
-lmmCommandBackup() {
+LmmCommandBackup() {
 	local DT=`date "+%Y-%m-%d_%H-%M"`
 	local NewBackup=$LMM_BACKUP_ROOT/$DT
 	
@@ -95,14 +95,14 @@ lmmCommandBackup() {
 	fi
 }
 
-lmmCommandBackupHelp() {
+LmmCommandBackupHelp() {
 	echo "Usage: $(basename $0) backup"
 	echo
 	echo "Backups all data files."
 	echo
 }
 
-sdtdCommandBackupDescription() {
+LmmCommandBackupDescription() {
 	echo "Backup game data files"
 	echo
 }

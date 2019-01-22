@@ -2,12 +2,12 @@
 
 # Tries to start the DMPServer instance.
 
-lmmCommandStart() {
+LmmCommandStart() {
 	if [ "$1" = "!" ]; then
 		echo "Starting all instances:"
 		for I in $(getInstanceList); do
 			printf "%-*s: " 10 "$I"
-			lmmCommandStart $I
+			LmmCommandStart $I
 		done
 		echo "All done"
 		echo
@@ -33,7 +33,7 @@ lmmCommandStart() {
 	fi
 }
 
-lmmCommandStartHelp() {
+LmmCommandStartHelp() {
 	echo "Usage: $(basename $0) start <instance>"
 	echo
 	echo "Starts the given instance."
@@ -41,12 +41,12 @@ lmmCommandStartHelp() {
 	echo
 }
 
-lmmCommandStartDescription() {
+LmmCommandStartDescription() {
 	echo "Start the given instance"
 	echo
 }
 
-lmmCommandStartExpects() {
+LmmCommandStartExpects() {
 	case $1 in
 		2)
 			echo "! $(getInstanceList)"

@@ -16,8 +16,8 @@ if [ $(id -u) -eq 0 ]; then
 				return 0
 				;;
 			*)
-				if [ "$(type -t lmmCommand$(camelcasePrep ${COMP_WORDS[1]})Expects)" = "function" ]; then
-					local words="$(lmmCommand$(camelcasePrep ${COMP_WORDS[1]})Expects $COMP_CWORD $prev)"
+				if [ "$(type -t LmmCommand$(camelcasePrep ${COMP_WORDS[1]})Expects)" = "function" ]; then
+					local words="$(LmmCommand$(camelcasePrep ${COMP_WORDS[1]})Expects $COMP_CWORD $prev)"
 					COMPREPLY=( $(compgen -W "$words" -- ${cur}) )
 					return 0
 				fi

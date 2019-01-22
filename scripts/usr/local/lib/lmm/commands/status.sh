@@ -2,7 +2,7 @@
 
 # Print status of given instance.
 
-lmmCommandStatus() {
+LmmCommandStatus() {
 	if [ $(isValidInstance $1) -eq 0 ]; then
 		echo "No instance given or not a valid instance!"
 		echo
@@ -12,7 +12,7 @@ lmmCommandStatus() {
 	line() {
 		printf "    %-*s %s\n" 15 "$1" "$2"
 	}
-	
+
 	echo "Instance: $1"
 	echo
 
@@ -23,34 +23,34 @@ lmmCommandStatus() {
 	else
 		echo "Status: NOT running"
 	fi
-	
+
 	echo
 	echo "Game info:"
-	line "Server name:" "$(getConfigValue $1 ServerName)"
-	line "Max players:" "$(getConfigValue $1 MaxPlayers)"
-	line "Game Mode:" "$(getConfigValue $1 GameMode)"
-	
+	line "Server name:" "$(getConfigValue $1 ServerName GeneralSettings)"
+	line "Max players:" "$(getConfigValue $1 MaxPlayers GeneralSettings)"
+	line "Game Mode:" "$(getConfigValue $1 GameMode GeneralSettings)"
+
 	echo
 	echo "Network info:"
-	line "Port:" "$(getConfigValue $1 Port)"
-	line "Public:" "$(getConfigValue $1 RegisterWithMasterServer)"
-	
+	line "Port:" "$(getConfigValue $1 Port ConnectionSettings)"
+	line "Public:" "$(getConfigValue $1 RegisterWithMasterServer MasterServerSettings)"
+
 	echo
 }
 
-lmmCommandStatusHelp() {
+LmmCommandStatusHelp() {
 	echo "Usage: $(basename $0) status <instance>"
 	echo
 	echo "Print status information for the given instance."
 	echo
 }
 
-lmmCommandStatusDescription() {
+LmmCommandStatusDescription() {
 	echo "Print status for the given instance"
 	echo
 }
 
-lmmCommandStatusExpects() {
+LmmCommandStatusExpects() {
 	case $1 in
 		2)
 			getInstanceList

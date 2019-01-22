@@ -2,7 +2,7 @@
 
 # Downloads/Updates LMPServer
 
-lmmCommandUpdateengine() {
+LmmCommandUpdateengine() {
 	local FORCED=no
 	local CHECKONLY=no
 	
@@ -115,7 +115,7 @@ lmmCommandUpdateengine() {
 	echo
 }
 
-lmmCommandUpdateengineHelp() {
+LmmCommandUpdateengineHelp() {
 	echo "Usage: $(basename $0) updateengine [--check] [--force]"
 	echo
 	echo "Check for a newer version of files. If there is a newer"
@@ -129,12 +129,12 @@ lmmCommandUpdateengineHelp() {
 	echo
 }
 
-lmmCommandUpdateengineDescription() {
+LmmCommandUpdateengineDescription() {
 	echo "Update the LMPServer files"
 	echo
 }
 
-lmmCommandUpdateengineExpects() {
+LmmCommandUpdateengineExpects() {
 	case $1 in
 		2)
 			echo "--check --force"

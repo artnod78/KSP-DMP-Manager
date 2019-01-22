@@ -2,12 +2,12 @@
 
 # Tries to update instance.
 
-lmmCommandUpdateinstance() {
+LmmCommandUpdateinstance() {
 	if [ "$1" = "!" ]; then
 		echo "Update all instances:"
 		echo
 		for I in $(getInstanceList); do
-			lmmCommandUpdateinstance $I
+			LmmCommandUpdateinstance $I
 		done
 		echo "All done"
 		echo
@@ -55,46 +55,18 @@ lmmCommandUpdateinstance() {
 		fi
 
 		local IPATH=$(getInstancePath $1)
-
-		# LMPServer v0.3.28 Comptatible
-		if [ $modVersion == "0.3.28" ]; then
-		
-			echo "  - Remove mod files"
-			rm $IPATH/*.dll
-			rm $IPATH/Server.exe
-			rm $IPATH/LiteDB.xml
-			rm $IPATH/version.txt
-
-			echo "  - Copy new files"
-			cp -f $LMM_BASE/LMPServer/*.dll $IPATH
-			cp -f $LMM_BASE/LMPServer/Server.exe $IPATH
-			cp -f $LMM_BASE/LMPServer/version.txt $IPATH
-			cp -f $LMM_BASE/LMPServer/LMPModControl.xml $IPATH
-			chown -R $LMM_USER.$LMM_GROUP $IPATH
-
-			echo "  - Rename Settings file"
-			mv -f $IPATH/Config/Settings.txt $IPATH/Config/Settings.xml
-
-			echo "If you edited ModControl file, please copy content in new ModControl file."
-			echo "More details on: https://github.com/LunaMultiplayer/LunaMultiplayer/wiki/Mod-file"
-			echo
-			return
-		fi
-		# Older version Compatible
 		cp -f $LMM_BASE/LMPServer/*.dll $IPATH
 		cp -f $LMM_BASE/LMPServer/Server.exe $IPATH
-		cp -f $LMM_BASE/LMPServer/LiteDB.xml $IPATH
 		cp -f $LMM_BASE/LMPServer/version.txt $IPATH
 		chown -R $LMM_USER.$LMM_GROUP $IPATH
-		
-		
+
 	else
 		echo "Instance is already at the newest version (instance: $instanceVersion, mod: $modVersion)."
 	fi
 	echo
 }
 
-lmmCommandUpdateinstanceHelp() {
+LmmCommandUpdateinstanceHelp() {
 	echo "Usage: $(basename $0) updateinstance <instance>"
 	echo
 	echo "Updates the given instance."
@@ -102,12 +74,12 @@ lmmCommandUpdateinstanceHelp() {
 	echo
 }
 
-lmmCommandUpdateinstanceDescription() {
+LmmCommandUpdateinstanceDescription() {
 	echo "Updates the given instance"
 	echo
 }
 
-lmmCommandUpdateinstanceExpects() {
+LmmCommandUpdateinstanceExpects() {
 	case $1 in
 		2)
 			echo "! $(getInstanceList)"

@@ -2,7 +2,7 @@
 
 # Checks for newer scripts version and downloads them
 
-lmmCommandUpdatescripts() {
+LmmCommandUpdatescripts() {
 	local LOCAL=$(tr -d "\r" <<< $(cat /usr/local/lib/lmm/VERSION | grep "Version" | awk '{print $2}'))
 	local REMOTE=$(tr -d "\r" <<< $(wget -qO- https://raw.githubusercontent.com/artnod78/KSP-LMP-Manager/master/scripts/usr/local/lib/lmm/VERSION | grep "Version" | awk '{print $2}'))
 
@@ -90,7 +90,7 @@ lmmCommandUpdatescripts() {
 	echo
 }
 
-lmmCommandUpdatescriptsHelp() {
+LmmCommandUpdatescriptsHelp() {
 	echo "Usage: $(basename $0) updatescripts [--check] [--force]"
 	echo
 	echo "Check for a newer version of the management scripts. If there is a newer"
@@ -104,12 +104,12 @@ lmmCommandUpdatescriptsHelp() {
 	echo
 }
 
-lmmCommandUpdatescriptsDescription() {
+LmmCommandUpdatescriptsDescription() {
 	echo "Update these scripts"
 	echo
 }
 
-lmmCommandUpdatescriptsExpects() {
+LmmCommandUpdatescriptsExpects() {
 	case $1 in
 		2)
 			echo "--check --force"

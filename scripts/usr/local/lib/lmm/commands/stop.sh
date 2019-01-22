@@ -7,12 +7,12 @@
 #  2 : No instance name given
 #  3 : No such instance
 
-lmmCommandKill() {
+LmmCommandKill() {
 	if [ "$1" = "!" ]; then
 		echo "Stopping all instances:"
 		for I in $(getInstanceList); do
 			printf "%s:\n" "$I"
-			lmmCommandKill $I
+			LmmCommandKill $I
 			echo
 		done
 		echo "All done"
@@ -53,7 +53,7 @@ lmmCommandKill() {
 	
 }
 
-lmmCommandKillHelp() {
+LmmCommandKillHelp() {
 	echo "Usage: $(basename $0) kill <instance>"
 	echo
 	echo "Stops the given instance."
@@ -61,12 +61,12 @@ lmmCommandKillHelp() {
 	echo
 }
 
-lmmCommandKillDescription() {
+LmmCommandKillDescription() {
 	echo "Stop the given instance"
 	echo
 }
 
-lmmCommandKillExpects() {
+LmmCommandKillExpects() {
 	case $1 in
 		2)
 			echo "! $(getInstanceList)"
