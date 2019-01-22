@@ -237,11 +237,11 @@ getBool() {
 
 listCommands() {
 	local C
-	for C in $(declare -F | cut -d\  -f3 | grep "^lmmCommand"\
+	for C in $(declare -F | cut -d\  -f3 | grep "^LmmCommand"\
 			| grep -v "Help$"\
 			| grep -v "Description$"\
 			| grep -v "Expects$"); do
-		local CMD=$(lowercase "${C#lmmCommand}")
+		local CMD=$(lowercase "${C#LmmCommand}")
 		printf "%s " "$CMD"
 	done
 }

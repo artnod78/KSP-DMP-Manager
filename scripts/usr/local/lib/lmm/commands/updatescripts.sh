@@ -74,6 +74,15 @@ LmmCommandUpdatescripts() {
 		chown root.root /usr/local/lib/lmm -R
 		chmod 0755 /usr/local/bin/lmm.sh
 		chmod 0755 /usr/local/lib/lmm -R
+		cp -R $TMPPATH/KSP-LMP-Manager-master/scripts/etc/* /etc/
+		chown root.root /etc/lmm.conf
+		chown root.root /etc/bash_completion.d/lmm
+		chown root.root /etc/cron.d/lmm
+		chown root.root /etc/systemd/system/lmm.service
+		chmod 0600 /etc/lmm.conf
+		chmod 0755 /etc/bash_completion.d/lmm
+		chmod 0755 /etc/cron.d/lmm
+		chmod 0777 /etc/systemd/system/lmm.service
 		# TODO - edit /etc/lmm.conf if needed
 		rm -fr $TMPPATH
 		rm -f /tmp/LmpManager.zip

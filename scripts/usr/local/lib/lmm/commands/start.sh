@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Tries to start the DMPServer instance.
+# Tries to start the LMPServer instance.
 
 LmmCommandStart() {
 	if [ "$1" = "!" ]; then

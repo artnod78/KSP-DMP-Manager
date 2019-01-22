@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Tries to stop the DMPServer instance given as first parameter.
+# Tries to stop the LMPServer instance given as first parameter.
 # Returns:
 #  0 : Done
 #  1 : Was not running
