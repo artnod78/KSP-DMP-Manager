@@ -14,8 +14,8 @@ genericHelp() {
 	echo "Commands are:"
 	
 	for C in $(listCommands); do
-		if [ "$(type -t lmmCommand$(camelcasePrep $C)Description)" = "function" ]; then
-			line "${C}" "$(lmmCommand$(camelcasePrep $C)Description)"
+		if [ "$(type -t LmmCommand$(camelcasePrep $C)Description)" = "function" ]; then
+			line "${C}" "$(LmmCommand$(camelcasePrep $C)Description)"
 		else
 			line "${C}" "TODO: Description"
 		fi
