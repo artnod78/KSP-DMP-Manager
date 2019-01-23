@@ -41,11 +41,9 @@ LmmSubcommandInstancesCreate() {
 
 	# Save new settings
 	echo "Saving"
-	for CV in \
-		GeneralSettings DedicatedServerSettings ConnectionSettings MasterServerSettings \
-		GameplaySettings WarpSettings IntervalSettings ScreenshotSettings \
-		CraftSettings WebsiteSettings LogSettings DebugSettings \
-		; do
+	local arr=(GeneralSettings DedicatedServerSettings ConnectionSettings MasterServerSettings GameplaySettings WarpSettings IntervalSettings ScreenshotSettings CraftSettings WebsiteSettings LogSettings DebugSettings)
+	for CV in ${arr[*]}
+	do
 		if [ ! -f $IPATH/Config/$CV.xml ]; then
 			echo "<${CV}Definition/>" > $IPATH/Config/$CV.xml
 		fi

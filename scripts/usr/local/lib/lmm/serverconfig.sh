@@ -1,7 +1,6 @@
 #!/bin/bash
 # Provides functions to query and validate values for GeneralSettings.xml
 
-currentInstance=""
 
 #################################
 ## GeneralSettings.xml
@@ -1384,131 +1383,23 @@ listConfigEditFuncs() {
 	done
 }
 
-# Load all config values from xml file of the given instance
+# Load all config values from xml files of the given instance
 # Params:
 #   1: Instance name
 loadCurrentConfigValues() {
-	currentInstance=$1
+	local arr=(GeneralSettings DedicatedServerSettings ConnectionSettings MasterServerSettings GameplaySettings WarpSettings IntervalSettings ScreenshotSettings CraftSettings WebsiteSettings LogSettings DebugSettings)
+	local ar=(genconfig dediconfig connconfig mastconfig gameconfig warpconfig inteconfig screconfig crafconfig websconfig logconfig debugconfig)
 	local CV
-	# load general settings
-	changeUTF $1 8 GeneralSettings
-	for CV in $(listConfigValues genconfig); do
-		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/GeneralSettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/GeneralSettingsDefinition" -v "$CV" -n $CONF)
-		if [ ! -z "$VAL" ]; then
-			export $currentValName="$VAL"
-		fi
-	done
-	# load dedicated server settings
-	changeUTF $1 8 DedicatedServerSettings
-	for CV in $(listConfigValues dediconfig); do
-		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/DedicatedServerSettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/DedicatedServerSettingsDefinition" -v "$CV" -n $CONF)
-		if [ ! -z "$VAL" ]; then
-			export $currentValName="$VAL"
-		fi
-	done
-	# load connection settings
-	changeUTF $1 8 ConnectionSettings
-	for CV in $(listConfigValues connconfig); do
-		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/ConnectionSettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/ConnectionSettingsDefinition" -v "$CV" -n $CONF)
-		if [ ! -z "$VAL" ]; then
-			export $currentValName="$VAL"
-		fi
-	done
-	# load master server settings
-	changeUTF $1 8 MasterServerSettings
-	for CV in $(listConfigValues mastconfig); do
-		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/MasterServerSettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/MasterServerSettingsDefinition" -v "$CV" -n $CONF)
-		if [ ! -z "$VAL" ]; then
-			export $currentValName="$VAL"
-		fi
-	done
-	# load gameplay settings
-	changeUTF $1 8 GameplaySettings
-	for CV in $(listConfigValues gameconfig); do
-		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/GameplaySettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/GameplaySettingsDefinition" -v "$CV" -n $CONF)
-		if [ ! -z "$VAL" ]; then
-			export $currentValName="$VAL"
-		fi
-	done
-	# Warp settings
-	changeUTF $1 8 WarpSettings
-	for CV in $(listConfigValues warpconfig); do
-		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/WarpSettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/WarpSettingsDefinition" -v "$CV" -n $CONF)
-		if [ ! -z "$VAL" ]; then
-			export $currentValName="$VAL"
-		fi
-	done
-	# Interval settings
-	changeUTF $1 8 IntervalSettings
-	for CV in $(listConfigValues inteconfig); do
-		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/IntervalSettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/IntervalSettingsDefinition" -v "$CV" -n $CONF)
-		if [ ! -z "$VAL" ]; then
-			export $currentValName="$VAL"
-		fi
-	done
-	# Screenshot settings
-	changeUTF $1 8 ScreenshotSettings
-	for CV in $(listConfigValues screconfig); do
-		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/ScreenshotSettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/ScreenshotSettingsDefinition" -v "$CV" -n $CONF)
-		if [ ! -z "$VAL" ]; then
-			export $currentValName="$VAL"
-		fi
-	done
-	# Craft settings
-	changeUTF $1 8 CraftSettings
-	for CV in $(listConfigValues crafconfig); do
-		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/CraftSettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/CraftSettingsDefinition" -v "$CV" -n $CONF)
-		if [ ! -z "$VAL" ]; then
-			export $currentValName="$VAL"
-		fi
-	done
-	# Website settings
-	changeUTF $1 8 WebsiteSettings
-	for CV in $(listConfigValues websconfig); do
-		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/WebsiteSettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/WebsiteSettingsDefinition" -v "$CV" -n $CONF)
-		if [ ! -z "$VAL" ]; then
-			export $currentValName="$VAL"
-		fi
-	done
-	# Log settings
-	changeUTF $1 8 LogSettings
-	for CV in $(listConfigValues logconfig); do
-		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/LogSettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/LogSettingsDefinition" -v "$CV" -n $CONF)
-		if [ ! -z "$VAL" ]; then
-			export $currentValName="$VAL"
-		fi
-	done
-	# Debug settings
-	changeUTF $1 8 DebugSettings
-	for CV in $(listConfigValues debugconfig); do
-		local currentValName=configCurrent_$CV
-		local CONF=$(getInstancePath "$1")/Config/DebugSettings.xml
-		local VAL=$($XMLSTARLET sel -t -m "/DebugSettingsDefinition" -v "$CV" -n $CONF)
-		if [ ! -z "$VAL" ]; then
-			export $currentValName="$VAL"
-		fi
+	for index in ${!arr[*]}; do
+		changeUTF $1 8 ${arr[$index]}
+		for CV in $(listConfigValues ${ar[$index]}); do
+			local currentValName=configCurrent_$CV
+			local CONF=$(getInstancePath "$1")/Config/${arr[$index]}.xml
+			local VAL=$($XMLSTARLET sel -t -m "/${arr[$index]}Definition" -v "$CV" -n $CONF)
+			if [ ! -z "$VAL" ]; then
+				export $currentValName="$VAL"
+			fi
+		done
 	done
 }
 
