@@ -1657,90 +1657,16 @@ setConfigValue() {
 # Params:
 #   1: Instance name
 saveCurrentConfigValues() {
+	local arr=(GeneralSettings DedicatedServerSettings ConnectionSettings MasterServerSettings GameplaySettings WarpSettings IntervalSettings ScreenshotSettings CraftSettings WebsiteSettings LogSettings DebugSettings)
+	local ar=(genconfig dediconfig connconfig mastconfig gameconfig warpconfig inteconfig screconfig crafconfig websconfig logconfig debugconfig)
 	local CV
-	# general settings
-	for CV in $(listConfigValues genconfig); do
-		local currentValName=configCurrent_$CV
-		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/GeneralSettings.xml
-		setConfigValue $1 $CV "$val" GeneralSettings
-	done
-	# dedicated server settings
-	for CV in $(listConfigValues dediconfig); do
-		local currentValName=configCurrent_$CV
-		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/DedicatedServerSettings.xml
-		setConfigValue $1 $CV "$val" DedicatedServerSettings
-	done
-	# connection settings
-	for CV in $(listConfigValues connconfig); do
-		local currentValName=configCurrent_$CV
-		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/ConnectionSettings.xml
-		setConfigValue $1 $CV "$val" ConnectionSettings
-	done
-	# master server settings
-	for CV in $(listConfigValues mastconfig); do
-		local currentValName=configCurrent_$CV
-		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/MasterServerSettings.xml
-		setConfigValue $1 $CV "$val" MasterServerSettings
-	done
-	# gameplay settings
-	for CV in $(listConfigValues gameconfig); do
-		local currentValName=configCurrent_$CV
-		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/GameplaySettings.xml
-		setConfigValue $1 $CV "$val" GameplaySettings
-	done
-	# WarpSettings
-	for CV in $(listConfigValues warpconfig); do
-		local currentValName=configCurrent_$CV
-		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/WarpSettings.xml
-		setConfigValue $1 $CV "$val" WarpSettings
-	done
-	# IntervalSettings
-	for CV in $(listConfigValues inteconfig); do
-		local currentValName=configCurrent_$CV
-		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/IntervalSettings.xml
-		setConfigValue $1 $CV "$val" IntervalSettings
-	done
-	# ScreenshotSettings
-	for CV in $(listConfigValues screconfig); do
-		local currentValName=configCurrent_$CV
-		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/ScreenshotSettings.xml
-		setConfigValue $1 $CV "$val" ScreenshotSettings
-	done
-	# CraftSettings
-	for CV in $(listConfigValues crafconfig); do
-		local currentValName=configCurrent_$CV
-		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/CraftSettings.xml
-		setConfigValue $1 $CV "$val" CraftSettings
-	done
-	# WebsiteSettings
-	for CV in $(listConfigValues websconfig); do
-		local currentValName=configCurrent_$CV
-		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/WebsiteSettings.xml
-		setConfigValue $1 $CV "$val" WebsiteSettings
-	done
-	# LogSettings
-	for CV in $(listConfigValues logconfig); do
-		local currentValName=configCurrent_$CV
-		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/LogSettings.xml
-		setConfigValue $1 $CV "$val" LogSettings
-	done
-	# 
-	for CV in $(listConfigValues debugconfig); do
-		local currentValName=configCurrent_$CV
-		local val="${!currentValName}"
-		local CONF=$(getInstancePath "$1")/Config/DebugSettings.xml
-		setConfigValue $1 $CV "$val" DebugSettings
+	for index in ${!arr[*]}; do
+		for CV in $(listConfigValues ${ar[$index]}); do
+			local currentValName=configCurrent_$CV
+			local val="${!currentValName}"
+			local CONF=$(getInstancePath "$1")/Config/${arr[$index]}.xml
+			setConfigValue $1 $CV "$val" ${arr[$index]}
+		done
 	done
 }
 
