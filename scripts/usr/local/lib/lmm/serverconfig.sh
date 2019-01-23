@@ -133,7 +133,7 @@ genconfig_AutoDekessler_QueryName() {
 	echo "AutoDekessler"
 }
 genconfig_AutoDekessler_Type() {
-	echo "number"
+	echo "string"
 }
 genconfig_AutoDekessler_Default() {
 	echo "1"
@@ -1600,7 +1600,7 @@ configQueryValue() {
 							;;
 						n)
 							printf "$1 not changed\n"
-							export $currentValName="$DEFAULT}"
+							export $currentValName="$DEFAULT"
 							break
 							;;
 						*)
