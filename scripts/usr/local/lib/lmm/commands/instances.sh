@@ -27,38 +27,29 @@ LmmSubcommandInstancesCreate() {
 	done
 	echo
 
-	# TODO - check LMPServer path
-
+	# Create instance
+	# TODO - check if $LMM_BASE/LMPServer exist
 	local IPATH=$(getInstancePath "$INSTANCE")
 	mkdir -p "$IPATH" 2>/dev/null
 	cp -R $LMM_BASE/LMPServer/* "$IPATH/"
 
-	changeUTF $INSTANCE 8 GeneralSettings
-	changeUTF $INSTANCE 8 ConnectionSettings
-	changeUTF $INSTANCE 8 MasterServerSettings
-	changeUTF $INSTANCE 8 DedicatedServerSettings
-	changeUTF $INSTANCE 8 GameplaySettings
-	changeUTF $INSTANCE 8 WarpSettings
-	changeUTF $INSTANCE 8 IntervalSettings
-	changeUTF $INSTANCE 8 ScreenshotSettings
-	changeUTF $INSTANCE 8 CraftSettings
-	changeUTF $INSTANCE 8 WebsiteSettings
-	changeUTF $INSTANCE 8 LogSettings
-	changeUTF $INSTANCE 8 DebugSettings
-
+	# Edit instance
 	loadCurrentConfigValues $INSTANCE
 	configEditGeneralSettings configQueryValue
 	configEditConnectionSettings configQueryValue
 	configEditMasterServerSettings configQueryValue
 
+	# Save new settings
 	echo "Saving"
-
-	if [ ! -f $IPATH/Config/GeneralSettings.xml ]; then
-		echo "<GeneralSettingsDefinition/>" > $IPATH/Config/GeneralSettings.xml
-	fi
-
+	for CV in \
+		GeneralSettings DedicatedServerSettings ConnectionSettings MasterServerSettings \
+		GameplaySettings WarpSettings IntervalSettings ScreenshotSettings \
+		CraftSettings WebsiteSettings LogSettings DebugSettings \
+		; do
+		if [ ! -f $IPATH/Config/$CV.xml ]; then
+		echo "<${CV}Definition/>" > $IPATH/Config/$CV.xml
+	done
 	saveCurrentConfigValues $INSTANCE
-
 	chown -R $LMM_USER.$LMM_GROUP $IPATH
 	echo "Done"
 	echo

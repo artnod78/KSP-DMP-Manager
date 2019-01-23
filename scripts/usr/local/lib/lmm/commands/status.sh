@@ -9,6 +9,8 @@ LmmCommandStatus() {
 		return
 	fi
 
+	loadCurrentConfigValues $1
+
 	line() {
 		printf "    %-*s %s\n" 15 "$1" "$2"
 	}
