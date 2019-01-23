@@ -1391,7 +1391,7 @@ loadCurrentConfigValues() {
 	currentInstance=$1
 	local CV
 	# load general settings
-	changeUTF test 8 GeneralSettings
+	changeUTF $1 8 GeneralSettings
 	for CV in $(listConfigValues genconfig); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/GeneralSettings.xml
@@ -1401,7 +1401,7 @@ loadCurrentConfigValues() {
 		fi
 	done
 	# load dedicated server settings
-	changeUTF test 8 DedicatedServerSettings
+	changeUTF $1 8 DedicatedServerSettings
 	for CV in $(listConfigValues dediconfig); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/DedicatedServerSettings.xml
@@ -1411,7 +1411,7 @@ loadCurrentConfigValues() {
 		fi
 	done
 	# load connection settings
-	changeUTF test 8 ConnectionSettings
+	changeUTF $1 8 ConnectionSettings
 	for CV in $(listConfigValues connconfig); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/ConnectionSettings.xml
@@ -1421,7 +1421,7 @@ loadCurrentConfigValues() {
 		fi
 	done
 	# load master server settings
-	changeUTF test 8 MasterServerSettings
+	changeUTF $1 8 MasterServerSettings
 	for CV in $(listConfigValues mastconfig); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/MasterServerSettings.xml
@@ -1431,7 +1431,7 @@ loadCurrentConfigValues() {
 		fi
 	done
 	# load gameplay settings
-	changeUTF test 8 GameplaySettings
+	changeUTF $1 8 GameplaySettings
 	for CV in $(listConfigValues gameconfig); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/GameplaySettings.xml
@@ -1441,7 +1441,7 @@ loadCurrentConfigValues() {
 		fi
 	done
 	# Warp settings
-	changeUTF test 8 WarpSettings
+	changeUTF $1 8 WarpSettings
 	for CV in $(listConfigValues warpconfig); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/WarpSettings.xml
@@ -1451,7 +1451,7 @@ loadCurrentConfigValues() {
 		fi
 	done
 	# Interval settings
-	changeUTF test 8 IntervalSettings
+	changeUTF $1 8 IntervalSettings
 	for CV in $(listConfigValues inteconfig); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/IntervalSettings.xml
@@ -1461,7 +1461,7 @@ loadCurrentConfigValues() {
 		fi
 	done
 	# Screenshot settings
-	changeUTF test 8 ScreenshotSettings
+	changeUTF $1 8 ScreenshotSettings
 	for CV in $(listConfigValues screconfig); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/ScreenshotSettings.xml
@@ -1471,7 +1471,7 @@ loadCurrentConfigValues() {
 		fi
 	done
 	# Craft settings
-	changeUTF test 8 CraftSettings
+	changeUTF $1 8 CraftSettings
 	for CV in $(listConfigValues crafconfig); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/CraftSettings.xml
@@ -1481,7 +1481,7 @@ loadCurrentConfigValues() {
 		fi
 	done
 	# Website settings
-	changeUTF test 8 WebsiteSettings
+	changeUTF $1 8 WebsiteSettings
 	for CV in $(listConfigValues websconfig); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/WebsiteSettings.xml
@@ -1491,7 +1491,7 @@ loadCurrentConfigValues() {
 		fi
 	done
 	# Log settings
-	changeUTF test 8 LogSettings
+	changeUTF $1 8 LogSettings
 	for CV in $(listConfigValues logconfig); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/LogSettings.xml
@@ -1501,7 +1501,7 @@ loadCurrentConfigValues() {
 		fi
 	done
 	# Debug settings
-	changeUTF test 8 DebugSettings
+	changeUTF $1 8 DebugSettings
 	for CV in $(listConfigValues debugconfig); do
 		local currentValName=configCurrent_$CV
 		local CONF=$(getInstancePath "$1")/Config/DebugSettings.xml
