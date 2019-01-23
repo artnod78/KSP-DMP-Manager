@@ -47,7 +47,8 @@ LmmSubcommandInstancesCreate() {
 		CraftSettings WebsiteSettings LogSettings DebugSettings \
 		; do
 		if [ ! -f $IPATH/Config/$CV.xml ]; then
-		echo "<${CV}Definition/>" > $IPATH/Config/$CV.xml
+			echo "<${CV}Definition/>" > $IPATH/Config/$CV.xml
+		fi
 	done
 	saveCurrentConfigValues $INSTANCE
 	chown -R $LMM_USER.$LMM_GROUP $IPATH
